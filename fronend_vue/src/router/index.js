@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 // import all pages here
 import HelloWorld from "../components/HelloWorld";
+import Test from "../components/test";
 
 // Protocol to avoid redirection duplication
 const originalPush = VueRouter.prototype.push;
@@ -18,10 +19,19 @@ const routes = [
     name: "Hello",
     component: HelloWorld,
   },
+  {
+    path: "/test",
+    name: "Test",
+    component: Test,
+  },
 ];
 
-const router = new VueRouter({
-  routes,
+const router = new VueRouter({ mode: "history", routes: routes });
+
+router.beforeEach(async (to, from, next) => {
+  // add something here
+  console.log("pass");
+  next();
 });
 
 export default router;
