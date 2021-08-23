@@ -126,6 +126,7 @@ export default {
     items: [
       { title: "Forum", icon: "mdi-view-dashboard" },
       { title: "FAQs", icon: "mdi-forum" },
+      { title: "Help", icon: "mdi-help-circle-outline" },
     ],
     searchInput: "",
   }),
