@@ -92,20 +92,29 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <v-footer fixed app>
+        <v-switch
+          v-model="$vuetify.theme.dark"
+          style="color: white"
+          label="Dark Mode"
+          persistent-hint
+        ></v-switch>
+      </v-footer>
     </v-navigation-drawer>
 
     <v-main>
       <router-view />
     </v-main>
 
-    <v-footer fixed app>
+    <!-- <v-footer fixed app>
       <v-switch
         v-model="$vuetify.theme.dark"
         style="color: white"
         label="Dark Mode"
         persistent-hint
       ></v-switch>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
