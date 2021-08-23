@@ -2,8 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 // import all pages here
-import HelloWorld from "../components/HelloWorld";
-import Test from "../components/test";
+import Home from "../components/Home";
 
 // Protocol to avoid redirection duplication
 const originalPush = VueRouter.prototype.push;
@@ -16,13 +15,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Hello",
-    component: HelloWorld,
-  },
-  {
-    path: "/test",
-    name: "Test",
-    component: Test,
+    name: "Home",
+    component: Home,
   },
 ];
 
