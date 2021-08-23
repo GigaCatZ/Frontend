@@ -1,5 +1,7 @@
 <template>
-  <h1 class="font-weight-light">This is Home pages</h1>
+  <v-container>
+    <h1>ello</h1>
+  </v-container>
 </template>
 
 <script>

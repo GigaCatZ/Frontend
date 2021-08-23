@@ -3,7 +3,7 @@
     <v-app-bar
       absolute
       app
-      height="100"
+      height="80"
       dense
       color="#9575CD"
       dark
@@ -21,15 +21,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <div class="d-flex align-center">
-        <v-img
-          alt="MUIC Logo"
-          class="shrink mx-auto"
-          contain
-          :src="require('./assets/MUIC_logo.png')"
-          transition="scale-transition"
-          max-height="200"
-          max-width="200"
-        />
+        <h1>ICCourses</h1>
       </div>
 
       <v-spacer></v-spacer>
