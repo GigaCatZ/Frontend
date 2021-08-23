@@ -18,7 +18,7 @@
         ></v-img>
       </template>
 
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <div class="d-flex align-center">
         <v-img
@@ -44,13 +44,63 @@
         ></v-text-field>
       </v-col>
 
-      <v-btn icon>
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
+      <v-menu bottom min-width="200px" open-on-hover offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-avatar size="48">
+              <v-icon>mdi-account</v-icon>
+            </v-avatar>
+          </v-btn>
+        </template>
+        <v-card class="mx-auto" max-width="344" outlined>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <div class="text-h5 mb-1">USERNAME</div>
+              <v-list-item-subtitle>Status: Offline</v-list-item-subtitle>
+            </v-list-item-content>
+
+            <v-list-item-avatar size="60" color="grey">
+              <v-icon dark> mdi-account </v-icon>
+            </v-list-item-avatar>
+          </v-list-item>
+
+          <v-card-actions justify="space-around">
+            <v-btn text> Log in </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-menu>
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-list-item>
+        <v-list-item-avatar>
+          <v-avatar color="primary" size="40">
+            <span class="white--text text-h5">IC</span>
+          </v-avatar>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>IC Courses</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense>
+        <v-list-item v-for="item in items" :key="item.title" link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
     <v-main>
       <router-view />
@@ -72,7 +122,11 @@ export default {
   name: "App",
 
   data: () => ({
-    items: ["Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"],
+    drawer: null,
+    items: [
+      { title: "Forum", icon: "mdi-view-dashboard" },
+      { title: "FAQs", icon: "mdi-forum" },
+    ],
     searchInput: "",
   }),
 };
