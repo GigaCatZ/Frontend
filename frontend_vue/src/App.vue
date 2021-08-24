@@ -21,7 +21,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <div class="d-flex align-center">
-        <h1>ICCourses</h1>
+        <h1>IC Courses</h1>
       </div>
 
       <v-spacer></v-spacer>
@@ -137,6 +137,11 @@ export default {
     searchInput: "",
     scrolled: false,
   }),
+
+  created() {
+    document.title = "IC Courses";
+  },
+
   methods: {
     onScroll(e) {
       if (typeof window === "undefined") return;
