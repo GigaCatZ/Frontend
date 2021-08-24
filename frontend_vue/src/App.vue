@@ -21,13 +21,11 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <div class="d-flex align-center">
-        <router-link :to="{ name: 'Home'}">
-          <v-row align="center" justify="space-around">
-            <v-btn text>
-              <h1>IC Courses</h1>
-            </v-btn>
-          </v-row>
-        </router-link>
+        <v-row align="center" justify="space-around">
+          <v-btn text :to="{ name: 'Home' }">
+            <h1>IC Courses</h1>
+          </v-btn>
+        </v-row>
       </div>
 
       <v-spacer></v-spacer>
@@ -72,31 +70,33 @@
       </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" absolute temporary>
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-avatar color="primary" size="40">
-            <span class="white--text text-h5">IC</span>
-          </v-avatar>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title>IC Courses</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
-      <v-list dense>
-        <v-list-item v-for="item in items" :key="item.title" link>
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
+    <v-navigation-drawer v-model="drawer" absolute app>
+      <v-list>
+        <v-list-item>
+          <v-list-item-avatar>
+            <v-avatar color="primary" size="40">
+              <span class="white--text text-h5">IC</span>
+            </v-avatar>
+          </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title>IC Courses</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+      </v-list>
+      <v-divider></v-divider>
+      <v-list nav dense>
+        <v-list-item-group v-model="selectedItem" color="primary">
+          <v-list-item v-for="item in items" :key="item" :to="item.link">
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
 
       <v-footer fixed app>
@@ -136,9 +136,9 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { title: "Forum", icon: "mdi-view-dashboard" },
-      { title: "FAQs", icon: "mdi-forum" },
-      { title: "Help", icon: "mdi-help-circle-outline" },
+      { title: "Forum", icon: "mdi-view-dashboard", link: "/" },
+      { title: "FAQs", icon: "mdi-forum", link: "/faq" },
+      { title: "Help", icon: "mdi-help-circle-outline", link: "/help" },
     ],
     searchInput: "",
     scrolled: false,
