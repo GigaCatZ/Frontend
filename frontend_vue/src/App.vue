@@ -57,7 +57,7 @@
           </v-list-item>
 
           <v-card-actions justify="space-around">
-            <v-btn text> Log in </v-btn>
+            <v-btn text :to="{ name: 'Login' }"> Log in </v-btn>
           </v-card-actions>
         </v-card>
       </v-menu>

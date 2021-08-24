@@ -19,7 +19,6 @@ h2 {
   <v-container class="lighten-5">
     <v-row no-gutters>
       <v-col order="1">
-        <router-link :to="{ name: 'login' }">
         <v-card
           @click.stop="pass"
           class="mt-12 mx-auto rounded-lg"
@@ -30,7 +29,6 @@ h2 {
         >
           <h2 class="center">FAQs</h2>
         </v-card>
-        </router-link>
       </v-col>
 
       <v-col order="2">
