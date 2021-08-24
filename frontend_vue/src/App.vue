@@ -22,7 +22,7 @@
 
       <div class="d-flex align-center">
         <v-row align="center" justify="space-around">
-          <v-btn text :to="{ name: 'Home' }">
+          <v-btn plain :to="{ name: 'Home' }">
             <h1>IC Courses</h1>
           </v-btn>
         </v-row>
