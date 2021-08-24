@@ -107,14 +107,19 @@
       <router-view />
     </v-main>
 
-    <!-- <v-footer fixed app>
-      <v-switch
-        v-model="$vuetify.theme.dark"
-        style="color: white"
-        label="Dark Mode"
-        persistent-hint
-      ></v-switch>
-    </v-footer> -->
+    <v-btn
+      v-scroll="onScroll"
+      v-show="scrolled"
+      fab
+      dark
+      fixed
+      bottom
+      right
+      color="#2a0094"
+      @click="toTop"
+    >
+      <v-icon>mdi-chevron-up</v-icon>
+    </v-btn>
   </v-app>
 </template>
 
@@ -130,6 +135,17 @@ export default {
       { title: "Help", icon: "mdi-help-circle-outline" },
     ],
     searchInput: "",
+    scrolled: false,
   }),
+  methods: {
+    onScroll(e) {
+      if (typeof window === "undefined") return;
+      const top = window.pageYOffset || e.target.scrollTop || 0;
+      this.scrolled = top > 20;
+    },
+    toTop() {
+      this.$vuetify.goTo(0);
+    },
+  },
 };
 </script>
