@@ -11,7 +11,7 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <!--username field-->
           <v-text-field
-            :rules="userNameRules"
+            :rules="usernameRules"
             v-model="username"
             label="Enter Username"
             filled
@@ -56,65 +56,41 @@
               </v-card-title>
               <v-card-text>
                 <v-container>
-                   <v-form ref="form" v-model="valid" lazy-validation>
+                  <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field
-                    v-model="name"
-                    :counter="20"
-                    :rules="nameRules"
-                    label="Username"
-                    required
+                      v-model="name"
+                      :counter="20"
+                      :rules="usernameRules"
+                      label="Username"
+                      required
                     ></v-text-field>
 
                     <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="E-mail"
-                    required
+                      v-model="studentID"
+                      label="Student ID"
+                      required
                     ></v-text-field>
 
                     <v-text-field
-                    v-model="password"
-                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="show1 ? 'text' : 'password'"
-                    :rules="emailRules"
-                    label="Password"
-                    required
-                    @click:append="show1 = !show1"
+                      v-model="password"
+                      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show1 ? 'text' : 'password'"
+                      :rules="passwordRules"
+                      label="Password"
+                      required
+                      @click:append="show1 = !show1"
                     ></v-text-field>
 
                     <v-text-field
-                    v-model="passwordconfirm"
-                    :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="show2 ? 'text' : 'password'"
-                    :rules="[emailRules, passwordConfirmationRule]"
-                    label="Confirm password"
-                    required
-                    @click:append="show2 = !show2"
+                      v-model="passwordConfirm"
+                      :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show2 ? 'text' : 'password'"
+                      :rules="passwordRules.concat(passwordConfirmationRule)"
+                      label="Confirm password"
+                      required
+                      @click:append="show2 = !show2"
                     ></v-text-field>
-                   </v-form>
-                  <!-- <v-row>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="username"
-                        label="Username*"
-                        required
-                        hint="cannot contain any special characters"
-                        persistent-hint
-                        clearable
-                        @keydown.enter="createUser"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="password"
-                        label="Password*"
-                        type="password"
-                        required
-                        clearable
-                        @keydown.enter="createUser"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row> -->
+                  </v-form>
                 </v-container>
                 <small>*indicates required field</small>
               </v-card-text>
@@ -136,7 +112,6 @@
 </template>
 
 <script>
-
 export default {
   name: "Login",
 
@@ -144,8 +119,13 @@ export default {
     loading: false,
     valid: true,
     username: "",
-    userNameRules: [(v) => !!v || "Username can not be empty"],
+    usernameRules: [
+      (v) => !!v || "Name is required",
+      (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
+    ],
+    studentID: "",
     password: "",
+    passwordConfirm: "",
     passwordRules: [(v) => !!v || "Password can not be empty"],
     form: false,
     show1: false,
@@ -170,9 +150,9 @@ export default {
   },
   computed: {
     passwordConfirmationRule() {
-        return () => (this.password === this.passwordconfirm) || 'Password must match'
-    }
+      return () =>
+        this.password === this.passwordConfirm || "Password must match";
+    },
   },
 };
-
 </script>
