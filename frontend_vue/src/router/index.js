@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 // import all pages here
 import Home from "../components/Home";
+import login from "../components/login";
 
 // Protocol to avoid redirection duplication
 const originalPush = VueRouter.prototype.push;
@@ -18,6 +19,11 @@ const routes = [
     name: "Home",
     component: Home,
   },
+  {
+    path: "/login",
+    name: "login",
+    component: login,
+  }
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });
