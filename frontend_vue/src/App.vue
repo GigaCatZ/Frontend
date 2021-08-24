@@ -99,7 +99,7 @@
         </v-list-item-group>
       </v-list>
 
-      <v-footer fixed app>
+      <v-footer>
         <v-switch
           v-model="$vuetify.theme.dark"
           style="color: white"
