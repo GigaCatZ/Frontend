@@ -52,11 +52,47 @@
             <v-spacer></v-spacer>
             <v-card>
               <v-card-title>
-                <span class="text-h5">User Profile</span>
+                <span class="text-h5">Register</span>
               </v-card-title>
               <v-card-text>
                 <v-container>
-                  <v-row>
+                   <v-form ref="form" v-model="valid" lazy-validation>
+                    <v-text-field
+                    v-model="name"
+                    :counter="20"
+                    :rules="nameRules"
+                    label="Username"
+                    required
+                    ></v-text-field>
+
+                    <v-text-field
+                    v-model="email"
+                    :rules="emailRules"
+                    label="E-mail"
+                    required
+                    ></v-text-field>
+
+                    <v-text-field
+                    v-model="password"
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show1 ? 'text' : 'password'"
+                    :rules="emailRules"
+                    label="Password"
+                    required
+                    @click:append="show1 = !show1"
+                    ></v-text-field>
+
+                    <v-text-field
+                    v-model="passwordconfirm"
+                    :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show2 ? 'text' : 'password'"
+                    :rules="[emailRules, passwordConfirmationRule]"
+                    label="Confirm password"
+                    required
+                    @click:append="show2 = !show2"
+                    ></v-text-field>
+                   </v-form>
+                  <!-- <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="username"
@@ -78,7 +114,7 @@
                         @keydown.enter="createUser"
                       ></v-text-field>
                     </v-col>
-                  </v-row>
+                  </v-row> -->
                 </v-container>
                 <small>*indicates required field</small>
               </v-card-text>
@@ -112,6 +148,8 @@ export default {
     password: "",
     passwordRules: [(v) => !!v || "Password can not be empty"],
     form: false,
+    show1: false,
+    show2: false,
   }),
 
   methods: {
@@ -130,5 +168,11 @@ export default {
       }
     },
   },
+  computed: {
+    passwordConfirmationRule() {
+        return () => (this.password === this.passwordconfirm) || 'Password must match'
+    }
+  },
 };
+
 </script>
