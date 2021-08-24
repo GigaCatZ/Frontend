@@ -134,7 +134,7 @@ export default {
   name: "App",
 
   data: () => ({
-    drawer: null,
+    drawer: false,
     items: [
       { title: "Forum", icon: "mdi-view-dashboard", link: "/" },
       { title: "FAQs", icon: "mdi-forum", link: "/faq" },
