@@ -43,7 +43,7 @@
             >Login</v-btn
           >
           <!--register button w/ form-->
-          <v-dialog v-model="form" persistent max-width="600px">
+          <v-dialog v-model="form" max-width="600px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="#2a0094" dark v-bind="attrs" v-on="on">
                 Register
