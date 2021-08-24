@@ -74,7 +74,7 @@
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
-            <v-avatar color="primary" size="40">
+            <v-avatar color="#2a0094" size="40">
               <span class="white--text text-h5">IC</span>
             </v-avatar>
           </v-list-item-avatar>
@@ -86,7 +86,7 @@
       </v-list>
       <v-divider></v-divider>
       <v-list nav dense>
-        <v-list-item-group v-model="selectedItem" color="primary">
+        <v-list-item-group v-model="selectedItem" color="#9f7cf7">
           <v-list-item v-for="item in items" :key="item" :to="item.link">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>

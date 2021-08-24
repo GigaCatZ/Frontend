@@ -15,7 +15,7 @@ h2 {
 }
 </style>
 
-<template>
+<template v-model="$vuetify.theme.dark">
   <v-container class="lighten-5">
     <v-row no-gutters>
       <v-col order="1">
@@ -25,7 +25,6 @@ h2 {
           elevation="5"
           height="200"
           max-width="300"
-          color="white"
         >
           <h2 class="center">FAQs</h2>
         </v-card>
@@ -38,7 +37,6 @@ h2 {
           elevation="5"
           height="200"
           max-width="300"
-          color="white"
         >
           <h2 class="center">Course Demands</h2>
         </v-card>
@@ -51,7 +49,6 @@ h2 {
           elevation="5"
           height="200"
           max-width="300"
-          color="white"
         >
           <h2 class="center" style="font-size: 40px">Rate my Plan</h2>
         </v-card>
