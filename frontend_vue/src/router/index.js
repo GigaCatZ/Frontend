@@ -4,6 +4,8 @@ import VueRouter from "vue-router";
 // import all pages here
 import Home from "../components/Home";
 import Login from "../components/Login";
+import FAQ from "../components/FAQ";
+import Help from "../components/Help";
 
 // Protocol to avoid redirection duplication
 const originalPush = VueRouter.prototype.push;
@@ -23,7 +25,17 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
-  }
+  },
+  {
+    path: "/faq",
+    name: "FAQ",
+    component: FAQ,
+  },
+  {
+    path: "/help",
+    name: "Help",
+    component: Help,
+  },
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });
