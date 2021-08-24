@@ -21,7 +21,13 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <div class="d-flex align-center">
-        <h1>IC Courses</h1>
+        <router-link :to="{ name: 'Home'}">
+          <v-row align="center" justify="space-around">
+            <v-btn text>
+              <h1>IC Courses</h1>
+            </v-btn>
+          </v-row>
+        </router-link>
       </div>
 
       <v-spacer></v-spacer>
