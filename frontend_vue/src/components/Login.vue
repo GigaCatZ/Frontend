@@ -16,7 +16,7 @@
             label="Enter Username"
             filled
             clearable
-            @keydown.enter="sendUserInfo"
+            @keydown.enter="login"
           ></v-text-field>
           <v-spacer></v-spacer>
           <!--password field-->
@@ -27,7 +27,7 @@
             label="Enter Password"
             filled
             clearable
-            @keydown.enter="sendUserInfo"
+            @keydown.enter="login"
           ></v-text-field>
         </v-form>
         <br />
@@ -39,7 +39,7 @@
             color="#2a0094"
             dark
             elevation="5"
-            @click="sendUserInfo"
+            @click="login"
             >Login</v-btn
           >
           <!--register button w/ form-->
@@ -58,7 +58,7 @@
                 <v-container>
                   <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field
-                      v-model="username"
+                      v-model="username2"
                       :counter="20"
                       :rules="usernameRules"
                       label="Username"
@@ -72,7 +72,7 @@
                     ></v-text-field>
 
                     <v-text-field
-                      v-model="password"
+                      v-model="password2"
                       :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                       :type="show1 ? 'text' : 'password'"
                       :rules="passwordRules"
@@ -128,12 +128,14 @@ export default {
     loading: false,
     valid: true,
     username: "",
+    username2: "",
     usernameRules: [
       (v) => !!v || "Name is required",
       (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
     ],
     studentID: "",
     password: "",
+    password2: "",
     passwordConfirm: "",
     passwordRules: [(v) => !!v || "Password can not be empty"],
     form: false,
@@ -142,23 +144,28 @@ export default {
   }),
 
   methods: {
-    async createUser() {
-      if (this.$refs.form.validate()) {
-        console.log("register successfully");
-        this.form = false;
-      }
-    },
-    createuser() {
-      const data = {
-        username: this.username,
-        userid: this.studentID,
-        password: this.passwordConfirm,
-      };
+    async login() {
+      const response = await axios
+        .post("/api/login", {
+          username: this.username,
+          password: this.password,
+        })
+        .catch(console.warn("something went wrong"));
 
-      axios
-        .post("/api/login", data)
-        .then((response) => console.log(response))
-        .catch((error) => console.warn(error));
+      console.log(response);
+    },
+
+    async createuser() {
+      const response = await axios
+        .post("/api/register", {
+          username: this.username2,
+          userid: this.studentID,
+          password: this.passwordConfirm,
+        })
+        .catch(console.warn("something went wrong"));
+
+      console.log(response);
+      this.$router.push("/login");
     },
   },
   computed: {
@@ -167,14 +174,5 @@ export default {
         this.password === this.passwordConfirm || "Password must match";
     },
   },
-
-  //created() {
-  //  axios
-  //    .get("https://jsonplaceholder.typicode.com/posts")
-  //    .then((response) => {
-  //      console.log(response.data);
-  //    })
-  //    .catch((error) => console.log(error));
-  //},
 };
 </script>
