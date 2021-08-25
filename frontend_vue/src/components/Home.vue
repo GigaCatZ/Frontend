@@ -1,57 +1,39 @@
-<style>
-h2 {
-  font-size: 40px;
-  margin-top: 100px;
-  text-align: center;
-}
-
-.center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-</style>
+<style></style>
 
 <template v-model="$vuetify.theme.dark">
-  <v-container class="lighten-5">
-    <v-row no-gutters>
-      <v-col order="1">
-        <v-card
-          @click.stop="pass"
-          class="mt-12 mx-auto rounded-lg"
-          elevation="5"
-          height="200"
-          max-width="300"
-        >
-          <h2 class="center">FAQs</h2>
+  <v-container class="mx-auto" max-width="300">
+    <v-row dense>
+      <v-col>
+        <v-card height="280px">
+          <v-img
+            :src="'https://cdn.vuetifyjs.com/images/cards/plane.jpg'"
+            aspect-ratio="16/9"
+            height="200"
+          ></v-img>
+          <v-card-title v-text="announcement"></v-card-title>
         </v-card>
       </v-col>
 
-      <v-col order="2">
-        <v-card
-          @click.stop="pass"
-          class="mt-12 mx-auto rounded-lg"
-          elevation="5"
-          height="200"
-          max-width="300"
-        >
-          <h2 class="center">Course Demands</h2>
-        </v-card>
-      </v-col>
+      <v-col>
+        <v-row dense>
+          <v-col>
+            <v-card height="136px" :to="{ name: 'FAQ' }">
+              <v-card-title class="text-h2">FAQs</v-card-title>
+              <v-card-text class="text-h7"
+                >Frequently Asked Questions</v-card-text
+              >
+            </v-card>
+          </v-col>
+        </v-row>
 
-      <v-col order="3">
-        <v-card
-          @click.stop="pass"
-          class="mt-12 mx-auto rounded-lg"
-          elevation="5"
-          height="200"
-          max-width="300"
-        >
-          <h2 class="center" style="font-size: 40px">Rate my Plan</h2>
-        </v-card>
+        <v-row dense>
+          <v-col>
+            <v-card height="136px">
+              <v-card-title class="text-h2">+</v-card-title>
+              <v-card-text class="text-h7">Create A New Post</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -60,5 +42,8 @@ h2 {
 <script>
 export default {
   name: "Home",
+  data: () => ({
+    announcement: "Announcement test",
+  }),
 };
 </script>
