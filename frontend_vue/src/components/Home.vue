@@ -53,7 +53,7 @@ h2 {
           <h2 class="center" style="font-size: 40px">Rate my Plan</h2>
         </v-card>
       </v-col>
-    </v-row>  
+    </v-row>
   </v-container>
 </template>
 

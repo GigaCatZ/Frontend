@@ -65,9 +65,6 @@
           </v-card-actions>
         </v-card>
       </v-menu>
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" absolute app>
