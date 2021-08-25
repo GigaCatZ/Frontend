@@ -2,6 +2,7 @@
 
 <template v-model="$vuetify.theme.dark">
   <v-container class="mx-auto" max-width="300">
+    <br />
     <v-row dense>
       <v-col>
         <v-carousel hide-delimiters cycle elevation="2" height="280px">
@@ -36,6 +37,20 @@
         </v-row>
       </v-col>
     </v-row>
+
+    <br />
+
+    <v-card outlined>
+      <v-card-title class="text-h4">Popular Tags</v-card-title>
+      <div class="text-center">
+        <v-chip
+          v-for="item in popularTags"
+          :key="item"
+          v-text="item"
+          class="ma-2"
+        ></v-chip>
+      </div>
+    </v-card>
   </v-container>
 </template>
 
@@ -52,6 +67,18 @@ export default {
         title: "Announcement 2",
         src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
       },
+    ],
+    popularTags: [
+      "Tag1",
+      "Tag2",
+      "Tag3",
+      "Tag4",
+      "Tag5",
+      "Tag6",
+      "Tag7",
+      "Tag8",
+      "Tag9",
+      "Tag10",
     ],
   }),
 };
