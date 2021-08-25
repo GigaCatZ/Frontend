@@ -67,7 +67,7 @@
 
                     <v-text-field
                       v-model="studentID"
-                      label="Student ID"
+                      label="Sky Username"
                       required
                     ></v-text-field>
 
