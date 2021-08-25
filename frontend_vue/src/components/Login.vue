@@ -156,7 +156,7 @@ export default {
       };
 
       axios
-        .post("/api/register", data)
+        .post("/api/login", data)
         .then((response) => console.log(response))
         .catch((error) => console.warn(error));
     },
