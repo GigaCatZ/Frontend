@@ -58,7 +58,7 @@
                 <v-container>
                   <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field
-                      v-model="name"
+                      v-model="username"
                       :counter="20"
                       :rules="usernameRules"
                       label="Username"
@@ -99,7 +99,12 @@
                 <v-btn color="blue darken-1" text @click="form = false">
                   Close
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="createUser">
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="createuser"
+                  method="post"
+                >
                   Save
                 </v-btn>
               </v-card-actions>
@@ -112,6 +117,10 @@
 </template>
 
 <script>
+import Vue from "vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
+Vue.use(VueAxios, axios);
 export default {
   name: "Login",
 
@@ -133,19 +142,23 @@ export default {
   }),
 
   methods: {
-    async sendUserInfo() {
-      this.loading = true;
-      // check again if username and password are not empty
-      if (this.$refs.form.validate()) {
-        console.log("login successfully");
-      }
-      this.loading = false;
-    },
     async createUser() {
       if (this.$refs.form.validate()) {
         console.log("register successfully");
         this.form = false;
       }
+    },
+    createuser() {
+      const data = {
+        username: this.username,
+        userid: this.studentID,
+        password: this.passwordConfirm,
+      };
+
+      axios
+        .post("/api/register", data)
+        .then((response) => console.log(response))
+        .catch((error) => console.warn(error));
     },
   },
   computed: {
@@ -154,5 +167,14 @@ export default {
         this.password === this.passwordConfirm || "Password must match";
     },
   },
+
+  //created() {
+  //  axios
+  //    .get("https://jsonplaceholder.typicode.com/posts")
+  //    .then((response) => {
+  //      console.log(response.data);
+  //    })
+  //    .catch((error) => console.log(error));
+  //},
 };
 </script>
