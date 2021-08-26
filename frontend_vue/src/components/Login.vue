@@ -155,7 +155,7 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data.message);
+      console.log(response.data);
       if (response.data.status == true) {
         this.$router.push("/")
       }
@@ -173,8 +173,10 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response);
-      this.$router.push("/login");
+      console.log(response.data);
+      if (response.data.status == true) {
+        this.$router.push("/login");
+      }
     },
   },
   computed: {
