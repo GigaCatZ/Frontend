@@ -9,10 +9,13 @@
     <v-row>
       <v-col offset="3" cols="12" sm="6" md="6" align-self="center">
         <v-form ref="form" v-model="valid" lazy-validation>
+          <v-alert type="error" border="" v-model="alert" dismissible>
+            {{ alerttext }}</v-alert
+          >
           <!--username field-->
           <v-text-field
             :rules="usernameRules"
-            v-model="displayname"
+            v-model="username"
             label="Enter Username"
             filled
             clearable
@@ -52,12 +55,9 @@
             <v-spacer></v-spacer>
             <v-card>
               <div>
-                <v-alert
-                  type="error"
-                  border=""
-                  v-model="alert"
-                  dismissible
-                >{{alerttext}}</v-alert>
+                <v-alert type="error" border="" v-model="alert" dismissible>
+                  {{ alerttext }}</v-alert
+                >
               </div>
               <v-card-title>
                 <span class="text-h5">Register</span>
@@ -66,7 +66,7 @@
                 <v-container>
                   <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field
-                      v-model="username2"
+                      v-model="displayname"
                       :counter="20"
                       :rules="usernameRules"
                       label="Username"
@@ -133,24 +133,28 @@ export default {
   name: "Login",
 
   data: () => ({
+    //Login Data//
+    username: "",
+    password: "",
+    //Register Data//
+    displayname: "",
+    studentID: "",
+    password2: "",
+    passwordConfirm: "",
+    //Alert Data//
+    alerttext: "",
+    alert: false,
+    //Random Data//
     loading: false,
     valid: true,
-    username: "",
-    displayname: "",
+    form: false,
+    show1: false,
+    show2: false,
     usernameRules: [
       (v) => !!v || "Name is required",
       (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
     ],
-    studentID: "",
-    password: "",
-    password2: "",
-    passwordConfirm: "",
     passwordRules: [(v) => !!v || "Password can not be empty"],
-    alerttext: "",
-    alert: false,
-    form: false,
-    show1: false,
-    show2: false,
   }),
 
   methods: {
@@ -168,6 +172,10 @@ export default {
       console.log(response.data);
       if (response.data.status == true) {
         this.$router.push("/");
+      } else {
+        console.warn(response.data.message);
+        this.alert = true;
+        this.alerttext = response.data.message;
       }
     },
 
