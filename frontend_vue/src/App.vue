@@ -1,13 +1,11 @@
 <template>
   <v-app>
     <v-app-bar
-      absolute
-      app
+      fixed
       height="80"
       dense
       color="#9575CD"
       dark
-      fade-img-on-scroll
       :src="require('./assets/MUIC_building.jpg')"
     >
       <!-- Fade color -->
@@ -65,9 +63,25 @@
           </v-card-actions>
         </v-card>
       </v-menu>
+
+      <v-tooltip bottom nudge-left="20">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-brightness-4</v-icon>
+          </v-btn>
+        </template>
+        <span>Light / Dark Mode</span>
+      </v-tooltip>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" absolute app>
+    <br /><br /><br />
+
+    <v-navigation-drawer v-model="drawer" fixed>
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
@@ -79,6 +93,10 @@
           <v-list-item-content>
             <v-list-item-title>IC Courses</v-list-item-title>
           </v-list-item-content>
+
+          <v-btn icon @click.stop="drawer = !drawer">
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
@@ -95,15 +113,6 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-
-      <v-footer>
-        <v-switch
-          v-model="$vuetify.theme.dark"
-          style="color: white"
-          label="Dark Mode"
-          persistent-hint
-        ></v-switch>
-      </v-footer>
     </v-navigation-drawer>
 
     <v-main>
