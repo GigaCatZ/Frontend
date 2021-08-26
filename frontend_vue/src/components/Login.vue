@@ -56,8 +56,8 @@
             <v-card>
               <div>
                 <v-alert type="error" border="" v-model="alert" dismissible>
-                  {{ alerttext }}</v-alert
-                >
+                  {{ alerttext }}
+                </v-alert>
               </div>
               <v-card-title>
                 <span class="text-h5">Register</span>
