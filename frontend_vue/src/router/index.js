@@ -56,7 +56,7 @@ router.beforeEach(async (to, from, next) => {
       console.warn("something went wrong");
     }
   });
-  await store.dispatch("storedinfo", response.data)
+  await store.dispatch("storedinfo", response.data);
   // console.log(response.data, store.state.status);
   next();
 });
