@@ -9,7 +9,7 @@
     <v-row>
       <v-col offset="3" cols="12" sm="6" md="6" align-self="center">
         <v-form ref="form" v-model="valid" lazy-validation>
-          <v-alert type="error" border="" v-model="alert" dismissible>
+          <v-alert type="error" v-model="alert" dismissible>
             {{ alerttext }}</v-alert
           >
           <!--username field-->
@@ -55,7 +55,7 @@
             <v-spacer></v-spacer>
             <v-card>
               <div>
-                <v-alert type="error" border="" v-model="alert" dismissible>
+                <v-alert type="error" v-model="alert" dismissible>
                   {{ alerttext }}</v-alert
                 >
               </div>

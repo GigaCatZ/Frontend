@@ -6,10 +6,10 @@
     <v-row dense>
       <v-col>
         <v-carousel hide-delimiters cycle elevation="2" height="280px">
-          <v-carousel-item v-for="item in announcements" :key="item">
+          <v-carousel-item v-for="index in announcements" :key="index.title">
             <v-card outlined height="280px">
-              <v-img :src="item.src" aspect-ratio="16/9" height="200"></v-img>
-              <v-card-title v-text="item.title"></v-card-title>
+              <v-img :src="index.src" aspect-ratio="16/9" height="200"></v-img>
+              <v-card-title v-text="index.title"></v-card-title>
             </v-card>
           </v-carousel-item>
         </v-carousel>
@@ -44,9 +44,9 @@
       <v-card-title class="text-h4">Popular Tags</v-card-title>
       <div class="text-center">
         <v-chip
-          v-for="item in popularTags"
-          :key="item"
-          v-text="item"
+          v-for="tag in popularTags"
+          :key="tag"
+          v-text="tag"
           class="ma-2"
         ></v-chip>
       </div>

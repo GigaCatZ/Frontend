@@ -83,8 +83,8 @@
       </v-list>
       <v-divider></v-divider>
       <v-list nav dense>
-        <v-list-item-group v-model="selectedItem" color="#9f7cf7">
-          <v-list-item v-for="item in items" :key="item" :to="item.link">
+        <v-list-item-group color="#9f7cf7">
+          <v-list-item v-for="item in items" :key="item.icon" :to="item.link">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
