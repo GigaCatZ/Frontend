@@ -4,15 +4,29 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: { login_username: "", login_skyusername: "", status: false },
+  actions: {
+    storedinfo({ commit }, response) {
+      commit("setStatus", response.is_logged_in);
+      commit("setUserName", response.display_name);
+      commit("setSkyUserName", response.sky_username);
+    },
+    resetinfo({ commit }) {
+      commit("setStatus", false);
+      commit("setUserName", null);
+      commit("setSkyUserName", null);
+    },
+  },
   mutations: {
     setStatus(state, status) {
       this.state.status = status;
     },
-    setUserName(state, username) {
-      this.state.username = username;
+    setUserName(state, login_displayname) {
+      this.state.login_displayname = login_displayname;
+    },
+    setSkyUserName(state, login_skyusername) {
+      this.state.login_skyusername = login_skyusername;
     },
   },
-  actions: {},
+  state: { login_displayname: null, login_skyusername: null, status: false },
   modules: {},
 });

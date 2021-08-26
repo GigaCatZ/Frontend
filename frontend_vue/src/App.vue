@@ -49,8 +49,21 @@
         <v-card class="mx-auto" max-width="344" outlined>
           <v-list-item three-line>
             <v-list-item-content>
-              <div class="text-h5 mb-1">USERNAME</div>
-              <v-list-item-subtitle>Status: Offline</v-list-item-subtitle>
+              <div
+                v-if="this.$store.state.status == false"
+                class="text-h5 mb-1"
+              >
+                Not logged in
+              </div>
+              <div v-else class="text-h5 mb-1">
+                {{ this.$store.state.login_displayname }}
+              </div>
+              <v-list-item-subtitle v-if="this.$store.state.status == false"
+                >Status: Offline
+              </v-list-item-subtitle>
+              <v-list-item-subtitle v-else
+                >Status: Online
+              </v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-avatar size="60" color="grey">
@@ -169,8 +182,9 @@ export default {
     },
     async logout() {
       let result = await Vue.axios.get("/api/logout");
-      if (result.data.success) {
+      if (result.data.status) {
         console.log("logged out");
+        await this.$store.dispatch("resetinfo");
         await router.push({ name: "Home" });
       }
     },

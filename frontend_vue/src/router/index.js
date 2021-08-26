@@ -10,6 +10,7 @@ import Login from "../components/Login";
 import FAQ from "../components/FAQ";
 import Help from "../components/Help";
 import Create from "../components/Create";
+import store from "../store";
 
 // Protocol to avoid redirection duplication
 const originalPush = VueRouter.prototype.push;
@@ -50,14 +51,13 @@ const routes = [
 const router = new VueRouter({ mode: "history", routes: routes });
 
 router.beforeEach(async (to, from, next) => {
-  const response = await axios
-    .get("/api/whoami")
-    .catch((error) => {
-      if (error.response) {
-        console.warn("something went wrong");
-      }
-    });
-  console.log(response.data);
+  const response = await axios.get("/api/whoami").catch((error) => {
+    if (error.response) {
+      console.warn("something went wrong");
+    }
+  });
+  await store.dispatch("storedinfo", response.data)
+  // console.log(response.data, store.state.status);
   next();
 });
 
