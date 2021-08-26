@@ -149,21 +149,30 @@ export default {
       formData.append("username", this.username);
       formData.append("password", this.password);
       const response = await axios
-        .post("/api/login", formData)
-        .catch(console.warn("something went wrong"));
-
-      console.log(response.data);
+        .post("http://127.0.0.1:5000/api/login", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data.message);
+      if (response.data.status == true) {
+        this.$router.push("/")
+      }
     },
 
     async createuser() {
+      let formData = new FormData();
+        formData.append("username", this.username2);
+        formData.append("sky_username", this.studentID);
+        formData.append("password", this.passwordConfirm);
       const response = await axios
-        .post("/api/register", {
-          username: this.username2,
-          userid: this.studentID,
-          password: this.passwordConfirm,
-        })
-        .catch(console.warn("something went wrong"));
-
+        .post("http://127.0.0.1:5000/api/register", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
       console.log(response);
       this.$router.push("/login");
     },
@@ -171,7 +180,7 @@ export default {
   computed: {
     passwordConfirmationRule() {
       return () =>
-        this.password === this.passwordConfirm || "Password must match";
+        this.password2 === this.passwordConfirm || "Password must match";
     },
   },
 };
