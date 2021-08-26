@@ -69,13 +69,14 @@
                       v-model="displayname"
                       :counter="20"
                       :rules="usernameRules"
-                      label="Username"
+                      label="Display Name"
                       required
                     ></v-text-field>
 
                     <v-text-field
                       v-model="studentID"
                       label="Sky Username"
+                      :rules="usernameRules"
                       required
                     ></v-text-field>
 
@@ -151,7 +152,7 @@ export default {
     show1: false,
     show2: false,
     usernameRules: [
-      (v) => !!v || "Name is required",
+      (v) => !!v || "Username is required",
       (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
     ],
     passwordRules: [(v) => !!v || "Password can not be empty"],
@@ -159,46 +160,54 @@ export default {
 
   methods: {
     async login() {
-      let formData = new FormData();
-      formData.append("sky_username", this.username);
-      formData.append("password", this.password);
-      const response = await axios
-        .post("http://127.0.0.1:5000/api/login", formData)
-        .catch((error) => {
-          if (error.response) {
-            console.warn("something went wrong");
-          }
-        });
-      console.log(response.data);
-      if (response.data.status == true) {
-        this.$router.push("/");
-      } else {
-        console.warn(response.data.message);
-        this.alert = true;
-        this.alerttext = response.data.message;
+      if (this.$refs.form.validate()) {
+        let formData = new FormData();
+        formData.append("sky_username", this.username);
+        formData.append("password", this.password);
+        const response = await axios
+          .post("http://127.0.0.1:5000/api/login", formData)
+          .catch((error) => {
+            if (error.response) {
+              console.warn("something went wrong");
+            }
+          });
+        console.log(response.data);
+        if (response.data.status == true) {
+          this.$router.push("/");
+        } else {
+          console.warn(response.data.message);
+          this.alert = true;
+          this.alerttext = response.data.message;
+        }
       }
     },
 
     async createuser() {
-      let formData = new FormData();
-      formData.append("display_name", this.displayname);
-      formData.append("sky_username", this.studentID);
-      formData.append("password", this.passwordConfirm);
-      const response = await axios
-        .post("http://127.0.0.1:5000/api/register", formData)
-        .catch((error) => {
-          if (error.response) {
-            console.warn("something went wrong");
-          }
-        });
-      console.log(response.data);
-      if (response.data.status == true) {
-        this.$router.push("/login");
-      } else {
-        console.warn(response.data.message);
-        this.alert = true;
-        this.alerttext = response.data.message;
+      if (this.$refs.form.validate()) {
+        let formData = new FormData();
+        formData.append("display_name", this.displayname);
+        formData.append("sky_username", this.studentID);
+        formData.append("password", this.passwordConfirm);
+        const response = await axios
+          .post("http://127.0.0.1:5000/api/register", formData)
+          .catch((error) => {
+            if (error.response) {
+              console.warn("something went wrong");
+            }
+          });
+        console.log(response.data);
+        if (response.data.status == true) {
+          this.$router.push("/login");
+        } else {
+          console.warn(response.data.message);
+          this.alert = true;
+          this.alerttext = response.data.message;
+        }
       }
+    },
+
+    async whoami() {
+      //let formData = new FormData();
     },
   },
   computed: {
