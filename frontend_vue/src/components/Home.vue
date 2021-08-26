@@ -35,7 +35,7 @@
 
         <v-row dense>
           <v-col>
-            <v-card height="136px" outlined>
+            <v-card height="136px" outlined :to="{ name: 'Create' }">
               <v-card-title class="text-h2">+</v-card-title>
               <v-card-text class="text-h7">Create A New Post</v-card-text>
             </v-card>

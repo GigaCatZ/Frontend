@@ -19,7 +19,6 @@
             label="Enter Username"
             filled
             clearable
-            @keydown.enter="login"
           ></v-text-field>
           <v-spacer></v-spacer>
           <!--password field-->
@@ -30,7 +29,6 @@
             label="Enter Password"
             filled
             clearable
-            @keydown.enter="login"
           ></v-text-field>
         </v-form>
         <br />
@@ -56,7 +54,7 @@
             <v-card>
               <div>
                 <v-alert type="error" v-model="alert" dismissible>
-                  {{ alerttext }}</v-alert
+                  {{ alerttext2 }}</v-alert
                 >
               </div>
               <v-card-title>
@@ -142,9 +140,12 @@ export default {
     studentID: "",
     password2: "",
     passwordConfirm: "",
-    //Alert Data//
+    //Alert-Login Data//
     alerttext: "",
     alert: false,
+    //Alert-Register Data//
+    alerttext2: "",
+    alert2: false,
     //Random Data//
     loading: false,
     valid: true,
@@ -200,14 +201,10 @@ export default {
           this.$router.push("/login");
         } else {
           console.warn(response.data.message);
-          this.alert = true;
-          this.alerttext = response.data.message;
+          this.alert2 = true;
+          this.alerttext2 = response.data.message;
         }
       }
-    },
-
-    async whoami() {
-      //let formData = new FormData();
     },
   },
   computed: {
