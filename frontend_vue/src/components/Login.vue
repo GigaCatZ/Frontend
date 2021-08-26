@@ -145,33 +145,44 @@ export default {
 
   methods: {
     async login() {
+      let formData = new FormData();
+      formData.append("username", this.username);
+      formData.append("password", this.password);
       const response = await axios
-        .post("/api/login", {
-          username: this.username,
-          password: this.password,
-        })
-        .catch(console.warn("something went wrong"));
-
-      console.log(response);
+        .post("http://127.0.0.1:5000/api/login", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data);
+      if (response.data.status == true) {
+        this.$router.push("/")
+      }
     },
 
     async createuser() {
+      let formData = new FormData();
+        formData.append("username", this.username2);
+        formData.append("sky_username", this.studentID);
+        formData.append("password", this.passwordConfirm);
       const response = await axios
-        .post("/api/register", {
-          username: this.username2,
-          userid: this.studentID,
-          password: this.passwordConfirm,
-        })
-        .catch(console.warn("something went wrong"));
-
-      console.log(response);
-      this.$router.push("/login");
+        .post("http://127.0.0.1:5000/api/register", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data);
+      if (response.data.status == true) {
+        this.$router.push("/login");
+      }
     },
   },
   computed: {
     passwordConfirmationRule() {
       return () =>
-        this.password === this.passwordConfirm || "Password must match";
+        this.password2 === this.passwordConfirm || "Password must match";
     },
   },
 };
