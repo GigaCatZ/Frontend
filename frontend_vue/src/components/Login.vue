@@ -12,7 +12,7 @@
           <!--username field-->
           <v-text-field
             :rules="usernameRules"
-            v-model="username"
+            v-model="displayname"
             label="Enter Username"
             filled
             clearable
@@ -51,6 +51,14 @@
             </template>
             <v-spacer></v-spacer>
             <v-card>
+              <div>
+                <v-alert
+                  type="error"
+                  border=""
+                  v-model="alert"
+                  dismissible
+                >{{alerttext}}</v-alert>
+              </div>
               <v-card-title>
                 <span class="text-h5">Register</span>
               </v-card-title>
@@ -128,7 +136,7 @@ export default {
     loading: false,
     valid: true,
     username: "",
-    username2: "",
+    displayname: "",
     usernameRules: [
       (v) => !!v || "Name is required",
       (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
@@ -138,6 +146,8 @@ export default {
     password2: "",
     passwordConfirm: "",
     passwordRules: [(v) => !!v || "Password can not be empty"],
+    alerttext: "",
+    alert: false,
     form: false,
     show1: false,
     show2: false,
@@ -146,7 +156,7 @@ export default {
   methods: {
     async login() {
       let formData = new FormData();
-      formData.append("username", this.username);
+      formData.append("sky_username", this.username);
       formData.append("password", this.password);
       const response = await axios
         .post("http://127.0.0.1:5000/api/login", formData)
@@ -157,15 +167,15 @@ export default {
         });
       console.log(response.data);
       if (response.data.status == true) {
-        this.$router.push("/")
+        this.$router.push("/");
       }
     },
 
     async createuser() {
       let formData = new FormData();
-        formData.append("username", this.username2);
-        formData.append("sky_username", this.studentID);
-        formData.append("password", this.passwordConfirm);
+      formData.append("display_name", this.displayname);
+      formData.append("sky_username", this.studentID);
+      formData.append("password", this.passwordConfirm);
       const response = await axios
         .post("http://127.0.0.1:5000/api/register", formData)
         .catch((error) => {
@@ -176,6 +186,10 @@ export default {
       console.log(response.data);
       if (response.data.status == true) {
         this.$router.push("/login");
+      } else {
+        console.warn(response.data.message);
+        this.alert = true;
+        this.alerttext = response.data.message;
       }
     },
   },
