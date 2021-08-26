@@ -145,14 +145,14 @@ export default {
 
   methods: {
     async login() {
+      let formData = new FormData();
+      formData.append("username", this.username);
+      formData.append("password", this.password);
       const response = await axios
-        .post("/api/login", {
-          username: this.username,
-          password: this.password,
-        })
+        .post("/api/login", formData)
         .catch(console.warn("something went wrong"));
 
-      console.log(response);
+      console.log(response.data);
     },
 
     async createuser() {

@@ -5,10 +5,10 @@ module.exports = {
     disableHostCheck: true,
     port: 9000,
     https: false,
-    // proxy: {
-    //   "/api": {
-    //     target: "http://localhost:8080",
-    //   },
-    // },
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+      },
+    },
   },
 };
