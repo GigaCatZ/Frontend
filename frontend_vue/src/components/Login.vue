@@ -169,7 +169,7 @@ export default {
         formData.append("sky_username", this.username);
         formData.append("password", this.password);
         const response = await axios
-          .post("http://127.0.0.1:5000/api/login", formData)
+          .post("/api/login", formData)
           .catch((error) => {
             if (error.response) {
               console.warn("something went wrong");
@@ -193,7 +193,7 @@ export default {
         formData.append("sky_username", this.studentID);
         formData.append("password", this.passwordConfirm);
         const response = await axios
-          .post("http://127.0.0.1:5000/api/register", formData)
+          .post("/api/register", formData)
           .catch((error) => {
             if (error.response) {
               console.warn("something went wrong");

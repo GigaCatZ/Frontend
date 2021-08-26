@@ -51,7 +51,7 @@ const router = new VueRouter({ mode: "history", routes: routes });
 
 router.beforeEach(async (to, from, next) => {
   const response = await axios
-    .get("http://127.0.0.1:5000/api/whoami")
+    .get("/api/whoami")
     .catch((error) => {
       if (error.response) {
         console.warn("something went wrong");
