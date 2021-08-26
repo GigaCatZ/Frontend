@@ -60,6 +60,7 @@
 
           <v-card-actions justify="space-around">
             <v-btn text :to="{ name: 'Login' }"> Log in </v-btn>
+            <v-btn text @click="logout"> Logout </v-btn>
           </v-card-actions>
         </v-card>
       </v-menu>
@@ -136,6 +137,9 @@
 </template>
 
 <script>
+import Vue from "vue";
+import router from "./router";
+
 export default {
   name: "App",
 
@@ -162,6 +166,13 @@ export default {
     },
     toTop() {
       this.$vuetify.goTo(0);
+    },
+    async logout() {
+      let result = await Vue.axios.get("/api/logout");
+      if (result.data.success) {
+        console.log("logged out");
+        await router.push({ name: "Home" });
+      }
     },
   },
 };
