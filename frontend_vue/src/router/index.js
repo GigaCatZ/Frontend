@@ -41,7 +41,12 @@ const routes = [
 const router = new VueRouter({ mode: "history", routes: routes });
 
 router.beforeEach(async (to, from, next) => {
-  // add something here
+  // let response = await Vue.axios.get("/api/whoami").catch((error) => {
+  //   if (error.response) {
+  //     console.warn("something went wrong");
+  //   }
+  // });
+  // console.log(response.data);
   console.log("pass");
   next();
 });

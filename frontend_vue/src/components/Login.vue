@@ -145,6 +145,9 @@ export default {
     //Alert Data//
     alerttext: "",
     alert: false,
+    //whoami Data//
+    user: "",
+    status: "",
     //Random Data//
     loading: false,
     valid: true,
@@ -204,10 +207,6 @@ export default {
           this.alerttext = response.data.message;
         }
       }
-    },
-
-    async whoami() {
-      //let formData = new FormData();
     },
   },
   computed: {
