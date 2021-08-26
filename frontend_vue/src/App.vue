@@ -1,13 +1,11 @@
 <template>
   <v-app>
     <v-app-bar
-      absolute
-      app
+      fixed
       height="80"
       dense
       color="#9575CD"
       dark
-      fade-img-on-scroll
       :src="require('./assets/MUIC_building.jpg')"
     >
       <!-- Fade color -->
@@ -62,12 +60,29 @@
 
           <v-card-actions justify="space-around">
             <v-btn text :to="{ name: 'Login' }"> Log in </v-btn>
+            <v-btn text @click="logout"> Logout </v-btn>
           </v-card-actions>
         </v-card>
       </v-menu>
+
+      <v-tooltip bottom nudge-left="20">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-brightness-4</v-icon>
+          </v-btn>
+        </template>
+        <span>Light / Dark Mode</span>
+      </v-tooltip>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" absolute app>
+    <br /><br /><br />
+
+    <v-navigation-drawer v-model="drawer" fixed>
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
@@ -79,12 +94,16 @@
           <v-list-item-content>
             <v-list-item-title>IC Courses</v-list-item-title>
           </v-list-item-content>
+
+          <v-btn icon @click.stop="drawer = !drawer">
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
       <v-list nav dense>
         <v-list-item-group color="#9f7cf7">
-          <v-list-item v-for="item in items" :key="item" :to="item.link">
+          <v-list-item v-for="item in items" :key="item.title" :to="item.link">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
@@ -95,15 +114,6 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-
-      <v-footer>
-        <v-switch
-          v-model="$vuetify.theme.dark"
-          style="color: white"
-          label="Dark Mode"
-          persistent-hint
-        ></v-switch>
-      </v-footer>
     </v-navigation-drawer>
 
     <v-main>
@@ -127,6 +137,9 @@
 </template>
 
 <script>
+import Vue from "vue";
+import router from "./router";
+
 export default {
   name: "App",
 
@@ -153,6 +166,13 @@ export default {
     },
     toTop() {
       this.$vuetify.goTo(0);
+    },
+    async logout() {
+      let result = await Vue.axios.get("/api/logout");
+      if (result.data.success) {
+        console.log("logged out");
+        await router.push({ name: "Home" });
+      }
     },
   },
 };
