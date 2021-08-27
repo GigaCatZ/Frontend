@@ -87,7 +87,9 @@
             <v-card outlined>
               <v-card-subtitle v-text="t.date"></v-card-subtitle>
               <v-card-title class="text-h3" v-text="t.title"></v-card-title>
-              <v-card-text v-text="t.display_name" class="ml-2"></v-card-text>
+              <v-card-text class="ml-2"
+                >Created By {{ t.display_name }}</v-card-text
+              >
               <v-card-text>
                 <v-chip
                   v-for="tag in t.tags"
