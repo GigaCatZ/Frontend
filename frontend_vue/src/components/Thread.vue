@@ -93,27 +93,33 @@ export default {
 
     async getalldata() {
       let formData = new FormData();
-      formData.append("display_name", this.thread_id);
+      formData.append("thread_id", this.thread_id);
       const response = await axios
-        .post("/api/checkuser", formData)
+        .post("/api/getthread", formData)
         .catch((error) => {
           if (error.response) {
             console.warn("something went wrong");
           }
         });
       console.log(response.data);
-      this.thread_id = response.data.status;
+      this.thread_id = response.data.thread_id;
+      this.thread_title = response.data.title;
+      this.thread_body = response.data.body;
       this.thread_username = response.data.author;
       this.thread_tags = response.data.tags;
       this.thread_date = response.data.timestamp;
       this.thread_status = response.data.status;
       this.thread_like = response.data.like;
       this.thread_comments = response.data.comments;
+      if (response.data.status == false) {
+        this.$router.push("/");
+      }
     },
   },
 
   created() {
     this.string();
+    this.getalldata();
   },
 };
 </script>

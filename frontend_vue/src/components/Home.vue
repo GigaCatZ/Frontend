@@ -105,7 +105,11 @@
                   <span v-text="t.likes"></span>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn class="ml-2 mt-3" text>
+                <v-btn
+                  class="ml-2 mt-3"
+                  text
+                  :to="{ path: '/thread/' + t.thread_id }"
+                >
                   Continue the thread<v-icon left> mdi-arrow-right </v-icon>
                 </v-btn>
               </v-card-actions>
@@ -194,8 +198,8 @@ export default {
       let result = await Vue.axios.post("/api/home", formData);
       this.popularTags = result.data.tags;
       this.threads = result.data.threads;
-      // console.log(this.threads);
-      // console.log(result.data);
+      console.log(this.threads);
+      console.log(result.data);
     },
   },
 };
