@@ -46,6 +46,11 @@ const routes = [
     name: "Create",
     component: Create,
   },
+  // {
+  //   path: "/thread",
+  //   name: "thread",
+  //   component: Thread,
+  // }
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });

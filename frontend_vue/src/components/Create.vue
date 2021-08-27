@@ -53,7 +53,7 @@ span.smaller {
             <v-text-field
               v-model="title"
               label="Title"
-              solo
+              outlined
               counter="30"
             ></v-text-field>
           </v-col>
@@ -64,7 +64,7 @@ span.smaller {
             <v-textarea
               v-model="text"
               label="Body"
-              solo
+              outlined
               counter="300"
             ></v-textarea>
           </v-col>
@@ -79,7 +79,8 @@ span.smaller {
         <v-row class="mx-4">
           <v-col>
             <v-autocomplete
-              :items="list"
+              v-model="tags"
+              :items="selectlist"
               chips
               clearable
               deletable-chips
@@ -101,14 +102,13 @@ import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
 export default {
   name: "Create",
-
   data: () => ({
     title: "",
     text: "",
     tags: "",
+    selectlist: [],
     errormsg: "",
-    list: ["test1", "test2"],
-    error: false,
+    // error: false,
   }),
 
   methods: {
@@ -134,6 +134,18 @@ export default {
         console.warn(response.data.status);
       }
     },
+    async extractlist() {
+      const response = await axios.get("/api/create_thread").catch((error) => {
+        if (error.response) {
+          console.warn("something went wrong");
+        }
+      });
+      console.log(response);
+      this.selectlist = response.data.courses;
+    },
+  },
+  async created() {
+    this.extractlist();
   },
 };
 </script>
