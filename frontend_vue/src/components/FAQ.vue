@@ -9,8 +9,14 @@ h1.faq {
 }
 
 h2.faq {
-  margin-left: 0;
+  margin-left: 0px;
   font-size: 30px;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 600;
+}
+
+h3.faq {
+  font-size: 20px;
   font-family: "Titillium Web", sans-serif;
   font-weight: 600;
 }
@@ -30,6 +36,7 @@ span.smaller {
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
+      <br />
       <!-- FAQ by mods -->
       <v-card class="mx-auto" outlined>
         <br />
@@ -41,59 +48,16 @@ span.smaller {
             </h1>
             <v-divider></v-divider>
 
-            <!-- question 1 -->
-            <v-row>
-              <v-col>
-                <br />
-                <h2 class="faq">
-                  Can class X be open in the upcoming trimester?
-                </h2>
-                <p class="faq">
-                  Depends. MUIC requires that a course has 7 people for a
-                  section to be opened. If the course has low demand (i.e.
-                  Computer Architecture), you'd need to have at least 6 other
-                  people interested in taking the class.
-                </p>
-                <p class="faq">
-                  Also, there are some difficulties (good ones, according to
-                  Aj.Kritya) in many faculty member's schedules. So, it could be
-                  quite difficult to have an Ajarn teach multiple courses in a
-                  single trimester due to their other commitments.
-                </p>
-              </v-col>
-            </v-row>
+            <br />
 
-            <!-- question 2 -->
-            <v-row>
-              <v-col>
-                <h2 class="faq">Where do we register for our classes?</h2>
-                <p class="faq">
-                  For Trimester 1 of Academic Year 2021-2022, course
-                  registration, tuition payment, and add/drop will take place on
-                  <a
-                    href="http://sky.muic.mahidol.ac.th/?data%5Btype%5D%5B%5D=login"
-                    target="_blank"
-                    >SKY
-                  </a>
-                  However, we will soon be switching over to SKY+ in Trimester
-                  2.
-                </p>
-              </v-col>
-            </v-row>
-
-            <!-- question 3 -->
-            <v-row>
+            <v-row v-for="q in ajarnQ" :key="q" class="mx-2">
               <v-col>
                 <h2 class="faq">
-                  How can I get more information about courses or contact the
-                  Ajarns?
+                  {{ q.question }}
+                  <span class="smaller">{{ q.body }}</span>
                 </h2>
-                <p class="faq">
-                  Please be sure to join the official MUIC Computer Science
-                  Discord server to stay up to date with class information
-                  and/or contact your Ajarns. You can do so by clicking
-                  <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank">here</a
-                  >.
+                <p v-for="ans in q.answer" :key="ans" class="faq">
+                  {{ ans }}
                 </p>
               </v-col>
             </v-row>
@@ -115,6 +79,23 @@ span.smaller {
               <span class="smaller"> by number of duplicates </span>
             </h1>
             <v-divider></v-divider>
+
+            <br />
+
+            <v-row v-for="q in topQ" :key="q" class="mx-2">
+              <v-col>
+                <h2 class="faq">
+                  {{ q.title }}
+                </h2>
+                <p class="faq">
+                  {{ q.body }}
+                </p>
+                <h3 class="faq">Answer</h3>
+                <p class="faq">
+                  {{ q.answer }}
+                </p>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
         <br />
@@ -124,7 +105,66 @@ span.smaller {
 </template>
 
 <script>
+import Vue from "vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
+
+Vue.use(VueAxios, axios);
+
 export default {
   name: "FAQ",
+  data() {
+    return {
+      ajarnQ: [
+        {
+          question: "Can class X be opened in the upcoming trimester?",
+          answer: [
+            "Depends. MUIC requires that a course has 7 people for a section to be opened. If the course has low demand (i.e. Computer Architecture), you'd need to have at least 6 other people interested in taking the class.",
+            "Also, there are some difficulties (good ones, according to Aj.Kritya) in many faculty member's schedules. So, it could be quite difficult to have an Ajarn teach multiple courses in a single trimester due to their other commitments.",
+          ],
+        },
+        {
+          question: "Where do we register for our classes?",
+          answer: [
+            "For Trimester 1 of Academic Year 2021-2022, course registration and tuition payment will take place on SKY. However, we will soon be switching over to SKY+ in Trimester 2.",
+          ],
+        },
+        {
+          question:
+            "How can I get more information about courses or contact the Ajarns?",
+          answer: [
+            "Please be sure to join the official MUIC Computer Science Discord server to stay up to date with class information and/or contact your Ajarns.",
+          ],
+        },
+      ],
+      topQ: [
+        {
+          title: "Dynamic Question 1",
+          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
+          answer: "Well, you know, monke.",
+        },
+        {
+          title: "Dynamic Question 2",
+          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
+          answer: "Well, you know, monke.",
+        },
+        {
+          title: "Dynamic Question 3",
+          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
+          answer: "Well, you know, monke.",
+        },
+        {
+          title: "Dynamic Question 4",
+          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
+          answer: "Well, you know, monke.",
+        },
+        {
+          title: "Dynamic Question 5",
+          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
+          answer: "Well, you know, monke.",
+        },
+      ],
+    };
+  },
 };
 </script>
