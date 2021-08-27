@@ -9,8 +9,8 @@
     <v-row>
       <v-col offset="3" cols="12" sm="6" md="6" align-self="center">
         <v-form ref="form" v-model="valid" lazy-validation>
-          <v-alert type="error" v-model="alert" dismissible>
-            {{ alerttext }}</v-alert
+          <v-alert type="error" v-model="login_alert" dismissible>
+            {{ login_alert_text }}</v-alert
           >
           <!--username field-->
           <v-text-field
@@ -53,8 +53,8 @@
             <v-spacer></v-spacer>
             <v-card>
               <div>
-                <v-alert type="error" v-model="alert" dismissible>
-                  {{ alerttext2 }}</v-alert
+                <v-alert type="error" v-model="register_alert" dismissible>
+                  {{ register_alert_text }}</v-alert
                 >
               </div>
               <v-card-title>
@@ -141,14 +141,14 @@ export default {
     password2: "",
     passwordConfirm: "",
     //Alert-Login Data//
-    alerttext: "",
-    alert: false,
+    login_alert_text: "",
+    login_alert: false,
     //whoami Data//
     user: "",
     status: "",
     //Alert-Register Data//
-    alerttext2: "",
-    alert2: false,
+    register_alert_text: "",
+    register_alert: false,
     //Random Data//
     loading: false,
     valid: true,
@@ -179,8 +179,8 @@ export default {
         this.$router.push("/");
       }else{
         console.warn(response.data.message);
-        this.alert = true;
-        this.alerttext = response.data.message;
+        this.login_alert = true;
+        this.login_alert_text = response.data.message;
       }
     },
 
@@ -201,8 +201,8 @@ export default {
         this.$router.push("/login");
       } else {
         console.warn(response.data.message);
-        this.alert = true;
-        this.alerttext2 = response.data.message;
+        this.register_alert = true;
+        this.register_alert_text = response.data.message;
       }
     },
   },
