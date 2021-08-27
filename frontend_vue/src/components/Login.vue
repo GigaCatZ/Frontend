@@ -177,7 +177,7 @@ export default {
       console.log(response.data);
       if (response.data.status == true) {
         this.$router.push("/");
-      }else{
+      } else {
         console.warn(response.data.message);
         this.login_alert = true;
         this.login_alert_text = response.data.message;

@@ -42,6 +42,7 @@ span.smaller {
         <v-row class="mx-4">
           <v-col>
             <h1 class="one">Create a post</h1>
+            <v-btn @click="sendData">send</v-btn>
             <v-divider></v-divider>
           </v-col>
         </v-row>
@@ -49,13 +50,23 @@ span.smaller {
 
         <v-row class="mx-4">
           <v-col>
-            <v-text-field label="Title" solo counter="30"></v-text-field>
+            <v-text-field
+              v-model="title"
+              label="Title"
+              solo
+              counter="30"
+            ></v-text-field>
           </v-col>
         </v-row>
         <br />
         <v-row class="mx-4">
           <v-col>
-            <v-textarea label="Body" solo counter="300"></v-textarea>
+            <v-textarea
+              v-model="text"
+              label="Body"
+              solo
+              counter="300"
+            ></v-textarea>
           </v-col>
         </v-row>
         <v-row class="mx-4">
@@ -67,7 +78,14 @@ span.smaller {
 
         <v-row class="mx-4">
           <v-col>
-            <p class="one">Add a tag</p>
+            <v-autocomplete
+              :items="list"
+              chips
+              clearable
+              deletable-chips
+              multiple
+              solo
+            ></v-autocomplete>
           </v-col>
         </v-row>
         <br />
@@ -88,7 +106,9 @@ export default {
     title: "",
     text: "",
     tags: "",
-    username: "",
+    errormsg: "",
+    list: ["test1", "test2"],
+    error: false,
   }),
 
   methods: {
@@ -96,8 +116,8 @@ export default {
       let formData = new FormData();
       formData.append("title", this.title);
       formData.append("text", this.text);
-      formData.append("tags", this.username);
-      formData.append("username", this.$store.state.login_displayname);
+      formData.append("tags", this.tags);
+      formData.append("username", this.$store.state.login_skyusername);
       const response = await axios
         .post("/api/create_thread", formData)
         .catch((error) => {
@@ -109,7 +129,9 @@ export default {
       if (response.data.status == true) {
         this.$router.push("/");
       } else {
-        console.warn(response.data);
+        this.error = true;
+        this.errormsg = response.data.message;
+        console.warn(response.data.status);
       }
     },
   },
