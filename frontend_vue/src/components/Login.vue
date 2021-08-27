@@ -13,6 +13,9 @@
           <v-alert type="error" v-model="login_alert" dismissible>
             {{ login_alert_text }}</v-alert
           >
+          <v-alert type="success" v-model="register_alert" dismissible>
+            {{ register_alert_text }}</v-alert
+          >
           <!--username field-->
           <v-text-field
             :rules="usernameRules"
@@ -212,6 +215,8 @@ export default {
       console.log(response.data);
       if (response.data.status == true) {
         this.form = false;
+        this.register_alert = true;
+        this.register_alert_text = response.data.message;
       } else {
         console.warn(response.data.message);
         this.register_alert = true;
