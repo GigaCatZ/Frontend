@@ -42,7 +42,6 @@ span.smaller {
         <v-row class="mx-4">
           <v-col>
             <h1 class="one">Create a post</h1>
-            <v-btn @click="sendData">send</v-btn>
             <v-divider></v-divider>
           </v-col>
         </v-row>
@@ -71,7 +70,7 @@ span.smaller {
         </v-row>
         <v-row class="mx-4">
           <v-col>
-            <h2 class="one">Add a tag</h2>
+            <h2 class="one">Tags</h2>
             <v-divider></v-divider>
           </v-col>
         </v-row>
@@ -81,15 +80,21 @@ span.smaller {
             <v-autocomplete
               v-model="tags"
               :items="selectlist"
-              chips
+              label="None"
+              outlined
+              hide-selected
+              single-line
               clearable
               deletable-chips
               multiple
-              solo
+              small-chips
             ></v-autocomplete>
           </v-col>
         </v-row>
-        <br />
+        <v-card-actions class="ma-4">
+          <v-spacer></v-spacer>
+          <v-btn @click="sendData">post</v-btn>
+        </v-card-actions>
       </v-card>
     </v-container>
   </div>
@@ -145,7 +150,7 @@ export default {
     },
   },
   async created() {
-    this.extractlist();
+    await this.extractlist();
   },
 };
 </script>
