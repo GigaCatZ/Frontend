@@ -11,6 +11,7 @@ import FAQ from "../components/FAQ";
 import Help from "../components/Help";
 import Create from "../components/Create";
 import store from "../store";
+import Thread from "../components/Thread";
 
 // Protocol to avoid redirection duplication
 const originalPush = VueRouter.prototype.push;
@@ -46,11 +47,11 @@ const routes = [
     name: "Create",
     component: Create,
   },
-  // {
-  //   path: "/thread",
-  //   name: "thread",
-  //   component: Thread,
-  // }
+  {
+    path: "/thread/:id",
+    name: "thread",
+    component: Thread,
+  },
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });

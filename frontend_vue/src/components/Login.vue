@@ -68,11 +68,17 @@
                   <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field
                       v-model="displayname"
+                      :append-icon="
+                        this.douserexist ? 'mdi-check-all' : 'mdi-xamarin'
+                      "
+                      :color="this.douserexist ? 'green' : 'red'"
                       :counter="20"
                       :rules="usernameRules"
                       label="Display Name"
                       required
-                    ></v-text-field>
+                      @input="userexist()"
+                    >
+                    </v-text-field>
 
                     <v-text-field
                       v-model="studentID"
@@ -130,6 +136,8 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+// import { mdiCheckAll } from "@mdi/js";
+
 Vue.use(VueAxios, axios);
 export default {
   name: "Login",
@@ -146,6 +154,7 @@ export default {
     passwordConfirm: "",
     show1: false,
     show2: false,
+    douserexist: true,
     //Alert-Login Data//
     login_alert_text: "",
     login_alert: false,
@@ -208,6 +217,20 @@ export default {
         this.register_alert = true;
         this.register_alert_text = response.data.message;
       }
+    },
+
+    async userexist() {
+      let formData = new FormData();
+      formData.append("display_name", this.displayname);
+      const response = await axios
+        .post("/api/checkuser", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data.message);
+      this.douserexist = response.data.status;
     },
   },
   computed: {
