@@ -9,13 +9,13 @@
           <v-col>
             <h1 class="faq">
               Frequently Asked Questions
-              <span class="smaller">by moderators and Ajarns</span>
+              <span class="smaller"> by moderators and Ajarns</span>
             </h1>
             <v-divider></v-divider>
 
             <br />
 
-            <v-row v-for="q in ajarnQ" :key="q" class="mx-2">
+            <v-row v-for="q in ajarnQ" :key="q.question" class="mx-2">
               <v-col>
                 <h2 class="faq">
                   {{ q.question }}
@@ -47,17 +47,17 @@
 
             <br />
 
-            <v-row v-for="q in topQ" :key="q" class="mx-2">
+            <v-row v-for="question in topQ" :key="question.title" class="mx-2">
               <v-col>
                 <h2 class="faq">
-                  {{ q.title }}
+                  {{ question.title }}
                 </h2>
                 <p class="faq">
-                  {{ q.body }}
+                  {{ question.body }}
                 </p>
                 <h3 class="faq">Answer</h3>
                 <p class="faq">
-                  {{ q.answer }}
+                  {{ question.answer }}
                 </p>
               </v-col>
             </v-row>

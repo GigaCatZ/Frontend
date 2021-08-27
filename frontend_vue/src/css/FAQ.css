@@ -30,3 +30,11 @@ span.smaller {
     font-size: 75%;
     font-weight: normal;
 }
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
