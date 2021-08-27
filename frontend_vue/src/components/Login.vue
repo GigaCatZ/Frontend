@@ -164,49 +164,41 @@ export default {
 
   methods: {
     async login() {
-      if (this.$refs.form.validate()) {
-        let formData = new FormData();
-        formData.append("sky_username", this.username);
-        formData.append("password", this.password);
-        const response = await axios
-          .post("/api/login", formData)
-          .catch((error) => {
-            if (error.response) {
-              console.warn("something went wrong");
-            }
-          });
-        console.log(response.data);
-        if (response.data.status == true) {
-          this.$router.push("/");
-        } else {
-          console.warn(response.data.message);
-          this.alert = true;
-          this.alerttext = response.data.message;
-        }
+      let formData = new FormData();
+      formData.append("sky_username", this.username);
+      formData.append("password", this.password);
+      const response = await axios
+        .post("/api/login", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data);
+      if (response.data.status == true) {
+        this.$router.push("/");
       }
     },
 
     async createuser() {
-      if (this.$refs.form.validate()) {
-        let formData = new FormData();
-        formData.append("display_name", this.displayname);
-        formData.append("sky_username", this.studentID);
-        formData.append("password", this.passwordConfirm);
-        const response = await axios
-          .post("/api/register", formData)
-          .catch((error) => {
-            if (error.response) {
-              console.warn("something went wrong");
-            }
-          });
-        console.log(response.data);
-        if (response.data.status == true) {
-          this.$router.push("/login");
-        } else {
-          console.warn(response.data.message);
-          this.alert2 = true;
-          this.alerttext2 = response.data.message;
-        }
+      let formData = new FormData();
+      formData.append("display_name", this.displayname);
+      formData.append("sky_username", this.studentID);
+      formData.append("password", this.passwordConfirm);
+      const response = await axios
+        .post("/api/register", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data);
+      if (response.data.status == true) {
+        this.$router.push("/login");
+      } else {
+        console.warn(response.data.message);
+        this.alert = true;
+        this.alerttext = response.data.message;
       }
     },
   },
