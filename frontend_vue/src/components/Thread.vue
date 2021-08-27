@@ -3,25 +3,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600&display=swap");
 
 h1.one {
-  font-size: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 35px;
   font-family: "Titillium Web", sans-serif;
   font-weight: 600;
 }
 
-h2.one {
-  margin-left: 0;
-  font-size: 22px;
+h1.two {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 12px;
+  color: grey;
   font-family: "Titillium Web", sans-serif;
   font-weight: 600;
 }
 
-p.faq {
+p.one {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 8px;
   font-size: 20px;
   font-family: "Titillium Web", sans-serif;
   font-weight: 300;
 }
 
-p.faq2 {
+p.two {
+  margin: 10px;
   font-size: 15px;
   font-family: "Titillium Web", sans-serif;
   font-weight: 300;
@@ -36,17 +44,21 @@ span.smaller {
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
-      <!-- FAQ by mods -->
+      <br />
       <v-card class="mx-auto" outlined>
         <br />
         <v-row class="mx-4">
           <v-col>
-            <h1 class="faq">
-              Help
-              <!-- <span class="smaller">by moderators and Ajarns</span> -->
-            </h1>
+            <h1 class="two">Thread no. {{ this.thread_id }}</h1>
             <v-divider></v-divider>
-            <h1>{{ this.$route.path.substr(8) }}</h1>
+            <br />
+            <v-card outlined>
+              <h1 class="one">{{ thread_title }}</h1>
+            </v-card>
+            <br />
+            <v-card outlined>
+              <p class="one">{{ thread_body }}</p>
+            </v-card>
           </v-col>
         </v-row>
         <br />
@@ -61,51 +73,47 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
 export default {
-  name: "Create",
+  name: "Thread",
   data: () => ({
-    title: "",
-    text: "",
-    tags: "",
-    selectlist: [],
-    errormsg: "",
-    // error: false,
+    thread_status: true,
+    thread_like: 0,
+    thread_id: "",
+    thread_tags: [],
+    thread_username: "",
+    thread_date: "",
+    thread_title: "This is a placeholder for thread title",
+    thread_body:
+      "This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. ",
   }),
 
   methods: {
-    async sendData() {
+    string() {
+      this.thread_id = this.$route.path.substr(8);
+    },
+
+    async getalldata() {
       let formData = new FormData();
-      formData.append("title", this.title);
-      formData.append("text", this.text);
-      formData.append("tags", this.tags);
-      formData.append("username", this.$store.state.login_skyusername);
+      formData.append("display_name", this.thread_id);
       const response = await axios
-        .post("/api/create_thread", formData)
+        .post("/api/checkuser", formData)
         .catch((error) => {
           if (error.response) {
             console.warn("something went wrong");
           }
         });
       console.log(response.data);
-      if (response.data.status == true) {
-        this.$router.push("/");
-      } else {
-        this.error = true;
-        this.errormsg = response.data.message;
-        console.warn(response.data.status);
-      }
-    },
-    async extractlist() {
-      const response = await axios.get("/api/create_thread").catch((error) => {
-        if (error.response) {
-          console.warn("something went wrong");
-        }
-      });
-      console.log(response);
-      this.selectlist = response.data.courses;
+      this.thread_id = response.data.status;
+      this.thread_username = response.data.author;
+      this.thread_tags = response.data.tags;
+      this.thread_date = response.data.timestamp;
+      this.thread_status = response.data.status;
+      this.thread_like = response.data.like;
+      this.thread_comments = response.data.comments;
     },
   },
-  async created() {
-    this.extractlist();
+
+  created() {
+    this.string();
   },
 };
 </script>

@@ -36,6 +36,7 @@ span.smaller {
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
+      <br />
       <!-- FAQ by mods -->
       <v-card class="mx-auto" outlined>
         <br />
