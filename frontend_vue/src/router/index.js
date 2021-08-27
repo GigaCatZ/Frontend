@@ -62,12 +62,12 @@ router.beforeEach(async (to, from, next) => {
       console.warn("something went wrong");
     }
   });
-  const whoami = await axios.get("/api/whoami")
+  const whoami = await axios.get("/api/whoami");
   let loggedIn = whoami.data.is_logged_in;
-  if (to.name === "Login" && loggedIn){
+  if (to.name === "Login" && loggedIn) {
     next({ name: "Home" });
   }
-  if (to.name === "Create" && !loggedIn){
+  if (to.name === "Create" && !loggedIn) {
     next({ name: "Login" });
   }
   await store.dispatch("storedinfo", response.data);
