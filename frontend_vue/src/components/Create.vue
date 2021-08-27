@@ -127,7 +127,7 @@ export default {
         });
       console.log(response.data);
       if (response.data.status == true) {
-        this.$router.push("/");
+        this.$router.push("/thread/" + response.data.thread_id);
       } else {
         this.error = true;
         this.errormsg = response.data.message;

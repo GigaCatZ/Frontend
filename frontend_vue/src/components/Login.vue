@@ -68,6 +68,7 @@
                   <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field
                       v-model="displayname"
+                      :append-icon="'mdi-check-all'"
                       :counter="20"
                       :rules="usernameRules"
                       label="Display Name"
@@ -130,6 +131,8 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+// import { mdiCheckAll } from "@mdi/js";
+
 Vue.use(VueAxios, axios);
 export default {
   name: "Login",
