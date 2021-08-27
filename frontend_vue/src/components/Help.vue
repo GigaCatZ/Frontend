@@ -1,66 +1,111 @@
 <style>
-h2 {
-  font-size: 60px;
-  margin-left: 10px;
+/* can be taken out if we dont want to use embedded fonts */
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600&display=swap");
+
+h1.faq {
+  font-size: 40px;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 600;
 }
-h3 {
-  font-size: 20px;
-  font-family: "Times New Roman", Times, serif;
+
+h2.faq {
+  margin-left: 0;
+  font-size: 30px;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 600;
 }
-p {
+
+p.faq {
   font-size: 20px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 300;
+}
+
+p.faq2 {
+  font-size: 15px;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 300;
+}
+
+span.smaller {
+  font-size: 75%;
+  font-weight: normal;
 }
 </style>
 
-<template>
-  <v-container>
-    <br />
-    <v-row>
-      <v-col>
-        <h2>Help</h2>
-        <v-divider></v-divider><v-divider></v-divider>
-      </v-col>
-    </v-row>
-    <!-- Start of Section -->
-    <v-card-text>
-      <h3>How to create threads</h3>
+<template v-model="$vuetify.theme.dark">
+  <div>
+    <v-container>
+      <!-- FAQ by mods -->
+      <v-card class="mx-auto" outlined>
+        <br />
+        <v-row class="mx-4">
+          <v-col>
+            <h1 class="faq">
+              Help
+              <!-- <span class="smaller">by moderators and Ajarns</span> -->
+            </h1>
+            <v-divider></v-divider>
+
+            <!-- question 1 -->
+            <v-row>
+              <v-col>
+                <br />
+                <h2 class="faq">How to create threads?</h2>
+                <p class="faq">
+                  By going to the front page and clicking the 'Create a thread'
+                  button. You will be redirected to the create page where you
+                  will be able to create threads. Note that you will be required
+                  to login before being able to create a thread.
+                </p>
+                <p class="faq2">
+                  *Note that you will be required to login into the website
+                  before being able to create a thread*
+                </p>
+              </v-col>
+            </v-row>
+
+            <!-- question 2 -->
+            <v-row>
+              <v-col>
+                <h2 class="faq">Where do we register for our classes?</h2>
+                <p class="faq">
+                  For Trimester 1 of Academic Year 2021-2022, course
+                  registration, tuition payment, and add/drop will take place on
+                  <a
+                    href="http://sky.muic.mahidol.ac.th/?data%5Btype%5D%5B%5D=login"
+                    target="_blank"
+                    >SKY
+                  </a>
+                  However, we will soon be switching over to SKY+ in Trimester
+                  2.
+                </p>
+              </v-col>
+            </v-row>
+
+            <!-- question 3 -->
+            <v-row>
+              <v-col>
+                <h2 class="faq">
+                  How can I get more information about courses or contact the
+                  Ajarns?
+                </h2>
+                <p class="faq">
+                  Please be sure to join the official MUIC Computer Science
+                  Discord server to stay up to date with class information
+                  and/or contact your Ajarns. You can do so by clicking
+                  <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank">here</a
+                  >.
+                </p>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+        <br />
+      </v-card>
+
       <br />
-      <p>
-        The science of computing is transforming the world at a breathtaking
-        pace. Think self-driving cars, the Internet of Things (IoT), and
-        artificial brains. Think medical advances made possible by the sheer
-        computation power and our newfound ability to gather and sift through
-        massive amounts of data. In this age, this is the science that touches
-        every life and drives every modern endeavor. Through hands-on projects
-        and active learning activities, students in our program will be trained
-        not only to make excellent use of the state-of-the-art technology but
-        also to create and drive future technology.
-      </p>
-    </v-card-text>
-    <v-divider></v-divider><v-divider></v-divider>
-    <!-- End of Section -->
-    <v-card-text>
-      <h3>Test Heading</h3>
       <br />
-      <p>
-        Our curriculum comprehensively covers foundational aspects of computing.
-        Delve deeper by choosing from several focus areas—1. AI & data
-        analytics; 2. software construction; 3. (big) data platform engineering;
-        and 4. research-oriented computer science—or combining them into your
-        unique focus area with our expert help. The program is suitable for
-        those seeking a high-paying job right after college as well as for those
-        aiming for further study.
-      </p>
-    </v-card-text>
-    <v-divider></v-divider><v-divider></v-divider>
-  </v-container>
+    </v-container>
+  </div>
 </template>
-
-<script>
-export default {
-  name: "Help",
-};
-</script>
-
-<style scoped></style>

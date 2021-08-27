@@ -9,7 +9,7 @@
     <v-row>
       <v-col offset="3" cols="12" sm="6" md="6" align-self="center">
         <v-form ref="form" v-model="valid" lazy-validation>
-          <v-alert type="error" border="" v-model="alert" dismissible>
+          <v-alert type="error" v-model="alert" dismissible>
             {{ alerttext }}</v-alert
           >
           <!--username field-->
@@ -19,7 +19,6 @@
             label="Enter Username"
             filled
             clearable
-            @keydown.enter="login"
           ></v-text-field>
           <v-spacer></v-spacer>
           <!--password field-->
@@ -30,7 +29,6 @@
             label="Enter Password"
             filled
             clearable
-            @keydown.enter="login"
           ></v-text-field>
         </v-form>
         <br />
@@ -55,9 +53,9 @@
             <v-spacer></v-spacer>
             <v-card>
               <div>
-                <v-alert type="error" border="" v-model="alert" dismissible>
-                  {{ alerttext }}
-                </v-alert>
+                <v-alert type="error" v-model="alert" dismissible>
+                  {{ alerttext2 }}</v-alert
+                >
               </div>
               <v-card-title>
                 <span class="text-h5">Register</span>
@@ -142,9 +140,15 @@ export default {
     studentID: "",
     password2: "",
     passwordConfirm: "",
-    //Alert Data//
+    //Alert-Login Data//
     alerttext: "",
     alert: false,
+    //whoami Data//
+    user: "",
+    status: "",
+    //Alert-Register Data//
+    alerttext2: "",
+    alert2: false,
     //Random Data//
     loading: false,
     valid: true,
@@ -165,7 +169,7 @@ export default {
         formData.append("sky_username", this.username);
         formData.append("password", this.password);
         const response = await axios
-          .post("http://127.0.0.1:5000/api/login", formData)
+          .post("/api/login", formData)
           .catch((error) => {
             if (error.response) {
               console.warn("something went wrong");
@@ -189,7 +193,7 @@ export default {
         formData.append("sky_username", this.studentID);
         formData.append("password", this.passwordConfirm);
         const response = await axios
-          .post("http://127.0.0.1:5000/api/register", formData)
+          .post("/api/register", formData)
           .catch((error) => {
             if (error.response) {
               console.warn("something went wrong");
@@ -200,14 +204,10 @@ export default {
           this.$router.push("/login");
         } else {
           console.warn(response.data.message);
-          this.alert = true;
-          this.alerttext = response.data.message;
+          this.alert2 = true;
+          this.alerttext2 = response.data.message;
         }
       }
-    },
-
-    async whoami() {
-      //let formData = new FormData();
     },
   },
   computed: {

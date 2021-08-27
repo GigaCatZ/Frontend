@@ -1,13 +1,11 @@
 <template>
   <v-app>
     <v-app-bar
-      absolute
-      app
+      fixed
       height="80"
       dense
       color="#9575CD"
       dark
-      fade-img-on-scroll
       :src="require('./assets/MUIC_building.jpg')"
     >
       <!-- Fade color -->
@@ -51,8 +49,21 @@
         <v-card class="mx-auto" max-width="344" outlined>
           <v-list-item three-line>
             <v-list-item-content>
-              <div class="text-h5 mb-1">USERNAME</div>
-              <v-list-item-subtitle>Status: Offline</v-list-item-subtitle>
+              <div
+                v-if="this.$store.state.status == false"
+                class="text-h5 mb-1"
+              >
+                Not logged in
+              </div>
+              <div v-else class="text-h5 mb-1">
+                {{ this.$store.state.login_displayname }}
+              </div>
+              <v-list-item-subtitle v-if="this.$store.state.status == false"
+                >Status: Offline
+              </v-list-item-subtitle>
+              <v-list-item-subtitle v-else
+                >Status: Online
+              </v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-avatar size="60" color="grey">
@@ -62,12 +73,29 @@
 
           <v-card-actions justify="space-around">
             <v-btn text :to="{ name: 'Login' }"> Log in </v-btn>
+            <v-btn text @click="logout"> Logout </v-btn>
           </v-card-actions>
         </v-card>
       </v-menu>
+
+      <v-tooltip bottom nudge-left="20">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-brightness-4</v-icon>
+          </v-btn>
+        </template>
+        <span>Light / Dark Mode</span>
+      </v-tooltip>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" absolute app>
+    <br /><br /><br />
+
+    <v-navigation-drawer v-model="drawer" fixed>
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
@@ -79,6 +107,10 @@
           <v-list-item-content>
             <v-list-item-title>IC Courses</v-list-item-title>
           </v-list-item-content>
+
+          <v-btn icon @click.stop="drawer = !drawer">
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
@@ -95,15 +127,6 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-
-      <v-footer>
-        <v-switch
-          v-model="$vuetify.theme.dark"
-          style="color: white"
-          label="Dark Mode"
-          persistent-hint
-        ></v-switch>
-      </v-footer>
     </v-navigation-drawer>
 
     <v-main>
@@ -127,6 +150,9 @@
 </template>
 
 <script>
+import Vue from "vue";
+import router from "./router";
+
 export default {
   name: "App",
 
@@ -153,6 +179,14 @@ export default {
     },
     toTop() {
       this.$vuetify.goTo(0);
+    },
+    async logout() {
+      let result = await Vue.axios.get("/api/logout");
+      if (result.data.status) {
+        console.log("logged out");
+        await this.$store.dispatch("resetinfo");
+        await router.push({ name: "Home" });
+      }
     },
   },
 };
