@@ -72,8 +72,8 @@
           </v-list-item>
 
           <v-card-actions justify="space-around">
-            <v-btn text :to="{ name: 'Login' }"> Log in </v-btn>
-            <v-btn text @click="logout"> Logout </v-btn>
+            <v-btn v-show="!whoami" text :to="{ name: 'Login' }" > Log in </v-btn>
+            <v-btn v-show="whoami" text @click="logout" > Logout </v-btn>
           </v-card-actions>
         </v-card>
       </v-menu>
@@ -153,6 +153,13 @@
 import Vue from "vue";
 import router from "./router";
 
+async function getwhoami() {
+  const response = await Vue.axios.get("/api/whoami");
+  let bool = response.data.is_logged_in;
+  console.warn(bool)
+  return bool;
+}
+
 export default {
   name: "App",
 
@@ -165,10 +172,12 @@ export default {
     ],
     searchInput: "",
     scrolled: false,
+    whoami: false,
   }),
 
   created() {
     document.title = "IC Courses";
+    this.whoami = getwhoami();
   },
 
   methods: {
@@ -187,6 +196,7 @@ export default {
         await this.$store.dispatch("resetinfo");
         await router.push({ name: "Home" });
       }
+      this.whoami = getwhoami();
     },
   },
 };
