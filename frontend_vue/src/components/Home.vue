@@ -51,7 +51,7 @@
       <div class="text-center">
         <v-chip
           v-for="tag in popularTags"
-          :key="tag"
+          :key="tag.title"
           v-text="tag"
           class="ma-2"
           small
@@ -82,7 +82,7 @@
     </v-card>
     <v-card outlined class="overflow-y-auto mx-auto" height="500">
       <v-container fluid>
-        <v-row align="center" v-for="t in threads" :key="t.title">
+        <v-row align="center" v-for="t in threads" :key="t.no">
           <v-col>
             <v-card outlined>
               <v-card-subtitle v-text="t.date"></v-card-subtitle>
@@ -93,7 +93,7 @@
               <v-card-text>
                 <v-chip
                   v-for="tag in t.tags"
-                  :key="tag"
+                  :key="tag.title"
                   v-text="tag"
                   small
                   class="ma-1"
@@ -194,7 +194,8 @@ export default {
       let result = await Vue.axios.post("/api/home", formData);
       this.popularTags = result.data.tags;
       this.threads = result.data.threads;
-      console.log(this.threads);
+      // console.log(this.threads);
+      // console.log(result.data);
     },
   },
 };
