@@ -12,7 +12,11 @@
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
+          :gradient="
+            !$vuetify.theme.dark
+              ? 'to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)'
+              : 'to top right, rgba(10,10,20,.7), rgba(25,32,72,.7)'
+          "
         ></v-img>
       </template>
 
@@ -49,16 +53,13 @@
         <v-card class="mx-auto" max-width="275" min-width="260" outlined>
           <v-list-item three-line>
             <v-list-item-content>
-              <div
-                v-if="this.$store.state.status == false"
-                class="text-h5 mb-1"
-              >
+              <div v-if="!this.$store.state.status" class="text-h5 mb-1">
                 Not logged in
               </div>
               <div v-else class="text-h5 mb-1">
                 {{ this.$store.state.login_displayname }}
               </div>
-              <v-list-item-subtitle v-if="this.$store.state.status == false"
+              <v-list-item-subtitle v-if="!this.$store.state.status"
                 >Status: Offline
               </v-list-item-subtitle>
               <v-list-item-subtitle v-else
@@ -73,7 +74,7 @@
 
           <v-card-actions justify="space-around">
             <v-btn
-              v-if="this.$store.state.status == false"
+              v-if="!this.$store.state.status"
               text
               :to="{ name: 'Login' }"
             >
