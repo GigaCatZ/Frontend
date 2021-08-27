@@ -77,13 +77,25 @@
           </v-col>
           <v-col><h2>Threads</h2></v-col>
         </v-row>
-
+      </v-container>
+    </v-card>
+    <v-card outlined class="overflow-y-auto mx-auto" height="500">
+      <v-container fluid>
         <v-row align="center" v-for="t in threads" :key="t.title">
           <v-col>
             <v-card outlined>
               <v-card-subtitle v-text="t.user"></v-card-subtitle>
               <v-card-title class="text-h3" v-text="t.title"></v-card-title>
-              <v-card-text v-text="t.text"></v-card-text>
+              <v-card-text>
+                <v-chip
+                  v-for="tag in popularTags"
+                  :key="tag"
+                  v-text="tag"
+                  small
+                  class="ma-1"
+                ></v-chip>
+              </v-card-text>
+              <v-card-text v-text="t.text" class="ml-2"></v-card-text>
               <v-card-actions>
                 <v-btn class="ml-2 mt-3" text>
                   <v-icon class="mr-1" color="grey">mdi-thumb-up</v-icon>
