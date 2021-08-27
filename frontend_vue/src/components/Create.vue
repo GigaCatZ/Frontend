@@ -51,10 +51,6 @@ span.smaller {
           <v-col>
             <v-card>Yes</v-card>
           </v-col>
-
-          <v-col class="mx-4">
-            <v-card>yes</v-card>
-          </v-col>
         </v-row>
         <br />
       </v-card>
