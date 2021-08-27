@@ -1,5 +1,6 @@
 <template v-model="$vuetify.theme.dark">
   <v-container>
+    <br />
     <!--page title-->
     <div class="text-center">
       <h1 class="font-weight-light">Login Page</h1>
@@ -23,12 +24,14 @@
           <v-spacer></v-spacer>
           <!--password field-->
           <v-text-field
+            :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show3 ? 'text' : 'password'"
             :rules="passwordRules"
             v-model="password"
-            type="password"
             label="Enter Password"
             filled
             clearable
+            @click:append="show3 = !show3"
           ></v-text-field>
         </v-form>
         <br />
@@ -135,11 +138,14 @@ export default {
     //Login Data//
     username: "",
     password: "",
+    show3: false,
     //Register Data//
     displayname: "",
     studentID: "",
     password2: "",
     passwordConfirm: "",
+    show1: false,
+    show2: false,
     //Alert-Login Data//
     login_alert_text: "",
     login_alert: false,
@@ -153,8 +159,6 @@ export default {
     loading: false,
     valid: true,
     form: false,
-    show1: false,
-    show2: false,
     usernameRules: [
       (v) => !!v || "Username is required",
       (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
@@ -198,7 +202,7 @@ export default {
         });
       console.log(response.data);
       if (response.data.status == true) {
-        this.$router.push("/login");
+        this.form = false;
       } else {
         console.warn(response.data.message);
         this.register_alert = true;

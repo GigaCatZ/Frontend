@@ -38,7 +38,7 @@
         ></v-text-field>
       </v-col>
 
-      <v-menu bottom min-width="200px" open-on-hover offset-y>
+      <v-menu bottom min-width="200px" open-on-hover offset-y right offset-x>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
             <v-avatar size="48">
@@ -46,7 +46,7 @@
             </v-avatar>
           </v-btn>
         </template>
-        <v-card class="mx-auto" max-width="344" outlined>
+        <v-card class="mx-auto" max-width="275" min-width="260" outlined>
           <v-list-item three-line>
             <v-list-item-content>
               <div
@@ -171,7 +171,6 @@ export default {
     ],
     searchInput: "",
     scrolled: false,
-    whoami: false,
   }),
 
   created() {
