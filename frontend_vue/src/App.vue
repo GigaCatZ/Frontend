@@ -171,7 +171,6 @@ export default {
     ],
     searchInput: "",
     scrolled: false,
-    whoami: false,
   }),
 
   created() {

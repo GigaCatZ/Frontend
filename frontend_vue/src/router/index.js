@@ -56,6 +56,13 @@ router.beforeEach(async (to, from, next) => {
       console.warn("something went wrong");
     }
   });
+  let loggedIn = store.state.status;
+  // if (to.name === "Login" && loggedIn){
+  //   next({ name: "Home" });
+  // }
+  if (to.name === "Create" && !loggedIn){
+    next({ name: "Login" });
+  }
   await store.dispatch("storedinfo", response.data);
   // console.log(response.data, store.state.status);
   next();
