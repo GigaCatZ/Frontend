@@ -54,6 +54,7 @@
           :key="tag"
           v-text="tag"
           class="ma-2"
+          small
         ></v-chip>
       </div>
     </v-card>
@@ -84,18 +85,18 @@
         <v-row align="center" v-for="t in threads" :key="t.title">
           <v-col>
             <v-card outlined>
-              <v-card-subtitle v-text="t.user"></v-card-subtitle>
+              <v-card-subtitle v-text="t.date"></v-card-subtitle>
               <v-card-title class="text-h3" v-text="t.title"></v-card-title>
+              <v-card-text v-text="t.display_name" class="ml-2"></v-card-text>
               <v-card-text>
                 <v-chip
-                  v-for="tag in popularTags"
+                  v-for="tag in t.tags"
                   :key="tag"
                   v-text="tag"
                   small
                   class="ma-1"
                 ></v-chip>
               </v-card-text>
-              <v-card-text v-text="t.text" class="ml-2"></v-card-text>
               <v-card-actions>
                 <v-btn class="ml-2 mt-3" text>
                   <v-icon class="mr-1" color="grey">mdi-thumb-up</v-icon>
@@ -132,9 +133,9 @@ export default {
         },
       ],
       popularTags: [
-        "Tag 1",
-        "Tag 2",
-        "Tag 3",
+        "asaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbb 2",
+        "ssssssssssssssssssss 3",
         "Tag 4",
         "Tag 5",
         "Tag 6",
@@ -181,15 +182,17 @@ export default {
   },
 
   created() {
-    //this.getInfo();
+    this.getInfo();
   },
 
   methods: {
     async getInfo() {
       let formData = new FormData();
-      formData.append("order", this.username);
+      formData.append("order", this.order);
       let result = await Vue.axios.post("/api/home", formData);
       this.popularTags = result.data.tags;
+      this.threads = result.data.threads;
+      console.log(this.threads);
     },
   },
 };
