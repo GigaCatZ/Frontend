@@ -177,6 +177,10 @@ export default {
       console.log(response.data);
       if (response.data.status == true) {
         this.$router.push("/");
+      }else{
+        console.warn(response.data.message);
+        this.alert = true;
+        this.alerttext = response.data.message;
       }
     },
 
@@ -198,7 +202,7 @@ export default {
       } else {
         console.warn(response.data.message);
         this.alert = true;
-        this.alerttext = response.data.message;
+        this.alerttext2 = response.data.message;
       }
     },
   },
