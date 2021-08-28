@@ -63,6 +63,17 @@ span.smaller {
         </v-row>
         <br />
       </v-card>
+
+      <br />
+      <div>
+        <tree-menu
+          v-for="node in tree"
+          :nodes="node.nodes"
+          :label="node.label"
+          :key="node.yes"
+        >
+        </tree-menu>
+      </div>
     </v-container>
   </div>
 </template>
@@ -84,6 +95,30 @@ export default {
     thread_title: "This is a placeholder for thread title",
     thread_body:
       "This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. ",
+    tree: {
+      label: "root",
+      nodes: [
+        {
+          label: "item1",
+          nodes: [
+            {
+              label: "item1.1",
+            },
+            {
+              label: "item1.2",
+              nodes: [
+                {
+                  label: "item1.2.1",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "item2",
+        },
+      ],
+    },
   }),
 
   methods: {
