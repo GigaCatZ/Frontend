@@ -4,7 +4,7 @@
       fixed
       height="80"
       dense
-      color="#9575CD"
+      color="#502b80"
       dark
       :src="require('./assets/MUIC_building.jpg')"
     >
@@ -14,7 +14,7 @@
           v-bind="props"
           :gradient="
             !$vuetify.theme.dark
-              ? 'to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)'
+              ? 'to top right, rgba(58, 0, 133,.7), rgba(25,32,72,.7)'
               : 'to top right, rgba(10,10,20,.7), rgba(25,32,72,.7)'
           "
         ></v-img>
@@ -22,13 +22,17 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <div class="d-flex align-center">
-        <v-row align="center" justify="space-around">
-          <v-btn plain :to="{ name: 'Home' }">
-            <h1>IC Courses</h1>
-          </v-btn>
-        </v-row>
-      </div>
+      <router-link :to="{ name: 'Home' }">
+        <v-btn fab icon x-large class="mr-3">
+          <v-img
+            :src="require('./assets/icc_logo_border.png')"
+            height="80"
+            width="80"
+          />
+        </v-btn>
+      </router-link>
+
+      <h1 class="white--text font-weight-bold">IC Courses</h1>
 
       <v-spacer></v-spacer>
 
