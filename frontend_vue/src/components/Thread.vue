@@ -64,23 +64,6 @@ span.smaller {
         <br />
       </v-card>
     </v-container>
-    <v-container>
-      <v-card class="mx-auto" outlined>
-        <br />
-        <v-row class="mx-4">
-          <v-col>
-            <v-card v-if="this.private.folders != null" class="mx-auto">
-              <v-card v-for="folder in this.private.folders" :key="folder.yes">
-                {{ folder.name }}
-                <v-card v-for="check in folder.checks" :key="check.yes">
-                  {{ check.name }}
-                </v-card>
-              </v-card>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-container>
   </div>
 </template>
 
@@ -101,30 +84,6 @@ export default {
     thread_title: "This is a placeholder for thread title",
     thread_body:
       "This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. ",
-    tree: {
-      label: "root",
-      nodes: [
-        {
-          label: "item1",
-          nodes: [
-            {
-              label: "item1.1",
-            },
-            {
-              label: "item1.2",
-              nodes: [
-                {
-                  label: "item1.2.1",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: "item2",
-        },
-      ],
-    },
   }),
 
   methods: {
