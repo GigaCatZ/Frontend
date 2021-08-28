@@ -138,57 +138,21 @@ export default {
           src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
         },
       ],
-      popularTags: [
-        "asaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "bbbbbbbbbbbbbbbb 2",
-        "ssssssssssssssssssss 3",
-        "Tag 4",
-        "Tag 5",
-        "Tag 6",
-        "Tag 7",
-        "Tag 8",
-        "Tag 9",
-        "Tag 10",
-      ],
-      ordering: ["RECENT", "POPULAR"],
+      popularTags: [],
+      ordering: ["RECENT", "POPULAR", "LIKES", "LATEST UPDATE"],
       order: "RECENT",
-      threads: [
-        {
-          title: "Title 1",
-          text: "example text",
-          user: "username",
-          likes: "10",
-        },
-        {
-          title: "Title 2",
-          text: "example text",
-          user: "username",
-          likes: "10",
-        },
-        {
-          title: "Title 3",
-          text: "example text",
-          user: "username",
-          likes: "10",
-        },
-        {
-          title: "Title 4",
-          text: "example text",
-          user: "username",
-          likes: "10",
-        },
-        {
-          title: "Title 5",
-          text: "example text",
-          user: "username",
-          likes: "10",
-        },
-      ],
+      threads: [],
     };
   },
 
   created() {
     this.getInfo();
+  },
+
+  watch: {
+    order: function () {
+      this.getInfo();
+    },
   },
 
   methods: {
