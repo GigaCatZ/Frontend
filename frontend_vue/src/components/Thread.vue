@@ -67,7 +67,7 @@ span.smaller {
       <br />
       <template>
         <div class="vue-app">
-          <root v-bind:folder="root"></root>
+          <root v-for="i in root" v-bind:folder="i" :key="i.index"></root>
         </div>
       </template>
     </v-container>
@@ -93,41 +93,78 @@ export default {
     thread_title: "This is a placeholder for thread title",
     thread_body:
       "This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. ",
-    root: {
-      text: "Root Folder",
-      leaf: false,
-      expanded: true,
-      children: [
-        {
-          text: "Sub Folder 1",
-          leaf: false,
-          expanded: false,
-          children: [
-            {
-              text: "Sub Sub Folder 1",
-              leaf: false,
-              expanded: false,
-              children: [
-                {
-                  text: "SomeFile1.js",
-                  leaf: true,
-                },
-              ],
-            },
-            {
-              text: "Sub Sub Folder 2",
-              leaf: false,
-              expanded: false,
-              children: [],
-            },
-            {
-              text: "SomeFile.txt",
-              leaf: true,
-            },
-          ],
-        },
-      ],
-    },
+    root: [
+      {
+        text: "Root Folder",
+        leaf: false,
+        expanded: true,
+        children: [
+          {
+            text: "Sub Folder 1",
+            leaf: false,
+            expanded: false,
+            children: [
+              {
+                text: "Sub Sub Folder 1",
+                leaf: false,
+                expanded: false,
+                children: [
+                  {
+                    text: "SomeFile1.js",
+                    leaf: true,
+                  },
+                ],
+              },
+              {
+                text: "Sub Sub Folder 2",
+                leaf: false,
+                expanded: false,
+                children: [],
+              },
+              {
+                text: "SomeFile.txt",
+                leaf: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        text: "Root Folder",
+        leaf: false,
+        expanded: true,
+        children: [
+          {
+            text: "Sub Folder 1",
+            leaf: false,
+            expanded: false,
+            children: [
+              {
+                text: "Sub Sub Folder 1",
+                leaf: false,
+                expanded: false,
+                children: [
+                  {
+                    text: "SomeFile1.js",
+                    leaf: true,
+                  },
+                ],
+              },
+              {
+                text: "Sub Sub Folder 2",
+                leaf: false,
+                expanded: false,
+                children: [],
+              },
+              {
+                text: "SomeFile.txt",
+                leaf: true,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   }),
   components: {
     Root,
