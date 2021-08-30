@@ -23,7 +23,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <router-link :to="{ name: 'Home' }">
-        <v-btn fab icon x-large class="mr-3">
+        <v-btn plain fab icon x-large class="mr-3">
           <v-img
             :src="require('./assets/icc_logo_border.png')"
             height="80"

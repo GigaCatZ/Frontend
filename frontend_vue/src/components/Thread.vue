@@ -1,75 +1,70 @@
-<style>
-/* can be taken out if we dont want to use embedded fonts */
-@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600&display=swap");
-
-h1.one {
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 35px;
-  font-family: "Titillium Web", sans-serif;
-  font-weight: 600;
-}
-
-h1.two {
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 12px;
-  color: grey;
-  font-family: "Titillium Web", sans-serif;
-  font-weight: 600;
-}
-
-p.one {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 8px;
-  font-size: 20px;
-  font-family: "Titillium Web", sans-serif;
-  font-weight: 300;
-}
-
-p.two {
-  margin: 10px;
-  font-size: 15px;
-  font-family: "Titillium Web", sans-serif;
-  font-weight: 300;
-}
-
-span.smaller {
-  font-size: 75%;
-  font-weight: normal;
-}
-</style>
-
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
       <br />
-      <v-card class="mx-auto" outlined>
+      <v-card class="mx-auto" outlined max-width="800">
         <br />
         <v-row class="mx-4">
           <v-col>
-            <h1 class="two">Thread no. {{ this.thread_id }}</h1>
-            <v-divider></v-divider>
-            <br />
-            <v-card outlined>
+            <v-row>
+              <h1 class="three">Posted by : {{ this.thread_username }}</h1>
+            </v-row>
+            <v-divider class="mt-3"></v-divider>
+            <v-card outlined class="mt-2">
               <h1 class="one">{{ thread_title }}</h1>
             </v-card>
-            <br />
-            <v-card outlined>
+            <div class="text-left">
+              <v-chip
+                v-for="tag in thread_tags"
+                :key="tag.title"
+                v-text="tag"
+                class="my-2"
+                x-small
+              ></v-chip>
+            </div>
+            <v-card outlined min-height="250" class="mb-4">
               <p class="one">{{ thread_body }}</p>
             </v-card>
           </v-col>
         </v-row>
-        <br />
       </v-card>
-
       <br />
-      <template>
-        <div class="vue-app">
-          <root v-for="i in root" v-bind:folder="i" :key="i.index"></root>
+      <v-card class="overflow-y-auto mx-auto" outlined max-width="800">
+        <div class="ma-6" v-for="comment in root" :key="comment.yes">
+          <v-card outlined>
+            <div>
+              <v-row class="mx-2 mt-2" dense>
+                <element class="three">{{ comment.username }}</element>
+              </v-row>
+              <v-row class="mx-2 mb-2" dense>
+                <element class="four">{{ comment.body }}</element>
+              </v-row>
+              <v-row class="mx-2 mb-2" dense
+                ><v-icon small @click="test()">mdi-thumb-up-outline</v-icon>
+                <v-icon small class="px-2">mdi-reply</v-icon>
+                <v-icon small>mdi-alert-octagon</v-icon>
+              </v-row>
+            </div>
+          </v-card>
+          <div v-for="subcom in comment.subcomments" :key="subcom.yes">
+            <v-card class="ml-8" outlined>
+              <div>
+                <v-row class="mx-2 mt-2" dense>
+                  <element class="three">{{ subcom.username }}</element>
+                </v-row>
+                <v-row class="mx-2 mb-2" dense>
+                  <element class="four">{{ subcom.body }}</element>
+                </v-row>
+                <v-icon small @click="test()" class="pl-2"
+                  >mdi-thumb-up-outline</v-icon
+                >
+                <v-icon small class="px-2">mdi-reply</v-icon>
+                <v-icon small>mdi-alert-octagon</v-icon>
+              </div>
+            </v-card>
+          </div>
         </div>
-      </template>
+      </v-card>
     </v-container>
   </div>
 </template>
@@ -78,7 +73,6 @@ span.smaller {
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
-import Root from "./comment/Root.vue";
 
 Vue.use(VueAxios, axios);
 export default {
@@ -95,82 +89,32 @@ export default {
       "This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. ",
     root: [
       {
-        text: "Root Folder",
-        leaf: false,
-        expanded: true,
-        children: [
+        body: "something",
+        username: "bob123",
+        subcomments: [
           {
-            text: "Sub Folder 1",
-            leaf: false,
-            expanded: false,
-            children: [
-              {
-                text: "Sub Sub Folder 1",
-                leaf: false,
-                expanded: false,
-                children: [
-                  {
-                    text: "SomeFile1.js",
-                    leaf: true,
-                  },
-                ],
-              },
-              {
-                text: "Sub Sub Folder 2",
-                leaf: false,
-                expanded: false,
-                children: [],
-              },
-              {
-                text: "SomeFile.txt",
-                leaf: true,
-              },
-            ],
+            body: "This is a long comment This is a long comment This is a long comment This is a long comment",
+            username: "bob69429",
           },
+          { body: "placehold test something", username: "ventibestboi" },
         ],
       },
       {
-        text: "Root Folder",
-        leaf: false,
-        expanded: true,
-        children: [
-          {
-            text: "Sub Folder 1",
-            leaf: false,
-            expanded: false,
-            children: [
-              {
-                text: "Sub Sub Folder 1",
-                leaf: false,
-                expanded: false,
-                children: [
-                  {
-                    text: "SomeFile1.js",
-                    leaf: true,
-                  },
-                ],
-              },
-              {
-                text: "Sub Sub Folder 2",
-                leaf: false,
-                expanded: false,
-                children: [],
-              },
-              {
-                text: "SomeFile.txt",
-                leaf: true,
-              },
-            ],
-          },
+        body: "something",
+        username: "bob123",
+        subcomments: [
+          { body: "something", username: "bob69429" },
+          { body: "placehold test something", username: "ventibestboi" },
         ],
       },
     ],
   }),
-  components: {
-    Root,
-  },
 
   methods: {
+    test() {
+      console.warn("yes");
+    },
+
     string() {
       this.thread_id = this.$route.path.substr(8);
     },
@@ -207,3 +151,5 @@ export default {
   },
 };
 </script>
+
+<style src="../css/Thread.css"></style>
