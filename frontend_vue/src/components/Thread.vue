@@ -7,14 +7,14 @@
           >Created By {{ this.thread_username }} •
           {{ this.thread_date }}</v-card-subtitle
         >
-        <v-card-title class="text-h4" v-text="thread_title"></v-card-title>
+        <v-card-title class="text-h4 ml-1" v-text="thread_title"></v-card-title>
         <v-card-text>
           <v-chip
             v-for="tag in thread_tags"
             :key="tag.title"
             v-text="tag"
-            x-small
-            class="mr-1"
+            small
+            class="mr-1 mt-2"
           ></v-chip>
         </v-card-text>
         <v-card-text class="text-h4 ml-1">{{ thread_body }}</v-card-text>
