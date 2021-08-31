@@ -139,7 +139,7 @@ export default {
         },
       ],
       popularTags: [],
-      ordering: ["RECENT", "POPULAR", "LIKES", "LATEST UPDATE"],
+      ordering: ["RECENT", "POPULAR", "LIKES"],
       order: "RECENT",
       threads: [],
     };

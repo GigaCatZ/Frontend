@@ -57,7 +57,7 @@
             >
           </v-col>
         </v-row>
-        <div class="mx-6" v-for="comment in thread_comments" :key="comment.yes">
+        <div class="mx-6 mb-2" v-for="comment in thread_comments" :key="comment.yes">
           <v-card outlined>
             <v-card-subtitle v-text="comment.sender"></v-card-subtitle>
             <v-card-text class="ml-1">{{ comment.body }}</v-card-text>
@@ -130,31 +130,10 @@ export default {
     thread_tags: [],
     thread_username: "",
     thread_date: "",
-    thread_title: "This is a placeholder for thread title",
-    thread_body:
-      "This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. ",
+    thread_title: "",
+    thread_body: "",
     comment_thread: "",
-    thread_comments: [
-      {
-        body: "something",
-        username: "bob123",
-        subcomments: [
-          {
-            body: "This is a long comment This is a long comment This is a long comment This is a long comment",
-            username: "bob69429",
-          },
-          { body: "placehold test something", username: "ventibestboi" },
-        ],
-      },
-      {
-        body: "something",
-        username: "bob123",
-        subcomments: [
-          { body: "something", username: "bob69429" },
-          { body: "placehold test something", username: "ventibestboi" },
-        ],
-      },
-    ],
+    thread_comments: [],
   }),
 
   methods: {
@@ -188,7 +167,7 @@ export default {
       this.thread_comments = response.data.comments;
       this.thread_comment_count = response.data.comments.length;
       if (response.data.status == false) {
-        this.$router.push("/");
+        await this.$router.push("/");
       }
     },
 
@@ -209,8 +188,9 @@ export default {
       if (response.data.status == false) {
         console.warn("Failed to send comment");
       } else {
-        this.getalldata();
+        await this.getalldata();
       }
+      this.comment_thread = "";
     },
   },
 
