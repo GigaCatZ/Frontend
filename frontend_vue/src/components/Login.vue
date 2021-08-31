@@ -38,6 +38,7 @@
             @keydown.enter="login"
             @click:append="show3 = !show3"
           ></v-text-field>
+          <v-checkbox v-model="remember" label="Keep me signed in"></v-checkbox>
         </v-form>
         <br />
         <v-row cols="12" sm="6" md="4" justify="space-around">
@@ -152,6 +153,7 @@ export default {
     username: "",
     password: "",
     show3: false,
+    remember: false,
     //Register Data//
     displayname: "",
     studentID: "",
@@ -185,6 +187,12 @@ export default {
       let formData = new FormData();
       formData.append("sky_username", this.username);
       formData.append("password", this.password);
+      formData.append("remember", this.remember);
+      // if (this.remember == false) {
+      //   formData.append("remember", 0);
+      // } else {
+      //   formData.append("remember", 1);
+      // }
       const response = await axios
         .post("/api/login", formData)
         .catch((error) => {
