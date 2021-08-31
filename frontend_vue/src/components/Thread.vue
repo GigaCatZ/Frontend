@@ -13,11 +13,11 @@
             v-for="tag in thread_tags"
             :key="tag.title"
             v-text="tag"
-            x-small
+            small
             class="mr-1"
           ></v-chip>
         </v-card-text>
-        <v-card-text class="text-h4 ml-1">{{ thread_body }}</v-card-text>
+        <v-card-text class="text-h5 ml-1">{{ thread_body }}</v-card-text>
         <v-card-actions>
           <v-btn class="ml-2 mt-3 mr-6" text>
             <v-icon class="mr-5" color="grey">mdi-thumb-up-outline</v-icon>
@@ -25,8 +25,8 @@
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn class="ml-2 mt-3 mr-6" text>
-            <v-icon class="mr-1" color="grey">mdi-message-outline</v-icon>
-            <span v-text="thread_likes"></span>
+            <v-icon class="mr-5" color="grey">mdi-message-outline</v-icon>
+            <span v-text="thread_comment_count"></span>
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn class="ml-2 mt-3 mr-6" text>
@@ -50,35 +50,45 @@
         </v-row>
         <div class="mx-6" v-for="comment in root" :key="comment.yes">
           <v-card outlined>
-            <div>
-              <v-row class="mx-2 mt-2" dense>
-                <element class="three">{{ comment.username }}</element>
-              </v-row>
-              <v-row class="mx-2 mb-2" dense>
-                <element class="four">{{ comment.body }}</element>
-              </v-row>
-              <v-row class="mx-2 mb-2" dense
-                ><v-icon small @click="test()">mdi-thumb-up-outline</v-icon>
-                <v-icon small class="px-2">mdi-reply</v-icon>
-                <v-icon small>mdi-alert-octagon</v-icon>
-              </v-row>
-            </div>
+            <v-card-subtitle v-text="comment.username"></v-card-subtitle>
+            <v-card-text class="ml-1">{{ comment.body }}</v-card-text>
+            <v-card-actions>
+              <v-btn small class="ml-2 mr-6" text>
+                <v-icon small class="mr-5" color="grey">mdi-thumb-up-outline</v-icon>
+                <span v-text="comment.likes"></span>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn small class="ml-2 mr-6" text>
+                <v-icon small class="mr-5" color="grey">mdi-reply</v-icon>
+                <span>Reply</span>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn small class="ml-2 mr-6" text>
+                <v-icon small class="mr-1" color="grey">mdi-alert-octagon</v-icon>
+                <span>Report</span>
+              </v-btn>
+            </v-card-actions>
           </v-card>
           <div v-for="subcom in comment.subcomments" :key="subcom.yes">
-            <div class="ml-10 my-5" outlined>
-              <div>
-                <v-row class="mx-2 mt-2" dense>
-                  <element class="three">{{ subcom.username }}</element>
-                </v-row>
-                <v-row class="mx-2 mb-2" dense>
-                  <element class="four">{{ subcom.body }}</element>
-                </v-row>
-                <v-icon small @click="test()" class="pl-2"
-                  >mdi-thumb-up-outline</v-icon
-                >
-                <v-icon small class="px-2">mdi-reply</v-icon>
-                <v-icon small>mdi-alert-octagon</v-icon>
-              </div>
+            <div class="ml-10">
+              <v-card-subtitle v-text="subcom.username"></v-card-subtitle>
+              <v-card-text class="ml-1">{{ subcom.body }}</v-card-text>
+              <v-card-actions>
+                <v-btn small class="ml-2 mr-6" text>
+                  <v-icon small class="mr-5" color="grey">mdi-thumb-up-outline</v-icon>
+                  <span v-text="subcom.likes"></span>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn small class="ml-2 mr-6" text>
+                  <v-icon small class="mr-5" color="grey">mdi-reply</v-icon>
+                  <span>Reply</span>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn small class="ml-2 mr-6" text>
+                  <v-icon small class="mr-1" color="grey">mdi-alert-octagon</v-icon>
+                  <span>Report</span>
+                </v-btn>
+              </v-card-actions>
             </div>
           </div>
         </div>
@@ -98,9 +108,10 @@ export default {
   data: () => ({
     thread_status: true,
     thread_likes: 0,
-    thread_comments: 0,
+    thread_comment_count: 0,
     thread_id: "",
     thread_tags: [],
+    thread_comments: [],
     thread_username: "",
     thread_date: "",
     thread_title: "This is a placeholder for thread title",
@@ -157,8 +168,8 @@ export default {
       this.thread_date = response.data.timestamp;
       this.thread_status = response.data.status;
       this.thread_likes = response.data.likes;
-      this.thread_comment_count = response.comment_count;
       this.thread_comments = response.data.comments;
+      this.thread_comment_count = response.data.comments.length;
       if (response.data.status == false) {
         this.$router.push("/");
       }
