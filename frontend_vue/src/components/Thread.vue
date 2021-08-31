@@ -37,13 +37,22 @@
       </v-card>
 
       <br />
-      <v-card class="overflow-y-auto mx-auto" outlined max-width="800">
+      <v-card class="overflow-y-auto mx-auto pb-6" outlined max-width="800"> 
         <v-row class="mx-6 mt-6" no-gutters>
           <v-col cols="11">
-            <v-text-field label="Comment" outlined clearable></v-text-field>
+            <v-text-field
+              label="Comment"
+              outlined
+              clearable
+              v-model="comment_thread"
+            ></v-text-field>
           </v-col>
           <v-col cols="1">
-            <v-btn text height="55" color="purple darken-3"
+            <v-btn
+              text
+              height="55"
+              color="purple darken-3"
+              @click="addcomment()"
               ><v-icon large>mdi-send</v-icon></v-btn
             >
           </v-col>
@@ -106,6 +115,7 @@ export default {
     thread_title: "This is a placeholder for thread title",
     thread_body:
       "This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. ",
+    comment_thread: "",
     root: [
       {
         body: "something",
@@ -158,9 +168,30 @@ export default {
       this.thread_status = response.data.status;
       this.thread_likes = response.data.likes;
       this.thread_comment_count = response.comment_count;
-      this.thread_comments = response.data.comments;
+      this.root = response.data.comments;
       if (response.data.status == false) {
         this.$router.push("/");
+      }
+    },
+
+    async addcomment() {
+      let formData = new FormData();
+      formData.append("thread_id", this.thread_id);
+      formData.append("username", this.$store.state.login_skyusername);
+      formData.append("comment_body", this.comment_thread);
+      // formData.append("parent_id", this.thread_id);
+      const response = await axios
+        .post("/api/new_comment", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data);
+      if (response.data.status == false) {
+        console.warn("Failed to send comment");
+      } else {
+        this.getalldata();
       }
     },
   },
