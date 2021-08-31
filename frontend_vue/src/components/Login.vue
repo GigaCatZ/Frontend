@@ -23,6 +23,7 @@
             label="Enter Username"
             filled
             clearable
+            @keydown.enter="login"
           ></v-text-field>
           <v-spacer></v-spacer>
           <!--password field-->
@@ -34,6 +35,7 @@
             label="Enter Password"
             filled
             clearable
+            @keydown.enter="login"
             @click:append="show3 = !show3"
           ></v-text-field>
         </v-form>
