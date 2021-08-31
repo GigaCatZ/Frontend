@@ -30,7 +30,17 @@
       </v-card>
       <br />
       <v-card class="overflow-y-auto mx-auto" outlined max-width="800">
-        <div class="ma-6" v-for="comment in root" :key="comment.yes">
+        <v-row class="mx-6 mt-6" no-gutters>
+          <v-col cols="11">
+            <v-text-field label="Comment" outlined clearable></v-text-field>
+          </v-col>
+          <v-col cols="1">
+            <v-btn text height="55" color="purple darken-3"
+              ><v-icon large>mdi-send</v-icon></v-btn
+            >
+          </v-col>
+        </v-row>
+        <div class="mx-6" v-for="comment in root" :key="comment.yes">
           <v-card outlined>
             <div>
               <v-row class="mx-2 mt-2" dense>
@@ -47,7 +57,7 @@
             </div>
           </v-card>
           <div v-for="subcom in comment.subcomments" :key="subcom.yes">
-            <v-card class="ml-8" outlined>
+            <div class="ml-10 my-5" outlined>
               <div>
                 <v-row class="mx-2 mt-2" dense>
                   <element class="three">{{ subcom.username }}</element>
@@ -61,7 +71,7 @@
                 <v-icon small class="px-2">mdi-reply</v-icon>
                 <v-icon small>mdi-alert-octagon</v-icon>
               </div>
-            </v-card>
+            </div>
           </div>
         </div>
       </v-card>
@@ -129,7 +139,7 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
+      console.log(response.data.comments);
       this.thread_id = response.data.thread_id;
       this.thread_title = response.data.title;
       this.thread_body = response.data.body;
@@ -138,7 +148,7 @@ export default {
       this.thread_date = response.data.timestamp;
       this.thread_status = response.data.status;
       this.thread_like = response.data.like;
-      this.thread_comments = response.data.comments;
+      this.root_ = response.data.comments;
       if (response.data.status == false) {
         this.$router.push("/");
       }
