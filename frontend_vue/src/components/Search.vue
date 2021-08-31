@@ -11,21 +11,9 @@ import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
 export default {
   name: "Search",
-  data: () => ({
-    id: "",
-  }),
-  methods: {
-    string() {
-      this.id = this.$route.path.substr(8);
-    },
-    test() {
-      console.warn("yes");
-    },
-  },
-  created() {
-    this.test();
-    this.string();
-  },
+  data: () => ({}),
+  methods: {},
+  created() {},
 };
 </script>
 

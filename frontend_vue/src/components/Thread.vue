@@ -57,7 +57,11 @@
             >
           </v-col>
         </v-row>
-        <div class="mx-6 mb-2" v-for="comment in thread_comments" :key="comment.yes">
+        <div
+          class="mx-6 mb-2"
+          v-for="comment in thread_comments"
+          :key="comment.yes"
+        >
           <v-card outlined>
             <v-card-subtitle v-text="comment.sender"></v-card-subtitle>
             <v-card-text class="ml-1">{{ comment.body }}</v-card-text>
@@ -69,7 +73,12 @@
                 <span v-text="comment.likes"></span>
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn small class="ml-2 mr-6" text>
+              <v-btn
+                small
+                class="ml-2 mr-6"
+                text
+                @click="comment.reply = !comment.reply"
+              >
                 <v-icon small class="mr-5" color="grey">mdi-reply</v-icon>
                 <span>Reply</span>
               </v-btn>
@@ -81,10 +90,30 @@
                 <span>Report</span>
               </v-btn>
             </v-card-actions>
+            <v-row class="mx-6 mt-6" no-gutters v-if="comment.reply == true">
+              <v-col cols="11">
+                <v-text-field
+                  label="Comment"
+                  outlined
+                  clearable
+                  dense
+                  v-model="comment_reply"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="1">
+                <v-btn
+                  text
+                  height="41"
+                  color="purple darken-3"
+                  @click="addreply(comment.comment_id, comment.sender)"
+                  ><v-icon large>mdi-send</v-icon></v-btn
+                >
+              </v-col>
+            </v-row>
           </v-card>
-          <div v-for="subcom in comment.subcomments" :key="subcom.yes">
+          <div v-for="subcom in comment.replies" :key="subcom.yes">
             <div class="ml-10">
-              <v-card-subtitle v-text="subcom.username"></v-card-subtitle>
+              <v-card-subtitle v-text="subcom.sender"></v-card-subtitle>
               <v-card-text class="ml-1">{{ subcom.body }}</v-card-text>
               <v-card-actions>
                 <v-btn small class="ml-2 mr-6" text>
@@ -94,7 +123,12 @@
                   <span v-text="subcom.likes"></span>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn small class="ml-2 mr-6" text>
+                <v-btn
+                  small
+                  class="ml-2 mr-6"
+                  text
+                  @click="subcom.reply = !subcom.reply"
+                >
                   <v-icon small class="mr-5" color="grey">mdi-reply</v-icon>
                   <span>Reply</span>
                 </v-btn>
@@ -106,6 +140,26 @@
                   <span>Report</span>
                 </v-btn>
               </v-card-actions>
+              <v-row class="mx-6 mt-6" no-gutters v-if="subcom.reply == true">
+                <v-col cols="11">
+                  <v-text-field
+                    label="Comment"
+                    outlined
+                    clearable
+                    dense
+                    v-model="comment_reply"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="1">
+                  <v-btn
+                    text
+                    height="41"
+                    color="purple darken-3"
+                    @click="addreply(subcom.comment_id, subcom.sender)"
+                    ><v-icon large>mdi-send</v-icon></v-btn
+                  >
+                </v-col>
+              </v-row>
             </div>
           </div>
         </div>
@@ -133,18 +187,11 @@ export default {
     thread_title: "",
     thread_body: "",
     comment_thread: "",
+    comment_reply: "",
     thread_comments: [],
   }),
 
   methods: {
-    test() {
-      console.warn("yes");
-    },
-
-    string() {
-      this.thread_id = this.$route.path.substr(8);
-    },
-
     async getalldata() {
       let formData = new FormData();
       formData.append("thread_id", this.thread_id);
@@ -169,6 +216,8 @@ export default {
       if (response.data.status == false) {
         await this.$router.push("/");
       }
+      this.comment_thread = "";
+      this.comment_reply = "";
     },
 
     async addcomment() {
@@ -176,7 +225,31 @@ export default {
       formData.append("thread_id", this.thread_id);
       formData.append("username", this.$store.state.login_skyusername);
       formData.append("comment_body", this.comment_thread);
-      // formData.append("parent_id", this.thread_id);
+      // formData.append("comment_id", this.comment_id);
+      const response = await axios
+        .post("/api/new_comment", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data.comments);
+      if (response.data.status == false) {
+        console.warn("Failed to send comment");
+      } else {
+        await this.getalldata();
+      }
+    },
+
+    async addreply(stored_id, stored_username) {
+      let formData = new FormData();
+      formData.append("thread_id", this.thread_id);
+      formData.append("username", this.$store.state.login_skyusername);
+      formData.append(
+        "comment_body",
+        `@${stored_username} ${this.comment_reply}`
+      );
+      formData.append("parent_id", stored_id);
       const response = await axios
         .post("/api/new_comment", formData)
         .catch((error) => {
@@ -190,7 +263,6 @@ export default {
       } else {
         await this.getalldata();
       }
-      this.comment_thread = "";
     },
   },
 
