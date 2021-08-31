@@ -2,6 +2,9 @@
   <div>
     <v-container>
       <br />
+      <br />
+      <br />
+      <br />
       <!-- FAQ by mods -->
       <v-card class="mx-auto" outlined>
         <br />
@@ -15,7 +18,8 @@
 
             <br />
 
-            <v-row v-for="q in ajarnQ" :key="q.question" class="mx-2">
+            <!-- Where the actual questions are -->
+            <v-row v-for="(q, index) in ajarnQ" :key="q.question" class="mx-2">
               <v-col>
                 <h2 class="faq">
                   {{ q.question }}
@@ -24,6 +28,7 @@
                 <p v-for="ans in q.answer" :key="ans" class="faq">
                   {{ ans }}
                 </p>
+                <v-divider v-if="index != ajarnQ.length - 1"></v-divider>
               </v-col>
             </v-row>
           </v-col>
@@ -47,7 +52,12 @@
 
             <br />
 
-            <v-row v-for="question in topQ" :key="question.title" class="mx-2">
+            <!-- Actual questions -->
+            <v-row
+              v-for="(question, index) in topQ"
+              :key="question.title"
+              class="mx-2"
+            >
               <v-col>
                 <h2 class="faq">
                   {{ question.title }}
@@ -59,6 +69,7 @@
                 <p class="faq">
                   {{ question.answer }}
                 </p>
+                <v-divider v-if="index != topQ.length - 1"></v-divider>
               </v-col>
             </v-row>
           </v-col>
@@ -102,34 +113,20 @@ export default {
           ],
         },
       ],
-      topQ: [
-        {
-          title: "Dynamic Question 1",
-          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
-          answer: "Well, you know, monke.",
-        },
-        {
-          title: "Dynamic Question 2",
-          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
-          answer: "Well, you know, monke.",
-        },
-        {
-          title: "Dynamic Question 3",
-          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
-          answer: "Well, you know, monke.",
-        },
-        {
-          title: "Dynamic Question 4",
-          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
-          answer: "Well, you know, monke.",
-        },
-        {
-          title: "Dynamic Question 5",
-          body: "This is a long-ass paragraph that I'm too lazy to type out :P",
-          answer: "Well, you know, monke.",
-        },
-      ],
+      topQ: [],
     };
+  },
+
+  created() {
+    this.getTopQ();
+  },
+
+  methods: {
+    async getTopQ() {
+      let result = await Vue.axios.get("/api/faq");
+      this.topQ = result.data.response;
+      console.log(result.response);
+    },
   },
 };
 </script>
