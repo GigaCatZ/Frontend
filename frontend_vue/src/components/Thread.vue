@@ -3,31 +3,39 @@
     <v-container>
       <br />
       <v-card class="mx-auto" outlined max-width="800">
-        <br />
-        <v-row class="mx-4">
-          <v-col>
-            <v-row>
-              <h1 class="three">Posted by : {{ this.thread_username }}</h1>
-            </v-row>
-            <v-divider class="mt-3"></v-divider>
-            <v-card outlined class="mt-2">
-              <h1 class="one">{{ thread_title }}</h1>
-            </v-card>
-            <div class="text-left">
-              <v-chip
-                v-for="tag in thread_tags"
-                :key="tag.title"
-                v-text="tag"
-                class="my-2"
-                x-small
-              ></v-chip>
-            </div>
-            <v-card outlined min-height="250" class="mb-4">
-              <p class="one">{{ thread_body }}</p>
-            </v-card>
-          </v-col>
-        </v-row>
+        <v-card-subtitle
+          >Created By {{ this.thread_username }} •
+          {{ this.thread_date }}</v-card-subtitle
+        >
+        <v-card-title class="text-h4" v-text="thread_title"></v-card-title>
+        <v-card-text>
+          <v-chip
+            v-for="tag in thread_tags"
+            :key="tag.title"
+            v-text="tag"
+            x-small
+            class="mr-1"
+          ></v-chip>
+        </v-card-text>
+        <v-card-text class="text-h4 ml-1">{{ thread_body }}</v-card-text>
+        <v-card-actions>
+          <v-btn class="ml-2 mt-3 mr-6" text>
+            <v-icon class="mr-5" color="grey">mdi-thumb-up-outline</v-icon>
+            <span v-text="thread_likes"></span>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn class="ml-2 mt-3 mr-6" text>
+            <v-icon class="mr-1" color="grey">mdi-message-outline</v-icon>
+            <span v-text="thread_likes"></span>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn class="ml-2 mt-3 mr-6" text>
+            <v-icon class="mr-1" color="grey">mdi-alert-octagon</v-icon>
+            <span>Report</span>
+          </v-btn>
+        </v-card-actions>
       </v-card>
+
       <br />
       <v-card class="overflow-y-auto mx-auto" outlined max-width="800">
         <div class="ma-6" v-for="comment in root" :key="comment.yes">
@@ -79,7 +87,8 @@ export default {
   name: "Thread",
   data: () => ({
     thread_status: true,
-    thread_like: 0,
+    thread_likes: 0,
+    thread_comments: 0,
     thread_id: "",
     thread_tags: [],
     thread_username: "",
@@ -137,7 +146,8 @@ export default {
       this.thread_tags = response.data.tags;
       this.thread_date = response.data.timestamp;
       this.thread_status = response.data.status;
-      this.thread_like = response.data.like;
+      this.thread_likes = response.data.likes;
+      this.thread_comment_count = response.comment_count;
       this.thread_comments = response.data.comments;
       if (response.data.status == false) {
         this.$router.push("/");
