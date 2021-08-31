@@ -38,7 +38,11 @@
             @keydown.enter="login"
             @click:append="show3 = !show3"
           ></v-text-field>
-          <v-checkbox v-model="remember" label="Keep me signed in"></v-checkbox>
+          <v-checkbox
+            color="#1a0086"
+            v-model="remember"
+            label="Stay Signed In"
+          ></v-checkbox>
         </v-form>
         <br />
         <v-row cols="12" sm="6" md="4" justify="space-around">
