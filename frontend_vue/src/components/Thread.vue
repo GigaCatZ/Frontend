@@ -194,7 +194,7 @@ export default {
   methods: {
     async getalldata() {
       let formData = new FormData();
-      formData.append("thread_id", this.thread_id);
+      formData.append("thread_id", this.$route.params.id);
       const response = await axios
         .post("/api/getthread", formData)
         .catch((error) => {
@@ -267,7 +267,6 @@ export default {
   },
 
   created() {
-    this.string();
     this.getalldata();
   },
 };
