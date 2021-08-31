@@ -43,6 +43,7 @@
           class="mx-auto"
           clearable
           prepend-icon="mdi-magnify"
+          @keydown.enter="searchbar()"
         ></v-text-field>
       </v-col>
 
@@ -183,6 +184,10 @@ export default {
   },
 
   methods: {
+    searchbar() {
+      console.warn(this.searchInput);
+      this.$router.push("/search/" + this.searchInput);
+    },
     onScroll(e) {
       if (typeof window === "undefined") return;
       const top = window.pageYOffset || e.target.scrollTop || 0;

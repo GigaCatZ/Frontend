@@ -12,6 +12,8 @@ import Help from "../components/Help";
 import Create from "../components/Create";
 import store from "../store";
 import Thread from "../components/Thread";
+import Search from "../components/Search";
+// import { search } from "core-js/fn/symbol";
 
 // Protocol to avoid redirection duplication
 const originalPush = VueRouter.prototype.push;
@@ -52,6 +54,11 @@ const routes = [
     name: "Thread",
     component: Thread,
   },
+  {
+    path: "/search/:search",
+    name: "Search",
+    component: Search,
+  },
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });
@@ -64,7 +71,15 @@ router.beforeEach(async (to, from, next) => {
   });
   await store.dispatch("storedinfo", response.data);
   let loggedIn = store.state.status;
-  let router_list = ["Login", "Thread", "Create", "Help", "FAQ", "Home"];
+  let router_list = [
+    "Login",
+    "Thread",
+    "Create",
+    "Help",
+    "FAQ",
+    "Home",
+    "Search",
+  ];
   if ((to.name === "Login" && loggedIn) || !router_list.includes(to.name)) {
     next({ name: "Home" });
   } else if (to.name === "Create" && !loggedIn) {
