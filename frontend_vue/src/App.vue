@@ -152,7 +152,7 @@
       fixed
       bottom
       right
-      color="#2a0094"
+      color="purple darken-3"
       @click="toTop"
     >
       <v-icon>mdi-chevron-up</v-icon>

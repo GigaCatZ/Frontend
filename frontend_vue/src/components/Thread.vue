@@ -3,65 +3,110 @@
     <v-container>
       <br />
       <v-card class="mx-auto" outlined max-width="800">
-        <br />
-        <v-row class="mx-4">
-          <v-col>
-            <v-row>
-              <h1 class="three">Posted by : {{ this.thread_username }}</h1>
-            </v-row>
-            <v-divider class="mt-3"></v-divider>
-            <v-card outlined class="mt-2">
-              <h1 class="one">{{ thread_title }}</h1>
-            </v-card>
-            <div class="text-left">
-              <v-chip
-                v-for="tag in thread_tags"
-                :key="tag.title"
-                v-text="tag"
-                class="my-2"
-                x-small
-              ></v-chip>
-            </div>
-            <v-card outlined min-height="250" class="mb-4">
-              <p class="one">{{ thread_body }}</p>
-            </v-card>
+        <v-card-subtitle
+          >Created By {{ this.thread_username }} •
+          {{ this.thread_date }}</v-card-subtitle
+        >
+        <v-card-title class="text-h4" v-text="thread_title"></v-card-title>
+        <v-card-text>
+          <v-chip
+            v-for="tag in thread_tags"
+            :key="tag.title"
+            v-text="tag"
+            small
+            class="mr-1"
+          ></v-chip>
+        </v-card-text>
+        <v-card-text class="text-h5 ml-1">{{ thread_body }}</v-card-text>
+        <v-card-actions>
+          <v-btn class="ml-2 mt-3 mr-6" text>
+            <v-icon class="mr-5" color="grey">mdi-thumb-up-outline</v-icon>
+            <span v-text="thread_likes"></span>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn class="ml-2 mt-3 mr-6" text>
+            <v-icon class="mr-5" color="grey">mdi-message-outline</v-icon>
+            <span v-text="thread_comment_count"></span>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn class="ml-2 mt-3 mr-6" text>
+            <v-icon class="mr-1" color="grey">mdi-alert-octagon</v-icon>
+            <span>Report</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
+      <br />
+      <v-card class="overflow-y-auto mx-auto pb-6" outlined max-width="800">
+        <v-row class="mx-6 mt-6" no-gutters>
+          <v-col cols="11">
+            <v-text-field
+              label="Comment"
+              outlined
+              clearable
+              v-model="comment_thread"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="1">
+            <v-btn
+              text
+              height="55"
+              color="purple darken-3"
+              @click="addcomment()"
+              ><v-icon large>mdi-send</v-icon></v-btn
+            >
           </v-col>
         </v-row>
-      </v-card>
-      <br />
-      <v-card class="overflow-y-auto mx-auto" outlined max-width="800">
-        <div class="ma-6" v-for="comment in root" :key="comment.yes">
+        <div class="mx-6" v-for="comment in thread_comments" :key="comment.yes">
           <v-card outlined>
-            <div>
-              <v-row class="mx-2 mt-2" dense>
-                <element class="three">{{ comment.username }}</element>
-              </v-row>
-              <v-row class="mx-2 mb-2" dense>
-                <element class="four">{{ comment.body }}</element>
-              </v-row>
-              <v-row class="mx-2 mb-2" dense
-                ><v-icon small @click="test()">mdi-thumb-up-outline</v-icon>
-                <v-icon small class="px-2">mdi-reply</v-icon>
-                <v-icon small>mdi-alert-octagon</v-icon>
-              </v-row>
-            </div>
-          </v-card>
-          <div v-for="subcom in comment.subcomments" :key="subcom.yes">
-            <v-card class="ml-8" outlined>
-              <div>
-                <v-row class="mx-2 mt-2" dense>
-                  <element class="three">{{ subcom.username }}</element>
-                </v-row>
-                <v-row class="mx-2 mb-2" dense>
-                  <element class="four">{{ subcom.body }}</element>
-                </v-row>
-                <v-icon small @click="test()" class="pl-2"
+            <v-card-subtitle v-text="comment.sender"></v-card-subtitle>
+            <v-card-text class="ml-1">{{ comment.body }}</v-card-text>
+            <v-card-actions>
+              <v-btn small class="ml-2 mr-6" text>
+                <v-icon small class="mr-5" color="grey"
                   >mdi-thumb-up-outline</v-icon
                 >
-                <v-icon small class="px-2">mdi-reply</v-icon>
-                <v-icon small>mdi-alert-octagon</v-icon>
-              </div>
-            </v-card>
+                <span v-text="comment.likes"></span>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn small class="ml-2 mr-6" text>
+                <v-icon small class="mr-5" color="grey">mdi-reply</v-icon>
+                <span>Reply</span>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn small class="ml-2 mr-6" text>
+                <v-icon small class="mr-1" color="grey"
+                  >mdi-alert-octagon</v-icon
+                >
+                <span>Report</span>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <div v-for="subcom in comment.subcomments" :key="subcom.yes">
+            <div class="ml-10">
+              <v-card-subtitle v-text="subcom.username"></v-card-subtitle>
+              <v-card-text class="ml-1">{{ subcom.body }}</v-card-text>
+              <v-card-actions>
+                <v-btn small class="ml-2 mr-6" text>
+                  <v-icon small class="mr-5" color="grey"
+                    >mdi-thumb-up-outline</v-icon
+                  >
+                  <span v-text="subcom.likes"></span>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn small class="ml-2 mr-6" text>
+                  <v-icon small class="mr-5" color="grey">mdi-reply</v-icon>
+                  <span>Reply</span>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn small class="ml-2 mr-6" text>
+                  <v-icon small class="mr-1" color="grey"
+                    >mdi-alert-octagon</v-icon
+                  >
+                  <span>Report</span>
+                </v-btn>
+              </v-card-actions>
+            </div>
           </div>
         </div>
       </v-card>
@@ -79,7 +124,8 @@ export default {
   name: "Thread",
   data: () => ({
     thread_status: true,
-    thread_like: 0,
+    thread_likes: 0,
+    thread_comment_count: 0,
     thread_id: "",
     thread_tags: [],
     thread_username: "",
@@ -87,7 +133,8 @@ export default {
     thread_title: "This is a placeholder for thread title",
     thread_body:
       "This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. This is a placeholder for body. ",
-    root: [
+    comment_thread: "",
+    thread_comments: [
       {
         body: "something",
         username: "bob123",
@@ -129,7 +176,7 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
+      console.log(response.data.comments);
       this.thread_id = response.data.thread_id;
       this.thread_title = response.data.title;
       this.thread_body = response.data.body;
@@ -137,10 +184,32 @@ export default {
       this.thread_tags = response.data.tags;
       this.thread_date = response.data.timestamp;
       this.thread_status = response.data.status;
-      this.thread_like = response.data.like;
+      this.thread_likes = response.data.likes;
       this.thread_comments = response.data.comments;
+      this.thread_comment_count = response.data.comments.length;
       if (response.data.status == false) {
         this.$router.push("/");
+      }
+    },
+
+    async addcomment() {
+      let formData = new FormData();
+      formData.append("thread_id", this.thread_id);
+      formData.append("username", this.$store.state.login_skyusername);
+      formData.append("comment_body", this.comment_thread);
+      // formData.append("parent_id", this.thread_id);
+      const response = await axios
+        .post("/api/new_comment", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data);
+      if (response.data.status == false) {
+        console.warn("Failed to send comment");
+      } else {
+        this.getalldata();
       }
     },
   },
