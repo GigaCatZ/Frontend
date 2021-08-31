@@ -36,7 +36,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-col cols="12" sm="6" md="4">
+      <v-col v-if="this.$route.name !== 'Search'" cols="12" sm="6" md="4">
         <v-text-field
           v-model="searchInput"
           label="Search here"
@@ -187,6 +187,7 @@ export default {
     searchbar() {
       console.warn(this.searchInput);
       this.$router.push("/search/" + this.searchInput);
+      this.searchInput = "";
     },
     onScroll(e) {
       if (typeof window === "undefined") return;
