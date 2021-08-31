@@ -3,16 +3,29 @@
     <br />
     <v-card outlined class="mx-auto mb-2">
       <v-row align="center">
-        <v-col cols="8"
-          ><v-text-field
+        <v-col cols="8" class="ml-5">
+          <v-autocomplete
             v-model="keywords"
+            :items="selectlist"
+            v-if="filter === 'tags'"
+            hide-details
+            hide-selected
+            single-line
+            dense
+            outlined
+            clearable
+            small-chips
+            @input="search"
+          ></v-autocomplete>
+          <v-text-field
+            v-model="keywords"
+            v-else
             hide-details
             label="Search keywords"
             flat
             solo
             clearable
             prepend-icon="mdi-magnify"
-            class="ml-5"
             @keydown.enter="search"
           >
           </v-text-field>
@@ -98,6 +111,7 @@ export default {
     filtering: ["title", "tags", "display_name"],
     filter: "title",
     threads: [],
+    selectlist: [],
   }),
   methods: {
     getKeywords() {
@@ -120,6 +134,15 @@ export default {
     search() {
       this.$router.push("/search/" + this.keywords);
     },
+    async extractlist() {
+      const response = await axios.get("/api/create_thread").catch((error) => {
+        if (error.response) {
+          console.warn("something went wrong");
+        }
+      });
+      console.log(response);
+      this.selectlist = response.data.courses;
+    },
   },
 
   watch: {
@@ -132,6 +155,7 @@ export default {
   },
 
   created() {
+    this.extractlist();
     this.getKeywords();
     this.browse();
   },
