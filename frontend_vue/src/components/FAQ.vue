@@ -2,9 +2,6 @@
   <div>
     <v-container>
       <br />
-      <br />
-      <br />
-      <br />
       <!-- FAQ by mods -->
       <v-card class="mx-auto" outlined>
         <br />
