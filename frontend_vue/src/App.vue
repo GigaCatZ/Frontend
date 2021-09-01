@@ -84,6 +84,13 @@
               Log in
             </v-btn>
             <v-btn v-else text @click="logout"> Logout </v-btn>
+            <v-btn
+              v-if="this.$store.state.status"
+              text
+              :to="{ name: 'ChangeInformation' }"
+            >
+              Edit Account</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-menu>
