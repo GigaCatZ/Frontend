@@ -87,7 +87,11 @@ router.beforeEach(async (to, from, next) => {
     "Search",
     "ChangeInformation",
   ];
-  if ((to.name === "Login" && loggedIn) || !router_list.includes(to.name)) {
+  if (
+    (to.name === "Login" && loggedIn) ||
+    !router_list.includes(to.name) ||
+    (to.name === "ChangeInformation" && !loggedIn)
+  ) {
     next({ name: "Home" });
   } else if (to.name === "Create" && !loggedIn) {
     next({ name: "Login" });

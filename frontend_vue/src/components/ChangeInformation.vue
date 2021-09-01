@@ -58,6 +58,17 @@
               @click:append="show_password = !show_password"
               clearable
             ></v-text-field>
+            <v-text-field
+              v-model="confirm_new_password"
+              :rules="[passwordConfirmationRule]"
+              :type="show_password ? 'text' : 'password'"
+              outlined
+              label="Confirm new password"
+              color="#2a0094"
+              align="center"
+              @click:append="show_password = !show_password"
+              clearable
+            ></v-text-field>
           </v-form>
         </v-col>
       </v-row>
@@ -71,6 +82,15 @@
         >
       </v-card-actions>
     </v-card>
+    <v-snackbar v-model="display_dialog" :vertical="true">
+      Please confirm your new password
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="display_dialog = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -81,18 +101,25 @@ export default {
   name: "ChangePassword",
   data: () => ({
     valid: true,
+    display_dialog: false,
     check_display_name_exit: false,
     display_name: store.state.login_displayname,
     show_password: false,
     show_current_password: false,
     current_password: "",
     new_password: "",
+    confirm_new_password: "",
     display_name_rule: [
       (v) => !!v || "Display name is required",
       (v) =>
         (v && v.length <= 25) || "Display name must be less than 25 characters",
     ],
     password_rule: [(v) => !!v || "Password can not be empty"],
+    confirm_password_rule: [
+      () =>
+        this.confirm_new_password === this.new_password ||
+        "New password must match",
+    ],
   }),
   methods: {
     async checkUser() {
@@ -108,7 +135,17 @@ export default {
       this.check_display_name_exit = response.data.status;
     },
     async sendUserInformation() {
+      if (this.new_password !== this.confirm_new_password) {
+        this.display_dialog = true;
+      }
       console.log(this.current_password.length);
+    },
+  },
+  computed: {
+    passwordConfirmationRule() {
+      return () =>
+        this.new_password === this.confirm_new_password ||
+        "New password must match";
     },
   },
 };

@@ -26,7 +26,7 @@
                 contain
                 @click="zoom(a.src)"
               ></v-img>
-              <v-card-title v-text="a.title"></v-card-title>
+              <v-card-title><h3 class="home">{{ a.title }}</h3></v-card-title>
             </v-card>
           </v-carousel-item>
         </v-carousel>
@@ -36,9 +36,8 @@
         <v-row dense>
           <v-col>
             <v-card height="136px" outlined :to="{ name: 'FAQ' }">
-              <v-card-title class="text-h2">FAQs</v-card-title>
-              <v-card-text class="text-h7"
-                >Frequently Asked Questions</v-card-text
+              <v-card-title><h1 class="home">FAQs</h1></v-card-title>
+              <v-card-text><p class="home">Frequently Asked Questions</p></v-card-text
               >
             </v-card>
           </v-col>
@@ -47,8 +46,8 @@
         <v-row dense>
           <v-col>
             <v-card height="136px" outlined :to="{ name: 'Create' }">
-              <v-card-title class="text-h2">+</v-card-title>
-              <v-card-text class="text-h7">Create A New Post</v-card-text>
+              <v-card-title><h1 class="home">+</h1></v-card-title>
+              <v-card-text><p class="home">Create A New Post</p></v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -58,7 +57,7 @@
     <br />
 
     <v-card outlined>
-      <v-card-title class="text-h4">Popular Tags</v-card-title>
+      <v-card-title><h2 class="home">Popular Tags</h2></v-card-title>
       <div class="text-center">
         <v-chip
           v-for="tag in popularTags"
@@ -87,7 +86,7 @@
               full-width
             ></v-select>
           </v-col>
-          <v-col><h2>Threads</h2></v-col>
+          <v-col><h2 class="home">Threads</h2></v-col>
         </v-row>
       </v-container>
     </v-card>
@@ -197,3 +196,5 @@ export default {
   },
 };
 </script>
+
+<style src="../css/Home.css"></style>

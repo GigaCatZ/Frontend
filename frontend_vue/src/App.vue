@@ -22,11 +22,12 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-btn plain fab icon x-large class="mr-3 mt-1" :to="{ name: 'Home' }">
+      <v-btn plain fab icon x-large class="mr-3" :to="{ name: 'Home' }">
         <v-img
           :src="require('./assets/icc_logo_border.png')"
-          height="80"
+          height="65"
           width="60"
+          contain
         />
       </v-btn>
 
@@ -84,6 +85,13 @@
               Log in
             </v-btn>
             <v-btn v-else text @click="logout"> Logout </v-btn>
+            <v-btn
+              v-if="this.$store.state.status"
+              text
+              :to="{ name: 'ChangeInformation' }"
+            >
+              Edit Account</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-menu>
@@ -109,11 +117,8 @@
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
-            <v-avatar size="50">
-              <v-img
-                :src="require('./assets/icc_logo_border.png')"
-                class="mt-1"
-              />
+            <v-avatar size="40">
+              <v-img :src="require('./assets/icc_logo_border.png')" contain />
             </v-avatar>
           </v-list-item-avatar>
 
