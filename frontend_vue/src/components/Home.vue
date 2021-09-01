@@ -14,7 +14,12 @@
         >
           <v-carousel-item v-for="a in announcements" :key="a.title">
             <v-card outlined height="280px">
-              <v-img :src="a.src" aspect-ratio="16/9" height="200"></v-img>
+              <v-img
+                :src="a.src"
+                aspect-ratio="16/9"
+                height="210"
+                contain
+              ></v-img>
               <v-card-title v-text="a.title"></v-card-title>
             </v-card>
           </v-carousel-item>
@@ -134,12 +139,20 @@ export default {
     return {
       announcements: [
         {
-          title: "Announcement 1",
-          src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+          title: "Registration Day 1",
+          src: require("../assets/regis1.jpg"),
         },
         {
-          title: "Announcement 2",
-          src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+          title: "Registration Day 2",
+          src: require("../assets/regis2.jpg"),
+        },
+        {
+          title: "Registration Day 3",
+          src: require("../assets/regis3.jpg"),
+        },
+        {
+          title: "Registration Day 4",
+          src: require("../assets/regis4.jpg"),
         },
       ],
       popularTags: [],
