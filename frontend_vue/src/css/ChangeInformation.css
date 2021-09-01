@@ -4,7 +4,13 @@
     font-family: "Titillium Web", sans-serif;
 }
 
-.divider {
+.divider-header {
     border-width: 2px !important;
     height: 100%;
+}
+
+.divider-current {
+    border-width: 2px !important;
+    height: 10%;
+    margin-left: -1px;
 }
