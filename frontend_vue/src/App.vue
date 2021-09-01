@@ -22,15 +22,13 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <router-link :to="{ name: 'Home' }">
-        <v-btn plain fab icon x-large class="mr-3">
-          <v-img
-            :src="require('./assets/icc_logo_border.png')"
-            height="80"
-            width="80"
-          />
-        </v-btn>
-      </router-link>
+      <v-btn plain fab icon x-large class="mr-3 mt-1" :to="{ name: 'Home' }">
+        <v-img
+          :src="require('./assets/icc_logo_border.png')"
+          height="80"
+          width="60"
+        />
+      </v-btn>
 
       <h1 class="white--text font-weight-bold">IC Courses</h1>
 
@@ -111,8 +109,11 @@
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
-            <v-avatar color="#2a0094" size="40">
-              <span class="white--text text-h5">IC</span>
+            <v-avatar size="50">
+              <v-img
+                :src="require('./assets/icc_logo_border.png')"
+                class="mt-1"
+              />
             </v-avatar>
           </v-list-item-avatar>
 
