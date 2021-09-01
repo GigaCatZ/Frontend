@@ -32,4 +32,4 @@ export default {
 };
 </script>
 
-<style src="src/css/ChangeInformation.css"></style>
+<style src="../css/ChangeInformation.css"></style>

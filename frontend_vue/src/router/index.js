@@ -85,7 +85,7 @@ router.beforeEach(async (to, from, next) => {
     "FAQ",
     "Home",
     "Search",
-    "ChangePassword",
+    "ChangeInformation",
   ];
   if ((to.name === "Login" && loggedIn) || !router_list.includes(to.name)) {
     next({ name: "Home" });
