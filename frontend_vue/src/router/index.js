@@ -13,6 +13,7 @@ import Create from "../components/Create";
 import store from "../store";
 import Thread from "../components/Thread";
 import Search from "../components/Search";
+import ChangeInformation from "../components/ChangeInformation";
 // import { search } from "core-js/fn/symbol";
 
 // Protocol to avoid redirection duplication
@@ -59,6 +60,11 @@ const routes = [
     name: "Search",
     component: Search,
   },
+  {
+    path: "/changepassword",
+    name: "ChangeInformation",
+    component: ChangeInformation,
+  },
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });
@@ -79,6 +85,7 @@ router.beforeEach(async (to, from, next) => {
     "FAQ",
     "Home",
     "Search",
+    "ChangePassword",
   ];
   if ((to.name === "Login" && loggedIn) || !router_list.includes(to.name)) {
     next({ name: "Home" });
