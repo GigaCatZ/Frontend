@@ -5,6 +5,11 @@
     <br />
     <v-row dense>
       <v-col>
+        <v-dialog v-model="zoomedImage" @click="zoomedImage = null">
+          <v-card>
+            <v-img :src="this.image" contain></v-img>
+          </v-card>
+        </v-dialog>
         <v-carousel
           hide-delimiters
           cycle
@@ -19,6 +24,7 @@
                 aspect-ratio="16/9"
                 height="210"
                 contain
+                @click="zoom(a.src)"
               ></v-img>
               <v-card-title v-text="a.title"></v-card-title>
             </v-card>
@@ -159,6 +165,8 @@ export default {
       ordering: ["RECENT", "POPULAR", "LIKES"],
       order: "RECENT",
       threads: [],
+      zoomedImage: false,
+      image: "",
     };
   },
 
@@ -181,6 +189,10 @@ export default {
       this.threads = result.data.threads;
       console.log(this.threads);
       console.log(result.data);
+    },
+    zoom(src) {
+      this.zoomedImage = true;
+      this.image = src;
     },
   },
 };
