@@ -116,9 +116,15 @@
                       required
                       @click:append="show2 = !show2"
                     ></v-text-field>
+
+                    <v-text-field
+                      v-model="email"
+                      label="Email"
+                      :rules="emailRules"
+                      required
+                    ></v-text-field>
                   </v-form>
                 </v-container>
-                <small>*indicates required field</small>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -165,6 +171,7 @@ export default {
     passwordConfirm: "",
     show1: false,
     show2: false,
+    email: "",
     douserexist: true,
     //Alert-Login Data//
     login_alert_text: "",
@@ -184,6 +191,10 @@ export default {
       (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
     ],
     passwordRules: [(v) => !!v || "Password can not be empty"],
+    emailRules: [
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+/.test(v) || "E-mail must be valid",
+    ],
   }),
 
   methods: {
@@ -192,11 +203,6 @@ export default {
       formData.append("sky_username", this.username);
       formData.append("password", this.password);
       formData.append("remember", this.remember);
-      // if (this.remember == false) {
-      //   formData.append("remember", 0);
-      // } else {
-      //   formData.append("remember", 1);
-      // }
       const response = await axios
         .post("/api/login", formData)
         .catch((error) => {
@@ -205,8 +211,8 @@ export default {
           }
         });
       console.log(response.data);
-      if (response.data.status == true) {
-        this.$router.push("/");
+      if (response.data.status) {
+        await this.$router.push("/");
       } else {
         console.warn(response.data.message);
         this.login_alert = true;
@@ -219,6 +225,7 @@ export default {
       formData.append("display_name", this.displayname);
       formData.append("sky_username", this.studentID);
       formData.append("password", this.passwordConfirm);
+      formData.append("email", this.email);
       const response = await axios
         .post("/api/register", formData)
         .catch((error) => {
@@ -227,7 +234,7 @@ export default {
           }
         });
       console.log(response.data);
-      if (response.data.status == true) {
+      if (response.data.status) {
         this.form = false;
         this.register_alert = true;
         this.register_alert_text = response.data.message;
