@@ -18,10 +18,18 @@
           >
         </v-dialog>
         <v-card-subtitle
-          >Created By {{ this.thread_username }} •
-          {{ this.thread_date }}</v-card-subtitle
-        >
-        <v-card-title class="text-h4" v-text="thread_title"></v-card-title>
+          >Created By {{ this.thread_username }} • {{ this.thread_date }}
+          <v-btn
+            text
+            absolute
+            right
+            @click="deletethread()"
+            v-if="this.thread_username == this.$store.state.login_displayname"
+          >
+            <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
+          >
+        </v-card-subtitle>
+        <v-card-title class="text-h4 pt-0" v-text="thread_title"></v-card-title>
         <v-card-text>
           <v-chip
             v-for="tag in thread_tags"
@@ -366,7 +374,7 @@ export default {
       if (response.data.status == false) {
         console.warn("Failed to send comment");
       } else {
-        await this.getalldata();
+        await this.$router.push("/");
       }
     },
 
@@ -405,6 +413,25 @@ export default {
       if (response.data.status == false) {
         console.warn("Failed to send comment");
         this.log_in_alert = true;
+      } else {
+        await this.getalldata();
+      }
+    },
+
+    async deletethread() {
+      let formData = new FormData();
+      formData.append("thread_id", this.thread_id);
+      formData.append("sky_username", this.$store.state.login_skyusername);
+      const response = await axios
+        .post("/api/deletethread", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data);
+      if (response.data.status == false) {
+        console.warn("Failed to send comment");
       } else {
         await this.getalldata();
       }
