@@ -56,11 +56,10 @@
         <v-row align="center" v-for="t in threads" :key="t.no">
           <v-col>
             <v-card outlined>
-              <v-card-subtitle v-text="t.date"></v-card-subtitle>
-              <v-card-title class="text-h3" v-text="t.title"></v-card-title>
-              <v-card-text class="ml-2"
-                >Created By {{ t.display_name }}</v-card-text
+              <v-card-subtitle
+                >Created By {{ t.display_name }} • {{ t.date }}</v-card-subtitle
               >
+              <v-card-title class="text-h3" v-text="t.title"></v-card-title>
               <v-card-text>
                 <v-chip
                   v-for="tag in t.tags"
@@ -71,17 +70,15 @@
                 ></v-chip>
               </v-card-text>
               <v-card-actions>
-                <v-btn class="ml-2 mt-3" text>
-                  <v-icon class="mr-1" color="grey"
-                    >mdi-thumb-up-outline</v-icon
-                  >
-                  <span v-text="t.likes"></span>
-                </v-btn>
+                <v-icon class="ml-5 mt-3 mr-3" color="grey"
+                  >mdi-thumb-up-outline</v-icon
+                >
+                <span v-text="t.likes" class="mt-3"></span>
                 <v-spacer></v-spacer>
-                <v-btn class="ml-2 mt-3 mr-6" text>
-                  <v-icon class="mr-5" color="grey">mdi-message-outline</v-icon>
-                  <span v-text="t.comment_count"></span>
-                </v-btn>
+                <v-icon class="ml-5 mt-3 mr-3" color="grey"
+                  >mdi-message-outline</v-icon
+                >
+                <span v-text="t.comment_count" class="mt-3"></span>
                 <v-spacer></v-spacer>
                 <v-btn
                   class="ml-2 mt-3"
