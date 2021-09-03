@@ -2,8 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import axios from "axios";
 import VueAxios from "vue-axios";
-Vue.use(VueAxios, axios);
-
 // import all pages here
 import Home from "../components/Home";
 import Login from "../components/Login";
@@ -14,6 +12,10 @@ import store from "../store";
 import Thread from "../components/Thread";
 import Search from "../components/Search";
 import ChangeInformation from "../components/ChangeInformation";
+import ModPage from "../components/modzone/ModPage";
+
+Vue.use(VueAxios, axios);
+
 // import { search } from "core-js/fn/symbol";
 
 // Protocol to avoid redirection duplication
@@ -65,6 +67,11 @@ const routes = [
     name: "ChangeInformation",
     component: ChangeInformation,
   },
+  {
+    path: "/modzone/main",
+    name: "ModPage",
+    component: ModPage,
+  },
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });
@@ -86,6 +93,7 @@ router.beforeEach(async (to, from, next) => {
     "Home",
     "Search",
     "ChangeInformation",
+    "ModPage",
   ];
   if (
     (to.name === "Login" && loggedIn) ||
