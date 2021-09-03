@@ -26,7 +26,7 @@
                 this.check_display_name_exit ? 'mdi-check-all' : 'mdi-xamarin'
               "
               :color="this.check_display_name_exit ? 'green' : 'red'"
-              :rules="display_name_rule"
+              :rules="display_name_rule.concat(is_exit_display_name)"
               counter="25"
               outlined
               label="New display name"
@@ -83,7 +83,7 @@
       </v-card-actions>
     </v-card>
     <v-snackbar v-model="display_dialog" :vertical="true">
-      Please confirm your new password
+      {{ message_error }}
 
       <template v-slot:action="{ attrs }">
         <v-btn color="red" text v-bind="attrs" @click="display_dialog = false">
@@ -106,6 +106,7 @@ export default {
     display_name: store.state.login_displayname,
     show_password: false,
     show_current_password: false,
+    message_error: "",
     current_password: "",
     new_password: "",
     confirm_new_password: "",
@@ -136,9 +137,23 @@ export default {
     },
     async sendUserInformation() {
       if (this.new_password !== this.confirm_new_password) {
+        this.message_error = "Please confirm your new password";
         this.display_dialog = true;
+      } else {
+        let request = new FormData();
+        request.append("sky_username", store.state.login_skyusername);
+        request.append("display_name", this.display_name);
+        request.append("current_password", this.current_password);
+        request.append("new_password", this.new_password);
+        let response = await axios.post("/api/change_info", request);
+        console.log(response.data);
+        if (response.data.status) {
+          await this.$router.push("/");
+        } else {
+          this.message_error = response.data.message;
+          this.display_dialog = true;
+        }
       }
-      console.log(this.current_password.length);
     },
   },
   computed: {
@@ -146,6 +161,11 @@ export default {
       return () =>
         this.new_password === this.confirm_new_password ||
         "New password must match";
+    },
+    is_exit_display_name() {
+      return () =>
+        (!this.check_display_name_exit ||
+        this.display_name === store.state.login_displayname) || "Display name is already taken";
     },
   },
 };
