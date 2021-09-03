@@ -31,7 +31,7 @@
               counter="25"
               outlined
               label="New display name"
-              align="center"
+              class="align-center"
               clearable
             ></v-text-field>
             <v-text-field
@@ -41,9 +41,9 @@
               :type="show_current_password ? 'text' : 'password'"
               hint="*This is required"
               outlined
-              label="Current password"
+              label="Current password*"
               color="#2a0094"
-              align="center"
+              class="align-center"
               @click:append="show_current_password = !show_current_password"
               clearable
             ></v-text-field>
@@ -54,7 +54,7 @@
               outlined
               label="New password"
               color="#2a0094"
-              align="center"
+              class="align-center"
               @click:append="show_password = !show_password"
               clearable
             ></v-text-field>
@@ -65,11 +65,12 @@
               outlined
               label="Confirm new password"
               color="#2a0094"
-              align="center"
+              class="align-center"
               @click:append="show_password = !show_password"
               clearable
             ></v-text-field>
           </v-form>
+          <small>*indicates required field</small>
         </v-col>
       </v-row>
       <v-card-actions class="justify-end mx-4">
