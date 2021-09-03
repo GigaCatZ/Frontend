@@ -14,6 +14,7 @@ import store from "../store";
 import Thread from "../components/Thread";
 import Search from "../components/Search";
 import ChangeInformation from "../components/ChangeInformation";
+import Edit from "../components/Edit";
 // import { search } from "core-js/fn/symbol";
 
 // Protocol to avoid redirection duplication
@@ -65,6 +66,11 @@ const routes = [
     name: "ChangeInformation",
     component: ChangeInformation,
   },
+  {
+    path: "/edit_thread/:id",
+    name: "Edit",
+    component: Edit,
+  },
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });
@@ -86,6 +92,7 @@ router.beforeEach(async (to, from, next) => {
     "Home",
     "Search",
     "ChangeInformation",
+    "Edit",
   ];
   if (
     (to.name === "Login" && loggedIn) ||

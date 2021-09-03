@@ -19,6 +19,15 @@
         </v-dialog>
         <v-card-subtitle
           >Created By {{ this.thread_username }} • {{ this.thread_date }}
+          <v-btn
+            icon
+            absolute
+            right
+            class="mr-10"
+            v-if="this.thread_username === this.current_user"
+            @click="$router.push({ name: 'Edit', params: { id: thread_id } })"
+            ><v-icon color="grey" class="mt-1">mdi-border-color</v-icon></v-btn
+          >
           <v-dialog
             v-model="delete_thread"
             persistent
