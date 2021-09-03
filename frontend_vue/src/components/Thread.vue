@@ -19,15 +19,29 @@
         </v-dialog>
         <v-card-subtitle
           >Created By {{ this.thread_username }} • {{ this.thread_date }}
-          <v-btn
-            icon
-            absolute
-            right
-            @click="deletethread()"
-            v-if="this.thread_username === current_user"
+          <v-dialog
+            v-model="delete_thread"
+            persistent
+            max-width="300"
+            v-if="this.thread_username === this.current_user"
           >
-            <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
-          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" icon absolute right>
+                <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
+              >
+            </template>
+            <v-card>
+              <v-card-title class="justify-center"
+                >Delete the thread?</v-card-title
+              >
+              <v-card-actions class="justify-space-around">
+                <v-btn text outlined @click="deletethread()"> YES </v-btn>
+                <v-btn text outlined @click="delete_thread = false" color="red">
+                  NO
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-card-subtitle>
         <v-card-title class="text-h4 pt-0" v-text="thread_title"></v-card-title>
         <v-card-text>
@@ -113,17 +127,42 @@
                 v-if="comment.sender === thread_username"
               >
                 OP</span
-              ><v-btn
-                icon
-                x-small
-                absolute
-                right
-                v-if="comment.sender === current_user && !comment.deleted"
-                @click="deletecomment(comment.comment_id)"
               >
-                <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
-              ></v-card-subtitle
-            >
+              <v-dialog
+                v-model="delete_comment"
+                persistent
+                max-width="300"
+                v-if="comment.sender === current_user && !comment.deleted"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn v-bind="attrs" v-on="on" icon x-small absolute right>
+                    <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
+                  >
+                </template>
+                <v-card>
+                  <v-card-title class="justify-center"
+                    >Delete the comment?</v-card-title
+                  >
+                  <v-card-actions class="justify-space-around">
+                    <v-btn
+                      text
+                      outlined
+                      @click="deletecomment(comment.comment_id)"
+                    >
+                      YES
+                    </v-btn>
+                    <v-btn
+                      text
+                      outlined
+                      @click="delete_comment = false"
+                      color="red"
+                    >
+                      NO
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-card-subtitle>
             <v-card-text class="ml-1"
               ><span class="font-italic" v-if="comment.deleted">{{
                 comment.body
@@ -210,17 +249,48 @@
                   v-if="subcom.sender === thread_username"
                 >
                   OP</span
-                ><v-btn
-                  icon
-                  x-small
-                  absolute
-                  right
+                ><v-dialog
+                  v-model="delete_reply"
+                  persistent
+                  max-width="300"
                   v-if="subcom.sender === current_user && !subcom.deleted"
-                  class="mr-6"
-                  @click="deletecomment(subcom.comment_id)"
                 >
-                  <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
-                ></v-card-subtitle
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      v-bind="attrs"
+                      v-on="on"
+                      icon
+                      x-small
+                      absolute
+                      right
+                      class="mr-6"
+                    >
+                      <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
+                    >
+                  </template>
+                  <v-card>
+                    <v-card-title class="justify-center"
+                      >Delete the reply?</v-card-title
+                    >
+                    <v-card-actions class="justify-space-around">
+                      <v-btn
+                        text
+                        outlined
+                        @click="deletecomment(subcom.comment_id)"
+                      >
+                        YES
+                      </v-btn>
+                      <v-btn
+                        text
+                        outlined
+                        @click="delete_reply = false"
+                        color="red"
+                      >
+                        NO
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog></v-card-subtitle
               >
               <v-card-text class="ml-1">{{ subcom.body }}</v-card-text>
               <v-card-actions v-if="!subcom.deleted">
@@ -325,6 +395,9 @@ export default {
     comment_reply: "",
     thread_comments: [],
     log_in_alert: false,
+    delete_thread: false,
+    delete_comment: false,
+    delete_reply: false,
   }),
 
   methods: {
@@ -484,6 +557,8 @@ export default {
       } else {
         await this.getalldata();
       }
+      this.delete_comment = false;
+      this.delete_reply = false;
     },
   },
 
