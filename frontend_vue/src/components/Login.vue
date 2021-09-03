@@ -50,10 +50,9 @@
         <v-row cols="12" justify="space-around" md="4" sm="6">
           <!--login button-->
           <v-btn
-            :disabled="!valid"
-            :loading="loading"
+            :disabled="!valid || (this.password === '' && this.username === '')"
             color="#2a0094"
-            dark
+            class="white--text"
             elevation="5"
             @click="login"
             >Login
