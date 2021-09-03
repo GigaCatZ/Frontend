@@ -26,12 +26,12 @@
                 this.check_display_name_exit ? 'mdi-check-all' : 'mdi-xamarin'
               "
               :color="this.check_display_name_exit ? 'green' : 'red'"
-              :rules="display_name_rule.concat(is_exit_display_name)"
+              @input="checkUser"
+              :rules="display_name_rule"
               counter="25"
               outlined
               label="New display name"
               align="center"
-              @input="checkUser"
               clearable
             ></v-text-field>
             <v-text-field
@@ -102,7 +102,7 @@ export default {
   data: () => ({
     valid: true,
     display_dialog: false,
-    check_display_name_exit: false,
+    check_display_name_exit: true,
     display_name: store.state.login_displayname,
     show_password: false,
     show_current_password: false,
@@ -133,11 +133,18 @@ export default {
             console.warn("something went wrong");
           }
         });
-      this.check_display_name_exit = response.data.status;
+      if (this.display_name === store.state.login_displayname)
+        this.check_display_name_exit = true;
+      else {
+        this.check_display_name_exit = response.data.status;
+      }
     },
     async sendUserInformation() {
       if (this.new_password !== this.confirm_new_password) {
         this.message_error = "Please confirm your new password";
+        this.display_dialog = true;
+      } else if (!this.check_display_name_exit) {
+        this.message_error = "Display name is already taken";
         this.display_dialog = true;
       } else {
         let request = new FormData();
@@ -161,11 +168,6 @@ export default {
       return () =>
         this.new_password === this.confirm_new_password ||
         "New password must match";
-    },
-    is_exit_display_name() {
-      return () =>
-        (!this.check_display_name_exit ||
-        this.display_name === store.state.login_displayname) || "Display name is already taken";
     },
   },
 };

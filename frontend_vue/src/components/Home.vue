@@ -26,7 +26,9 @@
                 contain
                 @click="zoom(a.src)"
               ></v-img>
-              <v-card-title><h3 class="home">{{ a.title }}</h3></v-card-title>
+              <v-card-title
+                ><h3 class="home">{{ a.title }}</h3></v-card-title
+              >
             </v-card>
           </v-carousel-item>
         </v-carousel>
@@ -37,7 +39,8 @@
           <v-col>
             <v-card height="136px" outlined :to="{ name: 'FAQ' }">
               <v-card-title><h1 class="home">FAQs</h1></v-card-title>
-              <v-card-text><p class="home">Frequently Asked Questions</p></v-card-text
+              <v-card-text
+                ><p class="home">Frequently Asked Questions</p></v-card-text
               >
             </v-card>
           </v-col>

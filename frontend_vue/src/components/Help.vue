@@ -36,7 +36,6 @@
               </v-col>
             </v-row>
 
-
             <!-- question 2 -->
             <v-row class="mx-2">
               <v-col>
