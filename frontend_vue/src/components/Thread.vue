@@ -424,11 +424,8 @@ export default {
     },
 
     async getalldata() {
-      let formData = new FormData();
-      formData.append("thread_id", this.$route.params.id);
-      formData.append("sky_username", this.$store.state.login_skyusername);
       const response = await axios
-        .post("/api/getthread", formData)
+        .get("/api/getthread?thread_id=" + this.$route.params.id)
         .catch((error) => {
           if (error.response) {
             console.warn("something went wrong");
