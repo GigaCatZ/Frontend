@@ -173,9 +173,11 @@
               </v-dialog>
             </v-card-subtitle>
             <v-card-text class="ml-1"
-              ><span class="font-italic" v-if="comment.deleted">{{
-                comment.body
-              }}</span
+              ><span
+                class="font-italic"
+                style="color: darkgrey"
+                v-if="comment.deleted"
+                >{{ comment.body }}</span
               ><span v-else>{{ comment.body }}</span></v-card-text
             >
             <v-card-actions v-if="!comment.deleted">
@@ -301,7 +303,14 @@
                   </v-card>
                 </v-dialog></v-card-subtitle
               >
-              <v-card-text class="ml-1">{{ subcom.body }}</v-card-text>
+              <v-card-text class="ml-1"
+                ><span
+                  class="font-italic"
+                  style="color: darkgrey"
+                  v-if="subcom.deleted"
+                  >{{ subcom.body }}</span
+                ><span v-else>{{ subcom.body }}</span></v-card-text
+              >
               <v-card-actions v-if="!subcom.deleted">
                 <v-btn
                   small
