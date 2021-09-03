@@ -433,7 +433,7 @@ export default {
       if (response.data.status == false) {
         console.warn("Failed to send comment");
       } else {
-        await this.getalldata();
+        await this.$router.push("/");
       }
     },
   },
