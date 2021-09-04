@@ -102,7 +102,10 @@
               <v-card-subtitle
                 >Created By {{ t.display_name }} • {{ t.date }}
               </v-card-subtitle>
-              <v-card-title class="text-h3" v-text="t.title"></v-card-title>
+              <v-card-title
+                style="font-size: x-large"
+                v-text="t.title"
+              ></v-card-title>
               <v-card-text>
                 <v-chip
                   v-for="tag in t.tags"
