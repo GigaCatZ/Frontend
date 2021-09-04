@@ -7,7 +7,7 @@
           <v-autocomplete
             v-model="keywords"
             :items="selectlist"
-            v-if="filter === 'tags'"
+            v-if="filter === 'tag'"
             hide-details
             hide-selected
             single-line
@@ -108,7 +108,7 @@ export default {
   name: "Search",
   data: () => ({
     keywords: "",
-    filtering: ["title", "tags", "display_name"],
+    filtering: ["title", "tag", "author"],
     filter: "",
     threads: [],
     selectlist: [],
