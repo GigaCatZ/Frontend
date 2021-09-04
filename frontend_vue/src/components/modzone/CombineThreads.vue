@@ -27,7 +27,7 @@
       <v-divider></v-divider>
 
       <v-card-text v-if="threads.length > 0">
-        <v-container v-for="t in threads" :key="t" fluid>
+        <v-container v-for="t in threads" :key="t.thread_id" fluid>
           <v-row dense>
             <v-col cols="1">
               <h5>Thread ID</h5>

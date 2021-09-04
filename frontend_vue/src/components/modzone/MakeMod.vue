@@ -29,7 +29,7 @@
       <v-divider></v-divider>
 
       <v-card-text v-if="users.length > 0">
-        <v-container v-for="u in users" :key="u" fluid>
+        <v-container v-for="u in users" :key="u.sky_username" fluid>
           <v-row dense>
             <v-col cols="3">
               <h5>SKY Username</h5>
