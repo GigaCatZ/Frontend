@@ -72,7 +72,8 @@
             :key="tag.title"
             v-text="tag"
             small
-            class="mr-1"
+            class="ma-1"
+            @click="search(tag)"
           ></v-chip>
         </v-card-text>
         <v-card-text class="text-h5 ml-1">{{ thread_body }}</v-card-text>
@@ -607,6 +608,10 @@ export default {
       }
       this.delete_comment = false;
       this.delete_reply = false;
+    },
+
+    search(tag) {
+      this.$router.push("/search/" + tag + "?filter=tags");
     },
   },
 
