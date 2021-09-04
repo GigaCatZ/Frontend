@@ -114,14 +114,16 @@
               disabled
               v-if="!this.$store.state.status"
             ></v-text-field>
-            <v-text-field
+            <v-textarea
               v-else
               label="Comment"
               outlined
               clearable
+              rows="1"
               v-model="comment_thread"
+              clear-icon="mdi-close"
               @keydown.enter="addcomment"
-            ></v-text-field>
+            ></v-textarea>
           </v-col>
           <v-col cols="1">
             <v-btn v-if="!this.$store.state.status" text height="55" disabled
@@ -237,15 +239,17 @@
                   disabled
                   v-model="comment_reply"
                 ></v-text-field>
-                <v-text-field
+                <v-textarea
                   v-else
                   label="Comment"
                   outlined
                   clearable
                   dense
+                  rows="1"
+                  clear-icon="mdi-close"
                   @keydown.enter="addreply(comment.comment_id, comment.sender)"
                   v-model="comment_reply"
-                ></v-text-field>
+                ></v-textarea>
               </v-col>
               <v-col cols="1">
                 <v-btn
@@ -375,15 +379,17 @@
                     clearable
                     dense
                   ></v-text-field>
-                  <v-text-field
+                  <v-textarea
                     v-else
                     label="Comment"
                     outlined
                     clearable
                     dense
+                    rows="1"
                     v-model="comment_reply"
+                    clear-icon="mdi-close"
                     @keydown.enter="addreply(subcom.comment_id, subcom.sender)"
-                  ></v-text-field>
+                  ></v-textarea>
                 </v-col>
                 <v-col cols="1">
                   <v-btn
