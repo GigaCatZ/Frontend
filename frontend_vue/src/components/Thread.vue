@@ -2,6 +2,14 @@
   <div>
     <v-container>
       <br />
+      <v-dialog v-model="future_update" max-width="300">
+        <v-card>
+          <v-card-title class="text-center ml-5" style="font-size: 18px"
+            >This feature will be coming<br />soon in the next
+            update</v-card-title
+          >
+        </v-card>
+      </v-dialog>
       <v-card class="mx-auto" outlined max-width="800">
         <v-dialog
           type="error"
@@ -88,7 +96,7 @@
             style="font-size: 15px"
           ></span>
           <v-spacer></v-spacer>
-          <v-btn class="ml-2 mt-3 mr-6" text>
+          <v-btn class="ml-2 mt-3 mr-6" text @click="future_update = true">
             <v-icon class="mr-1" color="grey">mdi-alert-octagon</v-icon>
             <span>Report</span>
           </v-btn>
@@ -211,7 +219,7 @@
                 <span>Reply</span>
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn small class="ml-2" text>
+              <v-btn small class="ml-2" text @click="future_update = true">
                 <v-icon small class="mr-1" color="grey"
                   >mdi-alert-octagon</v-icon
                 >
@@ -343,7 +351,12 @@
                   <span>Reply</span>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn small class="ml-2 mr-1" text>
+                <v-btn
+                  small
+                  class="ml-2 mr-1"
+                  text
+                  @click="future_update = true"
+                >
                   <v-icon small class="mr-1" color="grey"
                     >mdi-alert-octagon</v-icon
                   >
@@ -424,6 +437,7 @@ export default {
     delete_thread: false,
     delete_comment: false,
     delete_reply: false,
+    future_update: false,
   }),
 
   methods: {
