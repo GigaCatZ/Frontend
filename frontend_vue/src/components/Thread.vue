@@ -107,6 +107,7 @@
               outlined
               clearable
               v-model="comment_thread"
+              @keydown.enter="addcomment"
             ></v-text-field>
           </v-col>
           <v-col cols="1">
@@ -229,6 +230,7 @@
                   outlined
                   clearable
                   dense
+                  @keydown.enter="addreply(comment.comment_id, comment.sender)"
                   v-model="comment_reply"
                 ></v-text-field>
               </v-col>
@@ -360,6 +362,7 @@
                     clearable
                     dense
                     v-model="comment_reply"
+                    @keydown.enter="addreply(subcom.comment_id, subcom.sender)"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="1">
