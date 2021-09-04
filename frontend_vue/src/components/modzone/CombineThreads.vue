@@ -21,41 +21,76 @@
       <v-card-title>
         <span class="text-h5">Combine threads</span>
       </v-card-title>
+      <v-alert v-model="res_alert" dense dismissible outlined text type="info">
+        {{ res_msg }}
+      </v-alert>
       <v-divider></v-divider>
 
-      <v-container>
-        <v-card v-for="t in thread_list" :key="t" class="pa-6" flat outlined>
-          <v-layout row>
-            <v-flex lg1 outlined>
+      <v-card-text v-if="threads.length > 0">
+        <v-container v-for="t in threads" :key="t" fluid>
+          <v-row dense>
+            <v-col cols="1">
               <h5>Thread ID</h5>
               <p>{{ t.thread_id }}</p>
-            </v-flex>
-            <v-flex lg6>
+            </v-col>
+            <v-col cols="7">
               <h5>Title</h5>
               <p>{{ t.title }}</p>
-            </v-flex>
-            <v-flex lg2>
-              <h5>Posted by</h5>
+            </v-col>
+            <v-col cols="2">
+              <h5>Created by</h5>
               <p>{{ t.display_name }}</p>
-            </v-flex>
-            <v-flex lg1>
+            </v-col>
+            <v-col cols="1">
               <h5>Likes</h5>
               <p>{{ t.likes }}</p>
-            </v-flex>
-            <v-flex lg1>
+            </v-col>
+            <v-col cols="1">
               <h5>Comments</h5>
               <p>{{ t.comment_count }}</p>
-            </v-flex>
-            <v-flex lg1>
-              <v-btn>MORE</v-btn>
-            </v-flex>
-          </v-layout>
-        </v-card>
-      </v-container>
+            </v-col>
+          </v-row>
+          <v-row dense>
+            <v-col cols="3">
+              <h5>Posted on</h5>
+              <p>{{ t.date }}</p>
+            </v-col>
+            <v-col cols="5">
+              <h5>Tags</h5>
+              <p v-if="t.tags.length === 0">None</p>
+              <p v-else>{{ t.tags }}</p>
+            </v-col>
+            <v-col cols="4">
+              <h5>Duplicates (Thread IDs)</h5>
+              <p v-if="t.reported_as_dupes.length === 0">None</p>
+              <p v-else>{{ t.reported_as_dupes }}</p>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+      <v-card-text v-else>
+        <p>Currently, there are no threads</p>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-text>
+        <v-text-field
+          v-model="threadA"
+          dense
+          label="Thread ID A"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="threadB"
+          dense
+          label="Thread ID B"
+          required
+        ></v-text-field>
+      </v-card-text>
 
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text @click="combthread = false">Close</v-btn>
+        <v-btn text @click="send_dupes">Merge</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -73,45 +108,34 @@ export default {
   data() {
     return {
       combthread: false,
-      user_list: [
-        {
-          sky_username: "u6380496",
-          display_name: "Nawat",
-          mod: false,
-        },
-        {
-          sky_username: "u6380666",
-          display_name: "Who?",
-          mod: true,
-        },
-      ],
-      thread_list: [
-        {
-          thread_id: 3,
-          title: "Title #1",
-          likes: 3,
-          display_name: "Nawat",
-          tags: "ICCS101",
-          comment_count: 0,
-          dupe: [],
-        },
-        {
-          thread_id: 4,
-          title: "Title #2",
-          likes: 3,
-          display_name: "Who?",
-          tags: "ICCS101",
-          comment_count: 3,
-          dupe: [],
-        },
-      ],
+
+      threadA: "",
+      threadB: "",
+      res_msg: "",
+      res_alert: false,
+
+      threads: [],
     };
   },
   methods: {
-    async whoami() {
+    async modzone() {
       const response = await axios.get("/api/modzone");
-      this.user_list = response.data.users;
+      this.threads = response.data.threads;
     },
+
+    async send_dupes() {
+      let formData = new FormData();
+      formData.append("thread_a", this.threadA);
+      formData.append("thread_b", this.threadB);
+      formData.append("sky_username", this.$store.state.login_skyusername);
+      const response = axios.post("/api/modzone/merge_threads");
+      this.res_msg = response.data.message;
+      this.res_alert = true;
+    },
+  },
+
+  created() {
+    this.modzone();
   },
 };
 </script>
