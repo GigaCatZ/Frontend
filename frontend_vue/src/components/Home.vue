@@ -50,7 +50,7 @@
           <v-col>
             <v-card :to="{ name: 'Create' }" height="136px" outlined>
               <v-card-title><h1 class="home">+</h1></v-card-title>
-              <v-card-text><p class="home">Create A New Post</p></v-card-text>
+              <v-card-text><p class="home">Create A New Thread</p></v-card-text>
             </v-card>
           </v-col>
         </v-row>

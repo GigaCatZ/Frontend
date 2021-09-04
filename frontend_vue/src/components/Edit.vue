@@ -20,19 +20,13 @@
               label="Title"
               outlined
               disabled
-              counter="30"
             ></v-text-field>
           </v-col>
         </v-row>
         <br />
         <v-row class="mx-4">
           <v-col>
-            <v-textarea
-              v-model="text"
-              label="Body"
-              outlined
-              counter="300"
-            ></v-textarea>
+            <v-textarea v-model="text" label="Body" outlined></v-textarea>
           </v-col>
         </v-row>
         <v-row class="mx-4">
