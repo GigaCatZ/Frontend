@@ -22,7 +22,7 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-btn plain fab icon x-large class="mr-3" :to="{ name: 'Home' }">
+      <v-btn plain fab icon x-large :to="{ name: 'Home' }">
         <v-img
           :src="require('./assets/icc_logo_border.png')"
           height="65"
@@ -31,7 +31,9 @@
         />
       </v-btn>
 
-      <h1 class="white--text font-weight-bold">IC Courses</h1>
+      <v-btn plain :to="{ name: 'Home' }">
+        <h1 class="white--text font-weight-bold">IC Courses</h1>
+      </v-btn>
 
       <v-spacer></v-spacer>
 
