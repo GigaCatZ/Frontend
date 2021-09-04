@@ -123,7 +123,10 @@ export default {
         this.requested_change_username
       );
       formData.append("new_password", this.new_password);
-      const response = axios.post("/api/modzone/password_change", formData);
+      const response = await axios.post(
+        "/api/modzone/password_change",
+        formData
+      );
       this.res_msg = response.data.message;
       this.res_alert = true;
     },
