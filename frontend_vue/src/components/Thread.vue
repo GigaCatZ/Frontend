@@ -143,7 +143,7 @@
           :key="comment.yes"
         >
           <v-card outlined>
-            <v-card-subtitle
+            <v-card-subtitle style="font-weight: bold"
               >{{ comment.sender
               }}<span
                 style="color: dodgerblue"
@@ -268,7 +268,7 @@
           </v-card>
           <div v-for="subcom in comment.replies" :key="subcom.yes">
             <div class="ml-10">
-              <v-card-subtitle
+              <v-card-subtitle style="font-weight: bold; color: dimgray"
                 >{{ subcom.sender
                 }}<span
                   style="color: dodgerblue"
@@ -324,7 +324,9 @@
                   style="color: darkgrey"
                   v-if="subcom.deleted"
                   >{{ subcom.body }}</span
-                ><span v-else>{{ subcom.body }}</span></v-card-text
+                ><span v-else style="color: dimgray">{{
+                  subcom.body
+                }}</span></v-card-text
               >
               <v-card-actions v-if="!subcom.deleted">
                 <v-btn
