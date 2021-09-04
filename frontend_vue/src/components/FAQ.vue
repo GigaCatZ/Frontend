@@ -25,7 +25,7 @@
                 <p v-for="ans in q.answer" :key="ans" class="faq">
                   <span v-html="ans"></span>
                 </p>
-                <v-divider v-if="index != ajarnQ.length - 1"></v-divider>
+                <v-divider v-if="index !== ajarnQ.length - 1"></v-divider>
               </v-col>
             </v-row>
           </v-col>

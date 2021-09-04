@@ -83,11 +83,11 @@
         >
       </v-card-actions>
     </v-card>
-    <v-snackbar v-model="display_dialog" :vertical="true">
+    <v-snackbar color="error" v-model="display_dialog" :vertical="true">
       {{ message_error }}
 
       <template v-slot:action="{ attrs }">
-        <v-btn color="red" text v-bind="attrs" @click="display_dialog = false">
+        <v-btn text v-bind="attrs" @click="display_dialog = false">
           Close
         </v-btn>
       </template>
@@ -117,11 +117,6 @@ export default {
         (v && v.length <= 25) || "Display name must be less than 25 characters",
     ],
     password_rule: [(v) => !!v || "Password can not be empty"],
-    confirm_password_rule: [
-      () =>
-        this.confirm_new_password === this.new_password ||
-        "New password must match",
-    ],
   }),
   methods: {
     async checkUser() {

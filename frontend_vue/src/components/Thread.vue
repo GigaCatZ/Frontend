@@ -20,14 +20,37 @@
         <v-card-subtitle
           >Created By {{ this.thread_username }} • {{ this.thread_date }}
           <v-btn
-            text
+            icon
             absolute
             right
-            @click="deletethread()"
-            v-if="this.thread_username == this.$store.state.login_displayname"
+            class="mr-10"
+            v-if="this.thread_username === this.current_user"
+            @click="$router.push({ name: 'Edit', params: { id: thread_id } })"
+            ><v-icon color="grey" class="mt-1">mdi-border-color</v-icon></v-btn
           >
-            <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
+          <v-dialog
+            v-model="delete_thread"
+            persistent
+            max-width="300"
+            v-if="this.thread_username === this.current_user"
           >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" icon absolute right>
+                <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
+              >
+            </template>
+            <v-card>
+              <v-card-title class="justify-center"
+                >Delete the thread?</v-card-title
+              >
+              <v-card-actions class="justify-space-around">
+                <v-btn text outlined @click="deletethread()"> YES </v-btn>
+                <v-btn text outlined @click="delete_thread = false" color="red">
+                  NO
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-card-subtitle>
         <v-card-title class="text-h4 pt-0" v-text="thread_title"></v-card-title>
         <v-card-text>
@@ -42,19 +65,23 @@
         <v-card-text class="text-h5 ml-1">{{ thread_body }}</v-card-text>
         <v-card-actions>
           <v-btn class="ml-2 mt-3 mr-6" text @click="likethread()">
-            <v-icon class="mr-5" color="grey" v-if="thread_is_liked == true"
+            <v-icon class="mr-5" color="grey" v-if="thread_is_liked"
               >mdi-thumb-up</v-icon
             >
             <v-icon class="mr-5" color="grey" v-else
               >mdi-thumb-up-outline</v-icon
             >
-            <span v-text="thread_likes"></span>
+            <span v-text="thread_likes" style="font-size: 15px"></span>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn class="ml-2 mt-3 mr-6" text>
-            <v-icon class="mr-5" color="grey">mdi-message-outline</v-icon>
-            <span v-text="thread_comment_count"></span>
-          </v-btn>
+          <v-icon class="ml-2 mt-3 mr-5" color="grey"
+            >mdi-message-outline</v-icon
+          >
+          <span
+            v-text="thread_comment_count"
+            class="ml-2 mt-3 mr-6"
+            style="font-size: 15px"
+          ></span>
           <v-spacer></v-spacer>
           <v-btn class="ml-2 mt-3 mr-6" text>
             <v-icon class="mr-1" color="grey">mdi-alert-octagon</v-icon>
@@ -72,7 +99,7 @@
               outlined
               clearable
               disabled
-              v-if="this.$store.state.status == false"
+              v-if="!this.$store.state.status"
             ></v-text-field>
             <v-text-field
               v-else
@@ -83,11 +110,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="1">
-            <v-btn
-              v-if="this.$store.state.status == false"
-              text
-              height="55"
-              disabled
+            <v-btn v-if="!this.$store.state.status" text height="55" disabled
               ><v-icon large>mdi-send</v-icon></v-btn
             >
             <v-btn
@@ -106,20 +129,65 @@
           :key="comment.yes"
         >
           <v-card outlined>
-            <v-card-subtitle v-text="comment.sender"></v-card-subtitle>
-            <v-card-text class="ml-1">{{ comment.body }}</v-card-text>
-            <v-card-actions>
+            <v-card-subtitle
+              >{{ comment.sender
+              }}<span
+                style="color: dodgerblue"
+                v-if="comment.sender === thread_username"
+              >
+                OP</span
+              >
+              <v-dialog
+                v-model="delete_comment"
+                persistent
+                max-width="300"
+                v-if="comment.sender === current_user && !comment.deleted"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn v-bind="attrs" v-on="on" icon x-small absolute right>
+                    <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
+                  >
+                </template>
+                <v-card>
+                  <v-card-title class="justify-center"
+                    >Delete the comment?</v-card-title
+                  >
+                  <v-card-actions class="justify-space-around">
+                    <v-btn
+                      text
+                      outlined
+                      @click="deletecomment(comment.comment_id)"
+                    >
+                      YES
+                    </v-btn>
+                    <v-btn
+                      text
+                      outlined
+                      @click="delete_comment = false"
+                      color="red"
+                    >
+                      NO
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-card-subtitle>
+            <v-card-text class="ml-1"
+              ><span
+                class="font-italic"
+                style="color: darkgrey"
+                v-if="comment.deleted"
+                >{{ comment.body }}</span
+              ><span v-else>{{ comment.body }}</span></v-card-text
+            >
+            <v-card-actions v-if="!comment.deleted">
               <v-btn
                 small
                 class="ml-2 mr-6"
                 text
                 @click="likecomment(comment.comment_id)"
               >
-                <v-icon
-                  small
-                  class="mr-5"
-                  color="grey"
-                  v-if="comment.is_liked == true"
+                <v-icon small class="mr-5" color="grey" v-if="comment.is_liked"
                   >mdi-thumb-up</v-icon
                 ><v-icon small class="mr-5" color="grey" v-else
                   >mdi-thumb-up-outline</v-icon
@@ -137,17 +205,17 @@
                 <span>Reply</span>
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn small class="ml-2 mr-6" text>
+              <v-btn small class="ml-2" text>
                 <v-icon small class="mr-1" color="grey"
                   >mdi-alert-octagon</v-icon
                 >
                 <span>Report</span>
               </v-btn>
             </v-card-actions>
-            <v-row class="mx-6 mt-6" no-gutters v-if="comment.reply == true">
+            <v-row class="mx-6 mt-6" no-gutters v-if="comment.reply">
               <v-col cols="11">
                 <v-text-field
-                  v-if="checkstatus() == false"
+                  v-if="!checkstatus()"
                   label="Please log in to comment"
                   outlined
                   clearable
@@ -166,7 +234,7 @@
               </v-col>
               <v-col cols="1">
                 <v-btn
-                  v-if="checkstatus() == false"
+                  v-if="!checkstatus()"
                   text
                   height="41"
                   color="purple darken-3"
@@ -185,20 +253,72 @@
           </v-card>
           <div v-for="subcom in comment.replies" :key="subcom.yes">
             <div class="ml-10">
-              <v-card-subtitle v-text="subcom.sender"></v-card-subtitle>
-              <v-card-text class="ml-1">{{ subcom.body }}</v-card-text>
-              <v-card-actions>
+              <v-card-subtitle
+                >{{ subcom.sender
+                }}<span
+                  style="color: dodgerblue"
+                  v-if="subcom.sender === thread_username"
+                >
+                  OP</span
+                ><v-dialog
+                  v-model="delete_reply"
+                  persistent
+                  max-width="300"
+                  v-if="subcom.sender === current_user && !subcom.deleted"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      v-bind="attrs"
+                      v-on="on"
+                      icon
+                      x-small
+                      absolute
+                      right
+                      class="mr-6"
+                    >
+                      <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
+                    >
+                  </template>
+                  <v-card>
+                    <v-card-title class="justify-center"
+                      >Delete the reply?</v-card-title
+                    >
+                    <v-card-actions class="justify-space-around">
+                      <v-btn
+                        text
+                        outlined
+                        @click="deletecomment(subcom.comment_id)"
+                      >
+                        YES
+                      </v-btn>
+                      <v-btn
+                        text
+                        outlined
+                        @click="delete_reply = false"
+                        color="red"
+                      >
+                        NO
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog></v-card-subtitle
+              >
+              <v-card-text class="ml-1"
+                ><span
+                  class="font-italic"
+                  style="color: darkgrey"
+                  v-if="subcom.deleted"
+                  >{{ subcom.body }}</span
+                ><span v-else>{{ subcom.body }}</span></v-card-text
+              >
+              <v-card-actions v-if="!subcom.deleted">
                 <v-btn
                   small
                   class="ml-2 mr-6"
                   text
                   @click="likecomment(subcom.comment_id)"
                 >
-                  <v-icon
-                    small
-                    class="mr-5"
-                    color="grey"
-                    v-if="subcom.is_liked == true"
+                  <v-icon small class="mr-5" color="grey" v-if="subcom.is_liked"
                     >mdi-thumb-up</v-icon
                   ><v-icon small class="mr-5" color="grey" v-else
                     >mdi-thumb-up-outline</v-icon
@@ -216,17 +336,17 @@
                   <span>Reply</span>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn small class="ml-2 mr-6" text>
+                <v-btn small class="ml-2 mr-1" text>
                   <v-icon small class="mr-1" color="grey"
                     >mdi-alert-octagon</v-icon
                   >
                   <span>Report</span>
                 </v-btn>
               </v-card-actions>
-              <v-row class="mx-6 mt-6" no-gutters v-if="subcom.reply == true">
+              <v-row class="mx-6 mt-6" no-gutters v-if="subcom.reply">
                 <v-col cols="11">
                   <v-text-field
-                    v-if="checkstatus() == false"
+                    v-if="!checkstatus()"
                     label="Please log in to comment"
                     disabled
                     outlined
@@ -244,7 +364,7 @@
                 </v-col>
                 <v-col cols="1">
                   <v-btn
-                    v-if="checkstatus() == false"
+                    v-if="!checkstatus()"
                     text
                     height="41"
                     color="purple darken-3"
@@ -278,6 +398,7 @@ Vue.use(VueAxios, axios);
 export default {
   name: "Thread",
   data: () => ({
+    current_user: null,
     thread_status: true,
     thread_likes: 0,
     thread_is_liked: false,
@@ -292,29 +413,26 @@ export default {
     comment_reply: "",
     thread_comments: [],
     log_in_alert: false,
+    delete_thread: false,
+    delete_comment: false,
+    delete_reply: false,
   }),
 
   methods: {
     checkstatus() {
-      if (this.$store.state.status == true) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.status;
     },
 
     async getalldata() {
-      let formData = new FormData();
-      formData.append("thread_id", this.$route.params.id);
-      formData.append("sky_username", this.$store.state.login_skyusername);
       const response = await axios
-        .post("/api/getthread", formData)
+        .get("/api/getthread?thread_id=" + this.$route.params.id)
         .catch((error) => {
           if (error.response) {
             console.warn("something went wrong");
           }
         });
       console.log(response.data.comments);
+      this.current_user = this.$store.state.login_displayname;
       this.thread_id = response.data.thread_id;
       this.thread_title = response.data.title;
       this.thread_body = response.data.body;
@@ -326,7 +444,7 @@ export default {
       this.thread_comments = response.data.comments;
       this.thread_comment_count = response.data.comments.length;
       this.thread_is_liked = response.data.is_liked;
-      if (response.data.status == false) {
+      if (!response.data.status) {
         await this.$router.push("/");
       }
       this.comment_thread = "";
@@ -347,7 +465,7 @@ export default {
           }
         });
       console.log(response.data.comments);
-      if (response.data.status == false) {
+      if (!response.data.status) {
         console.warn("Failed to send comment");
       } else {
         await this.getalldata();
@@ -371,10 +489,10 @@ export default {
           }
         });
       console.log(response.data);
-      if (response.data.status == false) {
+      if (!response.data.status) {
         console.warn("Failed to send comment");
       } else {
-        await this.$router.push("/");
+        await this.getalldata();
       }
     },
 
@@ -390,7 +508,7 @@ export default {
           }
         });
       console.log(response.data);
-      if (response.data.status == false) {
+      if (!response.data.status) {
         console.warn("Failed to send comment");
         this.log_in_alert = true;
       } else {
@@ -410,7 +528,7 @@ export default {
           }
         });
       console.log(response.data);
-      if (response.data.status == false) {
+      if (!response.data.status) {
         console.warn("Failed to send comment");
         this.log_in_alert = true;
       } else {
@@ -430,16 +548,37 @@ export default {
           }
         });
       console.log(response.data);
-      if (response.data.status == false) {
+      if (!response.data.status) {
         console.warn("Failed to send comment");
       } else {
         await this.$router.push("/");
       }
     },
+
+    async deletecomment(comment_id) {
+      let formData = new FormData();
+      formData.append("comment_id", comment_id);
+      formData.append("sky_username", this.$store.state.login_skyusername);
+      const response = await axios
+        .post("/api/delete_comment", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      console.log(response.data);
+      if (!response.data.status) {
+        console.warn("Failed to delete comment");
+      } else {
+        await this.getalldata();
+      }
+      this.delete_comment = false;
+      this.delete_reply = false;
+    },
   },
 
-  created() {
-    this.getalldata();
+  async created() {
+    await this.getalldata();
   },
 };
 </script>

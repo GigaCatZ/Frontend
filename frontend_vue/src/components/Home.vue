@@ -11,19 +11,19 @@
           </v-card>
         </v-dialog>
         <v-carousel
-          hide-delimiters
           cycle
-          show-arrows-on-hover
           elevation="2"
           height="280px"
+          hide-delimiters
+          show-arrows-on-hover
         >
           <v-carousel-item v-for="a in announcements" :key="a.title">
-            <v-card outlined height="280px">
+            <v-card height="280px" outlined>
               <v-img
                 :src="a.src"
                 aspect-ratio="16/9"
-                height="210"
                 contain
+                height="210"
                 @click="zoom(a.src)"
               ></v-img>
               <v-card-title
@@ -37,7 +37,7 @@
       <v-col>
         <v-row dense>
           <v-col>
-            <v-card height="136px" outlined :to="{ name: 'FAQ' }">
+            <v-card :to="{ name: 'FAQ' }" height="136px" outlined>
               <v-card-title><h1 class="home">FAQs</h1></v-card-title>
               <v-card-text
                 ><p class="home">Frequently Asked Questions</p></v-card-text
@@ -48,7 +48,7 @@
 
         <v-row dense>
           <v-col>
-            <v-card height="136px" outlined :to="{ name: 'Create' }">
+            <v-card :to="{ name: 'Create' }" height="136px" outlined>
               <v-card-title><h1 class="home">+</h1></v-card-title>
               <v-card-text><p class="home">Create A New Post</p></v-card-text>
             </v-card>
@@ -65,9 +65,9 @@
         <v-chip
           v-for="tag in popularTags"
           :key="tag.title"
-          v-text="tag"
           class="ma-2"
           small
+          v-text="tag"
         ></v-chip>
       </div>
     </v-card>
@@ -77,57 +77,58 @@
     <v-card outlined>
       <v-container fluid>
         <v-row align="center">
+          <v-col><h2 class="home">Threads</h2></v-col>
           <v-col class="d-flex" cols="12" sm="6">
             <v-select
-              :items="ordering"
               v-model="order"
-              label="order"
-              prefix="MOST"
-              hide-details
-              single-line
-              outlined
+              :items="ordering"
               full-width
+              hide-details
+              label="order"
+              outlined
+              prefix="MOST"
+              single-line
             ></v-select>
           </v-col>
-          <v-col><h2 class="home">Threads</h2></v-col>
         </v-row>
       </v-container>
     </v-card>
-    <v-card outlined class="overflow-y-auto mx-auto" height="500">
+    <v-card class="overflow-y-auto mx-auto" height="500" outlined>
       <v-container fluid>
-        <v-row align="center" v-for="t in threads" :key="t.no">
+        <v-row v-for="t in threads" :key="t.no" align="center">
           <v-col>
             <v-card outlined>
               <v-card-subtitle
-                >Created By {{ t.display_name }} • {{ t.date }}</v-card-subtitle
-              >
+                >Created By {{ t.display_name }} • {{ t.date }}
+              </v-card-subtitle>
               <v-card-title class="text-h3" v-text="t.title"></v-card-title>
               <v-card-text>
                 <v-chip
                   v-for="tag in t.tags"
                   :key="tag.title"
-                  v-text="tag"
-                  small
                   class="ma-1"
+                  small
+                  v-text="tag"
                 ></v-chip>
               </v-card-text>
               <v-card-actions>
                 <v-icon class="ml-5 mt-3 mr-3" color="grey"
-                  >mdi-thumb-up-outline</v-icon
-                >
-                <span v-text="t.likes" class="mt-3"></span>
+                  >mdi-thumb-up-outline
+                </v-icon>
+                <span class="mt-3" v-text="t.likes"></span>
                 <v-spacer></v-spacer>
                 <v-icon class="ml-5 mt-3 mr-3" color="grey"
-                  >mdi-message-outline</v-icon
-                >
-                <span v-text="t.comment_count" class="mt-3"></span>
+                  >mdi-message-outline
+                </v-icon>
+                <span class="mt-3" v-text="t.comment_count"></span>
                 <v-spacer></v-spacer>
                 <v-btn
+                  :to="{ path: '/thread/' + t.thread_id }"
                   class="ml-2 mt-3"
                   text
-                  :to="{ path: '/thread/' + t.thread_id }"
                 >
-                  Continue the thread<v-icon left> mdi-arrow-right </v-icon>
+                  Continue the thread
+                  <v-icon left> mdi-arrow-right</v-icon>
                 </v-btn>
               </v-card-actions>
             </v-card>
