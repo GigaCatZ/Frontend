@@ -134,6 +134,7 @@
               text
               height="55"
               color="purple darken-3"
+              :disabled="comment_thread === ''"
               @click="addcomment()"
               ><v-icon large>mdi-send</v-icon></v-btn
             >
@@ -264,6 +265,7 @@
                   text
                   height="41"
                   color="purple darken-3"
+                  :disabled="comment_reply === ''"
                   @click="addreply(comment.comment_id, comment.sender)"
                   ><v-icon large>mdi-send</v-icon></v-btn
                 >
@@ -404,6 +406,7 @@
                     v-else
                     text
                     height="41"
+                    :disabled="comment_reply === ''"
                     color="purple darken-3"
                     @click="addreply(subcom.comment_id, subcom.sender)"
                     ><v-icon large>mdi-send</v-icon></v-btn
