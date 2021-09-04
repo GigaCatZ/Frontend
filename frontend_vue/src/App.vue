@@ -180,6 +180,7 @@ export default {
     drawer: false,
     items: [
       { title: "Forum", icon: "mdi-view-dashboard", link: "/" },
+      { title: "Search", icon: "mdi-magnify", link: "/search" },
       { title: "FAQs", icon: "mdi-forum", link: "/faq" },
       { title: "Help", icon: "mdi-help-circle-outline", link: "/help" },
     ],

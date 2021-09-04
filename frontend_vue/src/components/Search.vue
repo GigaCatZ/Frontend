@@ -55,7 +55,7 @@
       <v-container fluid>
         <v-row align="center" v-for="t in threads" :key="t.no">
           <v-col>
-            <v-card outlined>
+            <v-card outlined class="mt-2 mx-2">
               <v-card-subtitle
                 >Created By {{ t.display_name }} • {{ t.date }}</v-card-subtitle
               >
@@ -117,6 +117,12 @@ export default {
     getKeywords() {
       this.keywords = this.$route.params.keywords;
       this.filter = this.$route.query.filter;
+      if (this.keywords === undefined) {
+        this.keywords = "";
+      }
+      if (this.filter === undefined) {
+        this.filter = "";
+      }
     },
     async browse() {
       let formData = new FormData();
@@ -151,7 +157,7 @@ export default {
       this.browse();
     },
     filter() {
-      this.browse();
+      this.search();
     },
   },
 
