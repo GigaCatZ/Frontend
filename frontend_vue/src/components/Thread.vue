@@ -2,19 +2,32 @@
   <div>
     <v-container>
       <br />
+      <v-dialog v-model="future_update" max-width="300">
+        <v-card>
+          <v-card-title class="text-center ml-5" style="font-size: 18px"
+            >This feature will be coming<br />soon in the next
+            update</v-card-title
+          >
+        </v-card>
+      </v-dialog>
       <v-card class="mx-auto" outlined max-width="800">
         <v-dialog
           type="error"
           dense
           outlined
-          class="mx-4 mt-4"
           v-model="log_in_alert"
           dismissible
           max-width="400"
-          ><v-card
-            ><h1 style="text-align: center" class="pa-6">
-              Please log in to like/comment/reply
-            </h1></v-card
+          ><v-card height="150"
+            ><v-card-title class="justify-center" style="font-size: 20px"
+              ><span class="mt-2"
+                >Please log in to like/comment/reply</span
+              ></v-card-title
+            >
+            <v-card-actions class="justify-space-around mt-3">
+              <v-btn text outlined :to="{ name: 'Login' }"> Log in </v-btn>
+              <v-btn text outlined @click="log_in_alert = false"> close </v-btn>
+            </v-card-actions></v-card
           >
         </v-dialog>
         <v-card-subtitle
@@ -83,7 +96,7 @@
             style="font-size: 15px"
           ></span>
           <v-spacer></v-spacer>
-          <v-btn class="ml-2 mt-3 mr-6" text>
+          <v-btn class="ml-2 mt-3 mr-6" text @click="future_update = true">
             <v-icon class="mr-1" color="grey">mdi-alert-octagon</v-icon>
             <span>Report</span>
           </v-btn>
@@ -107,6 +120,7 @@
               outlined
               clearable
               v-model="comment_thread"
+              @keydown.enter="addcomment"
             ></v-text-field>
           </v-col>
           <v-col cols="1">
@@ -129,7 +143,7 @@
           :key="comment.yes"
         >
           <v-card outlined>
-            <v-card-subtitle
+            <v-card-subtitle style="font-weight: bold"
               >{{ comment.sender
               }}<span
                 style="color: dodgerblue"
@@ -205,7 +219,7 @@
                 <span>Reply</span>
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn small class="ml-2" text>
+              <v-btn small class="ml-2" text @click="future_update = true">
                 <v-icon small class="mr-1" color="grey"
                   >mdi-alert-octagon</v-icon
                 >
@@ -229,6 +243,7 @@
                   outlined
                   clearable
                   dense
+                  @keydown.enter="addreply(comment.comment_id, comment.sender)"
                   v-model="comment_reply"
                 ></v-text-field>
               </v-col>
@@ -253,7 +268,7 @@
           </v-card>
           <div v-for="subcom in comment.replies" :key="subcom.yes">
             <div class="ml-10">
-              <v-card-subtitle
+              <v-card-subtitle style="font-weight: bold; color: dimgray"
                 >{{ subcom.sender
                 }}<span
                   style="color: dodgerblue"
@@ -309,7 +324,9 @@
                   style="color: darkgrey"
                   v-if="subcom.deleted"
                   >{{ subcom.body }}</span
-                ><span v-else>{{ subcom.body }}</span></v-card-text
+                ><span v-else style="color: dimgray">{{
+                  subcom.body
+                }}</span></v-card-text
               >
               <v-card-actions v-if="!subcom.deleted">
                 <v-btn
@@ -336,7 +353,12 @@
                   <span>Reply</span>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn small class="ml-2 mr-1" text>
+                <v-btn
+                  small
+                  class="ml-2 mr-1"
+                  text
+                  @click="future_update = true"
+                >
                   <v-icon small class="mr-1" color="grey"
                     >mdi-alert-octagon</v-icon
                   >
@@ -360,6 +382,7 @@
                     clearable
                     dense
                     v-model="comment_reply"
+                    @keydown.enter="addreply(subcom.comment_id, subcom.sender)"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="1">
@@ -416,6 +439,7 @@ export default {
     delete_thread: false,
     delete_comment: false,
     delete_reply: false,
+    future_update: false,
   }),
 
   methods: {

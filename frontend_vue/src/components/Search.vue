@@ -106,13 +106,14 @@ export default {
   data: () => ({
     keywords: "",
     filtering: ["title", "tags", "display_name"],
-    filter: "title",
+    filter: "",
     threads: [],
     selectlist: [],
   }),
   methods: {
     getKeywords() {
-      this.keywords = this.$route.params.search;
+      this.keywords = this.$route.params.keywords;
+      this.filter = this.$route.query.filter;
     },
     async browse() {
       let formData = new FormData();
@@ -129,7 +130,7 @@ export default {
       this.threads = response.data.search_result;
     },
     search() {
-      this.$router.push("/search/" + this.keywords);
+      this.$router.push("/search/" + this.keywords + "?filter=" + this.filter);
     },
     async extractlist() {
       const response = await axios.get("/api/create_thread").catch((error) => {
