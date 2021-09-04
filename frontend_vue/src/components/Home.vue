@@ -76,10 +76,10 @@
     <br />
 
     <v-card outlined>
-      <v-container fluid>
+      <v-container fluid class="mx-auto">
         <v-row align="center">
-          <v-col><h2 class="home">Threads</h2></v-col>
-          <v-col class="d-flex" cols="12" sm="6">
+          <v-col class="ml-2"><h2 class="home">Top 10 Threads</h2></v-col>
+          <v-col class="d-flex mr-2" cols="12" sm="6">
             <v-select
               v-model="order"
               :items="ordering"
@@ -87,7 +87,7 @@
               hide-details
               label="order"
               outlined
-              prefix="MOST"
+              prefix="SORTED BY: MOST"
               single-line
             ></v-select>
           </v-col>
@@ -98,7 +98,7 @@
       <v-container fluid>
         <v-row v-for="t in threads" :key="t.no" align="center">
           <v-col>
-            <v-card outlined>
+            <v-card outlined class="mt-2 mx-2">
               <v-card-subtitle
                 >Created By {{ t.display_name }} • {{ t.date }}
               </v-card-subtitle>
