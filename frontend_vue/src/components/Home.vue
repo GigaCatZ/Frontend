@@ -68,6 +68,7 @@
           class="ma-2"
           small
           v-text="tag"
+          @click="search(tag)"
         ></v-chip>
       </div>
     </v-card>
@@ -170,6 +171,7 @@ export default {
       threads: [],
       zoomedImage: false,
       image: "",
+      selectedTag: "",
     };
   },
 
@@ -196,6 +198,9 @@ export default {
     zoom(src) {
       this.zoomedImage = true;
       this.image = src;
+    },
+    search(tag) {
+      this.$router.push("/search/" + tag + "?filter=tags");
     },
   },
 };

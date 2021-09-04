@@ -57,9 +57,10 @@ const routes = [
     component: Thread,
   },
   {
-    path: "/search/:search",
+    path: "/search/:keywords",
     name: "Search",
     component: Search,
+    props: (route) => ({ filter: route.query.filter }),
   },
   {
     path: "/changeinfo",

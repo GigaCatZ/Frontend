@@ -192,7 +192,7 @@ export default {
   methods: {
     searchbar() {
       console.warn(this.searchInput);
-      this.$router.push("/search/" + this.searchInput);
+      this.$router.push("/search/" + this.searchInput + "?filter=title");
       this.searchInput = "";
     },
     onScroll(e) {
