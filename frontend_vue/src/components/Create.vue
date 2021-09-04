@@ -13,54 +13,53 @@
         </v-row>
         <br />
 
-        <v-row class="mx-4">
-          <v-col>
-            <v-text-field
-              v-model="title"
-              label="Title"
-              outlined
-              counter="30"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <br />
-        <v-row class="mx-4">
-          <v-col>
-            <v-textarea
-              v-model="text"
-              label="Body"
-              outlined
-              counter="300"
-            ></v-textarea>
-          </v-col>
-        </v-row>
-        <v-row class="mx-4">
-          <v-col>
-            <h2 class="one">Tags</h2>
-            <v-divider></v-divider>
-          </v-col>
-        </v-row>
+        <v-form v-model="valid">
+          <v-row class="mx-4">
+            <v-col>
+              <v-text-field
+                v-model="title"
+                label="Title"
+                outlined
+                counter
+                maxlength="120"
+                :rules="[() => !!title || 'This field is required']"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <br />
+          <v-row class="mx-4">
+            <v-col>
+              <v-textarea v-model="text" label="Body" outlined></v-textarea>
+            </v-col>
+          </v-row>
+          <v-row class="mx-4">
+            <v-col>
+              <h2 class="one">Tags</h2>
+              <v-divider></v-divider>
+            </v-col>
+          </v-row>
 
-        <v-row class="mx-4">
-          <v-col>
-            <v-autocomplete
-              v-model="tags"
-              :items="selectlist"
-              label="None"
-              outlined
-              hide-selected
-              single-line
-              clearable
-              deletable-chips
-              multiple
-              small-chips
-            ></v-autocomplete>
-          </v-col>
-        </v-row>
-        <v-card-actions class="ma-4">
-          <v-spacer></v-spacer>
-          <v-btn @click="sendData">post</v-btn>
-        </v-card-actions>
+          <v-row class="mx-4">
+            <v-col>
+              <v-autocomplete
+                v-model="tags"
+                :items="selectlist"
+                label="None"
+                outlined
+                hide-selected
+                single-line
+                clearable
+                deletable-chips
+                multiple
+                small-chips
+              ></v-autocomplete>
+            </v-col>
+          </v-row>
+          <v-card-actions class="ma-4">
+            <v-spacer></v-spacer>
+            <v-btn :disabled="!valid" @click="sendData">post</v-btn>
+          </v-card-actions>
+        </v-form>
       </v-card>
     </v-container>
   </div>
@@ -79,7 +78,7 @@ export default {
     tags: "",
     selectlist: [],
     errormsg: "",
-    // error: false,
+    valid: false,
   }),
 
   methods: {
