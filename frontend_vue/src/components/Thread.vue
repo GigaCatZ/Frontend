@@ -7,14 +7,19 @@
           type="error"
           dense
           outlined
-          class="mx-4 mt-4"
           v-model="log_in_alert"
           dismissible
           max-width="400"
-          ><v-card
-            ><h1 style="text-align: center" class="pa-6">
-              Please log in to like/comment/reply
-            </h1></v-card
+          ><v-card height="150"
+            ><v-card-title class="justify-center" style="font-size: 20px"
+              ><span class="mt-2"
+                >Please log in to like/comment/reply</span
+              ></v-card-title
+            >
+            <v-card-actions class="justify-space-around mt-3">
+              <v-btn text outlined :to="{ name: 'Login' }"> Log in </v-btn>
+              <v-btn text outlined @click="log_in_alert = false"> close </v-btn>
+            </v-card-actions></v-card
           >
         </v-dialog>
         <v-card-subtitle
