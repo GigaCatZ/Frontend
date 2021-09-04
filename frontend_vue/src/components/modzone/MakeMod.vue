@@ -103,7 +103,7 @@ export default {
       formData.append("candidate_username", candidate_username);
       formData.append("modval", is_mod);
 
-      const response = axios.post("/api/modzone/set_moderator", formData);
+      const response = await axios.post("/api/modzone/set_moderator", formData);
       this.res_msg = response.data.message;
       this.res_alert = true;
     },

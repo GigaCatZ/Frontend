@@ -128,7 +128,10 @@ export default {
       formData.append("thread_a", this.threadA);
       formData.append("thread_b", this.threadB);
       formData.append("sky_username", this.$store.state.login_skyusername);
-      const response = axios.post("/api/modzone/merge_threads");
+      const response = await Vue.axios.post(
+        "/api/modzone/merge_threads",
+        formData
+      );
       this.res_msg = response.data.message;
       this.res_alert = true;
     },
