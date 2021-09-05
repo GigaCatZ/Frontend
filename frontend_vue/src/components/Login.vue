@@ -82,14 +82,21 @@
               </template>
               <v-spacer></v-spacer>
               <v-card>
+                <v-card-title class="justify-center">
+                  <span class="text-h5 mt-2">Register</span>
+                </v-card-title>
+                <v-divider class="mx-6 divider-custom ma-3"></v-divider>
+                <p />
                 <div>
-                  <v-alert v-model="register_alert" dismissible type="error">
+                  <v-alert
+                    v-model="register_alert"
+                    dismissible
+                    type="error"
+                    class="mx-10"
+                  >
                     {{ register_alert_text }}
                   </v-alert>
                 </div>
-                <v-card-title>
-                  <span class="text-h5">Register</span>
-                </v-card-title>
                 <v-card-text>
                   <v-container>
                     <v-form ref="form" v-model="valid" lazy-validation>
@@ -145,8 +152,7 @@
                     </v-form>
                   </v-container>
                 </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
+                <v-card-actions class="justify-end">
                   <v-btn color="blue darken-1" text @click="form = false">
                     Close
                   </v-btn>
@@ -225,14 +231,18 @@ export default {
   }),
   watch: {
     login_alert: function () {
-      setTimeout(() => {
-        this.login_alert = false;
-      }, 4500);
+      if (this.login_alert) {
+        setTimeout(() => {
+          this.login_alert = false;
+        }, 4500);
+      }
     },
     register_alert: function () {
-      setTimeout(() => {
-        this.register_alert = false;
-      }, 4500);
+      if (this.register_alert) {
+        setTimeout(() => {
+          this.register_alert = false;
+        }, 4500);
+      }
     },
   },
   methods: {
@@ -248,11 +258,9 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
       if (response.data.status) {
         await this.$router.push("/");
       } else {
-        console.warn(response.data.message);
         this.login_alert = true;
         this.login_alert_text = response.data.message;
       }
@@ -271,13 +279,11 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
       if (response.data.status) {
         this.form = false;
         this.register_alert = true;
         this.register_alert_text = response.data.message;
       } else {
-        console.warn(response.data.message);
         this.register_alert = true;
         this.register_alert_text = response.data.message;
       }
@@ -293,7 +299,6 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data.message);
       this.douserexist = response.data.status;
     },
   },
