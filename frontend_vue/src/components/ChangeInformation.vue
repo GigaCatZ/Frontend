@@ -30,7 +30,8 @@
               :rules="display_name_rule"
               counter="25"
               outlined
-              label="New display name"
+              label="New display name*"
+              hint="Type current display name if you do not want to change your display name"
               class="align-center"
               clearable
             ></v-text-field>
