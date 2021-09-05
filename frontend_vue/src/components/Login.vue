@@ -223,7 +223,18 @@ export default {
       (v) => /.+@.+/.test(v) || "E-mail must be valid",
     ],
   }),
-
+  watch: {
+    login_alert: function () {
+      setTimeout(() => {
+        this.login_alert = false;
+      }, 4500);
+    },
+    register_alert: function () {
+      setTimeout(() => {
+        this.register_alert = false;
+      }, 4500);
+    },
+  },
   methods: {
     async login() {
       let formData = new FormData();
