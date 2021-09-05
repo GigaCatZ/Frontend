@@ -85,7 +85,7 @@
                 <v-card-title class="justify-center">
                   <span class="text-h5 mt-2">Register</span>
                 </v-card-title>
-                <v-divider class="mx-6 divider-custom ma-3"></v-divider>
+                <v-divider class="mx-16 divider-custom ma-3"></v-divider>
                 <p />
                 <div>
                   <v-alert
