@@ -76,7 +76,7 @@ const routes = [
     component: ModPage,
   },
   {
-    path: "/access",
+    path: "/modzone/access",
     name: "PermissionDenied",
     component: PermissionDenied,
   },

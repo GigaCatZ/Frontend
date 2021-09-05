@@ -19,8 +19,8 @@
           If you have any questions, please contact other moderators
         </p>
       </v-card-subtitle>
-      <v-card-actions class="justify-end">
-        <v-btn text :to="'/'">Go to home page</v-btn>
+      <v-card-actions class="justify-center">
+        <v-btn text :to="'/modzone/main'">Try again</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
