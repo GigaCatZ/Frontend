@@ -9,14 +9,19 @@ export default new Vuex.Store({
       commit("setStatus", response.is_logged_in);
       commit("setUserName", response.display_name);
       commit("setSkyUserName", response.sky_username);
+      commit("setModStatus", response.mod);
     },
     resetinfo({ commit }) {
       commit("setStatus", false);
       commit("setUserName", null);
       commit("setSkyUserName", null);
+      commit("setModStatus", false);
     },
   },
   mutations: {
+    setModStatus(state, mod_status) {
+      this.state.is_mod = mod_status;
+    },
     setStatus(state, status) {
       this.state.status = status;
     },
@@ -27,6 +32,11 @@ export default new Vuex.Store({
       this.state.login_skyusername = login_skyusername;
     },
   },
-  state: { login_displayname: null, login_skyusername: null, status: false },
+  state: {
+    login_displayname: null,
+    login_skyusername: null,
+    status: false,
+    is_mod: false,
+  },
   modules: {},
 });

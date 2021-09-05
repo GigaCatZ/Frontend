@@ -145,6 +145,14 @@
               <v-list-item-title v-text="item.title"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item v-if="this.$store.state.is_mod" :to="'/modzone/main'">
+            <v-list-item-icon>
+              <v-icon v-text="'mdi-account-hard-hat'"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="'Moderator zone'"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
