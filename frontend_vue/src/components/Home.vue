@@ -195,8 +195,6 @@ export default {
       let result = await Vue.axios.post("/api/home", formData);
       this.popularTags = result.data.tags;
       this.threads = result.data.threads;
-      console.log(this.threads);
-      console.log(result.data);
     },
     zoom(src) {
       this.zoomedImage = true;

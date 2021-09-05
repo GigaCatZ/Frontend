@@ -465,7 +465,6 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data.comments);
       this.current_user = this.$store.state.login_displayname;
       this.thread_id = response.data.thread_id;
       this.thread_title = response.data.title;
@@ -498,10 +497,7 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data.comments);
-      if (!response.data.status) {
-        console.warn("Failed to send comment");
-      } else {
+      if (response.data.status) {
         await this.getalldata();
       }
     },
@@ -522,7 +518,6 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
       if (!response.data.status) {
         console.warn("Failed to send comment");
       } else {
@@ -541,9 +536,7 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
       if (!response.data.status) {
-        console.warn("Failed to send comment");
         this.log_in_alert = true;
       } else {
         await this.getalldata();
@@ -561,9 +554,7 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
       if (!response.data.status) {
-        console.warn("Failed to send comment");
         this.log_in_alert = true;
       } else {
         await this.getalldata();
@@ -581,10 +572,7 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
-      if (!response.data.status) {
-        console.warn("Failed to send comment");
-      } else {
+      if (response.data.status) {
         await this.$router.push("/");
       }
     },
@@ -600,10 +588,7 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
-      if (!response.data.status) {
-        console.warn("Failed to delete comment");
-      } else {
+      if (response.data.status) {
         await this.getalldata();
       }
       this.delete_comment = false;

@@ -135,7 +135,6 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
       this.threads = response.data.search_result;
     },
     search() {
@@ -147,7 +146,6 @@ export default {
           console.warn("something went wrong");
         }
       });
-      console.log(response);
       this.selectlist = response.data.courses;
     },
   },

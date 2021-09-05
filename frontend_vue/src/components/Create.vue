@@ -95,7 +95,6 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
       if (response.data.status) {
         await this.$router.push("/thread/" + response.data.thread_id);
       } else {
@@ -110,7 +109,6 @@ export default {
           console.warn("something went wrong");
         }
       });
-      console.log(response);
       this.selectlist = response.data.courses;
     },
   },

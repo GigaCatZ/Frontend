@@ -132,7 +132,6 @@ export default {
     async getTopQ() {
       let result = await Vue.axios.get("/api/faq");
       this.topQ = result.data.response;
-      console.log(result.response);
     },
   },
 };
