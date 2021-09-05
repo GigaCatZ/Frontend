@@ -611,7 +611,7 @@ export default {
     },
 
     search(tag) {
-      this.$router.push("/search/" + tag + "?filter=tags");
+      this.$router.push("/search/" + tag + "?filter=tag");
     },
   },
 
