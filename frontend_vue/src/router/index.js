@@ -14,6 +14,7 @@ import Search from "../components/Search";
 import ChangeInformation from "../components/ChangeInformation";
 import Edit from "../components/Edit";
 import ModPage from "../components/modzone/ModPage";
+import PermissionDenied from "../components/modzone/PermissionDenied";
 
 Vue.use(VueAxios, axios);
 
@@ -75,6 +76,11 @@ const routes = [
     component: ModPage,
   },
   {
+    path: "/access",
+    name: "PermissionDenied",
+    component: PermissionDenied,
+  },
+  {
     path: "/edit_thread/:id",
     name: "Edit",
     component: Edit,
@@ -91,6 +97,7 @@ router.beforeEach(async (to, from, next) => {
   });
   await store.dispatch("storedinfo", response.data);
   let loggedIn = store.state.status;
+  let is_mod = store.state.is_mod;
   let router_list = [
     "Login",
     "Thread",
@@ -101,6 +108,7 @@ router.beforeEach(async (to, from, next) => {
     "Search",
     "ChangeInformation",
     "ModPage",
+    "PermissionDenied",
     "Edit",
   ];
 
@@ -110,6 +118,8 @@ router.beforeEach(async (to, from, next) => {
     (to.name === "ChangeInformation" && !loggedIn)
   ) {
     next({ name: "Home" });
+  } else if (to.name === "ModPage" && !is_mod) {
+    next({ name: "PermissionDenied" });
   } else if (to.name === "Create" && !loggedIn) {
     next({ name: "Login" });
   } else {
