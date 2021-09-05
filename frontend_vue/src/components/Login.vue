@@ -99,6 +99,7 @@
                       v-model="studentID"
                       :rules="usernameRules"
                       label="Sky Username"
+                      hint="This field is permanent (can not be changed after the account has been created)"
                       required
                     ></v-text-field>
 
@@ -126,6 +127,7 @@
                       v-model="email"
                       :rules="emailRules"
                       label="Email"
+                      hint="This field is permanent (can not be changed after the account has been created)"
                       required
                     ></v-text-field>
                   </v-form>
