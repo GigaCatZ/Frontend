@@ -51,7 +51,7 @@
     >
       <v-card-text>NO RESULTS</v-card-text>
     </v-card>
-    <v-card outlined v-else class="overflow-y-auto mx-auto" height="500">
+    <v-card outlined v-else class="overflow-y-auto mx-auto" height="600">
       <v-container fluid>
         <v-row align="center" v-for="t in threads" :key="t.no">
           <v-col>
