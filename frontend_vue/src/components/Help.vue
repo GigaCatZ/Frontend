@@ -53,7 +53,7 @@
             <v-row class="mx-2">
               <v-col>
                 <h2 class="faq">
-                  Why can't I like threads in Home and Search pages?
+                  Why can't I like threads in the Forum and Search pages?
                 </h2>
                 <p class="faq">
                   It was our intention for users to view more details about each
@@ -69,12 +69,34 @@
               </v-col>
             </v-row>
 
+            <!-- question 4 -->
             <v-row class="mx-2">
               <v-col>
                 <h2 class="faq">How do we contact the IC Courses Team?</h2>
                 <p class="faq">
                   You may ping @ICCOURSES-TEAM in the
                   <b>#iccourses-help</b> text channel in MUIC CS Discord server.
+                </p>
+                <v-divider></v-divider>
+              </v-col>
+            </v-row>
+
+            <!-- question 5 -->
+            <v-row class="mx-2">
+              <v-col>
+                <h2 class="faq">
+                  Can this web application add [insert feature here]?
+                </h2>
+                <p class="faq">
+                  The main developers of this web application have just become
+                  second and third year MUIC CS students this term. This web
+                  application was developed with no budget, so we need to take
+                  our free time and the feature's complexity into consideration
+                  before adding new features.
+                </p>
+                <p class="faq2">
+                  However, if you are willing to donate to us, it will be our
+                  honor to listen to your request.
                 </p>
               </v-col>
             </v-row>
