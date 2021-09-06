@@ -1,12 +1,12 @@
 <template>
-  <v-dialog v-model="forgotpwd" max-width="600px">
+  <v-dialog v-model="forgotPwd" max-width="600px">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         v-bind="attrs"
         v-on="on"
         color="#2a0094"
         dark
-        @click="forgotpwd = true"
+        @click="forgotPwd = true"
       >
         Forgot password
       </v-btn>
@@ -15,7 +15,13 @@
       <v-card-title>
         <span class="text-h5">Request a new password</span>
       </v-card-title>
-      <v-card-text>
+      <v-alert v-model="pwdRequest_success" class="mx-8" type="success">
+        {{ pwdRequest_text }}
+      </v-alert>
+      <v-alert v-model="pwdRequest_error" dismissible class="mx-8" type="error">
+        {{ pwdRequest_text }}
+      </v-alert>
+      <v-card-text class="mt-5">
         <v-container>
           <v-text-field
             v-model="SKY_username"
@@ -23,19 +29,17 @@
             label="SKY Username"
             required
           ></v-text-field>
-          <!--<p>{{ SKY_username }}</p>-->
           <v-text-field
             v-model="email"
             dense
             label="E-mail"
             required
           ></v-text-field>
-          <!--<p>{{ email }}</p>-->
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="forgotpwd = false"
+        <v-btn color="blue darken-1" text @click="forgotPwd = false"
           >Close
         </v-btn>
         <v-btn color="blue darken-1" text @click="send_request">
@@ -59,8 +63,10 @@ export default {
     return {
       SKY_username: "",
       email: "",
-      pwdrequest_text: "",
-      forgotpwd: false,
+      forgotPwd: false,
+      pwdRequest_text: "",
+      pwdRequest_success: false,
+      pwdRequest_error: false,
     };
   },
 
@@ -77,8 +83,15 @@ export default {
           }
         });
 
-      this.pwdrequest_text = response.data.response;
-      this.forgotpwd = false;
+      if (response.data.status) {
+        this.pwdRequest_success = true;
+        this.pwdRequest_text = response.data.message;
+        this.SKY_username = "";
+        this.email = "";
+      } else {
+        this.pwdRequest_error = true;
+        this.pwdRequest_text = response.data.message;
+      }
     },
   },
 };
