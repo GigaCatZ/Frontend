@@ -10,6 +10,7 @@ export default new Vuex.Store({
       commit("setUserName", response.display_name);
       commit("setSkyUserName", response.sky_username);
       commit("setModStatus", response.mod);
+      commit("setMobileStatus", screen.width <= 760);
     },
     resetinfo({ commit }) {
       commit("setStatus", false);
@@ -21,6 +22,9 @@ export default new Vuex.Store({
   mutations: {
     setModStatus(state, mod_status) {
       this.state.is_mod = mod_status;
+    },
+    setMobileStatus(state, mobile_status) {
+      this.state.is_mobile = mobile_status;
     },
     setStatus(state, status) {
       this.state.status = status;
@@ -37,6 +41,7 @@ export default new Vuex.Store({
     login_skyusername: null,
     status: false,
     is_mod: false,
+    is_mobile: false,
   },
   modules: {},
 });

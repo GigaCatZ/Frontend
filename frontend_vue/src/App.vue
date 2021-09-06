@@ -22,7 +22,14 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-btn plain fab icon x-large :to="{ name: 'Home' }">
+      <v-btn
+        v-if="!this.$store.state.is_mobile"
+        plain
+        fab
+        icon
+        x-large
+        :to="{ name: 'Home' }"
+      >
         <v-img
           :src="require('./assets/icc_logo_border.png')"
           height="65"
@@ -30,14 +37,33 @@
           contain
         />
       </v-btn>
+      <v-btn v-else plain fab :to="{ name: 'Home' }">
+        <v-img
+          :src="require('./assets/icc_logo_border.png')"
+          height="40"
+          width="35"
+          contain
+        />
+      </v-btn>
 
       <v-btn plain :to="{ name: 'Home' }">
-        <h1 class="white--text font-weight-bold">IC Courses</h1>
+        <h3
+          v-if="this.$store.state.is_mobile"
+          class="white--text font-weight-bold"
+        >
+          IC Courses
+        </h3>
+        <h1 v-else class="white--text font-weight-bold">IC Courses</h1>
       </v-btn>
 
       <v-spacer></v-spacer>
 
-      <v-col v-if="this.$route.name !== 'Search'" cols="12" sm="6" md="4">
+      <v-col
+        v-if="this.$route.name !== 'Search' && !this.$store.state.is_mobile"
+        cols="12"
+        sm="6"
+        md="4"
+      >
         <v-text-field
           v-model="searchInput"
           label="Search here"
@@ -47,6 +73,15 @@
           @keydown.enter="searchbar()"
         ></v-text-field>
       </v-col>
+
+      <v-tooltip bottom nudge-left="20" v-if="this.$store.state.is_mobile">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon :to="'/search'" v-bind="attrs" v-on="on">
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+        </template>
+        <span>Search</span>
+      </v-tooltip>
 
       <v-menu bottom min-width="200px" open-on-hover offset-y right offset-x>
         <template v-slot:activator="{ on }">
@@ -217,7 +252,6 @@ export default {
     async logout() {
       let result = await Vue.axios.get("/api/logout");
       if (result.data.status) {
-        console.log("logged out");
         await this.$store.dispatch("resetinfo");
         await router.push({ name: "Home" });
       }
