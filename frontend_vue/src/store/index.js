@@ -18,9 +18,6 @@ export default new Vuex.Store({
       commit("setSkyUserName", null);
       commit("setModStatus", false);
     },
-    toggledarkmode({ commit }) {
-      commit("setDarkMode", !this.state.is_dark_mode);
-    },
   },
   mutations: {
     setModStatus(state, mod_status) {
@@ -37,9 +34,6 @@ export default new Vuex.Store({
     },
     setSkyUserName(state, login_skyusername) {
       this.state.login_skyusername = login_skyusername;
-    },
-    setDarkMode(state, dark_mode) {
-      this.state.is_dark_mode = dark_mode;
     },
   },
   state: {
