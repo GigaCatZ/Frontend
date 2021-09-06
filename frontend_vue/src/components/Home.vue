@@ -27,8 +27,11 @@
                 @click="zoom(a.src)"
               ></v-img>
               <v-card-title
-                ><h3 class="home">{{ a.title }}</h3></v-card-title
-              >
+                ><h3 class="home" v-if="!mobile">{{ a.title }}</h3>
+                <h3 class="home" v-else style="font-size: medium">
+                  {{ a.title }}
+                </h3>
+              </v-card-title>
             </v-card>
           </v-carousel-item>
         </v-carousel>
@@ -40,8 +43,11 @@
             <v-card :to="{ name: 'FAQ' }" height="136px" outlined>
               <v-card-title><h1 class="home">FAQs</h1></v-card-title>
               <v-card-text
-                ><p class="home">Frequently Asked Questions</p></v-card-text
-              >
+                ><p class="home" v-if="!mobile">Frequently Asked Questions</p>
+                <p class="home" v-else style="font-size: small">
+                  Frequently Asked Questions
+                </p>
+              </v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -50,7 +56,12 @@
           <v-col>
             <v-card :to="{ name: 'Create' }" height="136px" outlined>
               <v-card-title><h1 class="home">+</h1></v-card-title>
-              <v-card-text><p class="home">Create A New Thread</p></v-card-text>
+              <v-card-text
+                ><p class="home" v-if="!mobile">Create A New Thread</p>
+                <p class="home" v-else style="font-size: small">
+                  Create A New Thread
+                </p></v-card-text
+              >
             </v-card>
           </v-col>
         </v-row>
@@ -130,8 +141,18 @@
                   :to="{ path: '/thread/' + t.thread_id }"
                   class="ml-2 mt-3"
                   text
+                  v-if="!mobile"
                 >
                   Continue the thread
+                  <v-icon left> mdi-arrow-right</v-icon>
+                </v-btn>
+                <v-btn
+                  :to="{ path: '/thread/' + t.thread_id }"
+                  class="ml-2 mt-3"
+                  text
+                  v-else
+                >
+                  Continue
                   <v-icon left> mdi-arrow-right</v-icon>
                 </v-btn>
               </v-card-actions>
@@ -175,6 +196,7 @@ export default {
       zoomedImage: false,
       image: "",
       selectedTag: "",
+      mobile: false,
     };
   },
 
@@ -195,6 +217,7 @@ export default {
       let result = await Vue.axios.post("/api/home", formData);
       this.popularTags = result.data.tags;
       this.threads = result.data.threads;
+      this.mobile = this.$store.state.is_mobile;
     },
     zoom(src) {
       this.zoomedImage = true;
