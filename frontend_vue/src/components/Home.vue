@@ -99,6 +99,8 @@
               label="order"
               outlined
               prefix="SORTED BY: MOST"
+              color="deep-purple lighten-2"
+              item-color="deep-purple lighten-3"
               single-line
             ></v-select>
           </v-col>

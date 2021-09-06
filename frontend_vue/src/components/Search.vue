@@ -35,6 +35,8 @@
             :items="filtering"
             v-model="filter"
             prefix="FILTER BY:"
+            color="deep-purple lighten-2"
+            item-color="deep-purple lighten-3"
             hide-details
             single-line
             dense
