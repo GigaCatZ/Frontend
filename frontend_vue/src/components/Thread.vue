@@ -70,6 +70,7 @@
           <v-chip
             v-for="tag in thread_tags"
             :key="tag.title"
+            color="rgba(103, 58, 183,.28)"
             v-text="tag"
             small
             class="ma-1"
@@ -118,6 +119,8 @@
             <v-textarea
               v-else
               label="Comment"
+              color="deep-purple lighten-2"
+              item-color="deep-purple lighten-3"
               outlined
               clearable
               rows="1"
@@ -244,6 +247,8 @@
                 <v-textarea
                   v-else
                   label="Comment"
+                  color="deep-purple lighten-2"
+                  item-color="deep-purple lighten-3"
                   outlined
                   clearable
                   dense
@@ -385,6 +390,8 @@
                   <v-textarea
                     v-else
                     label="Comment"
+                    color="deep-purple lighten-2"
+                    item-color="deep-purple lighten-3"
                     outlined
                     clearable
                     dense

@@ -26,7 +26,13 @@
         <br />
         <v-row class="mx-4">
           <v-col>
-            <v-textarea v-model="text" label="Body" outlined></v-textarea>
+            <v-textarea
+              v-model="text"
+              label="Body"
+              outlined
+              color="deep-purple lighten-2"
+              item-color="deep-purple lighten-3"
+            ></v-textarea>
           </v-col>
         </v-row>
         <v-row class="mx-4">
@@ -41,6 +47,8 @@
             <v-autocomplete
               v-model="tags"
               :items="selectlist"
+              color="deep-purple lighten-2"
+              item-color="deep-purple lighten-3"
               label="None"
               outlined
               hide-selected
@@ -49,7 +57,18 @@
               deletable-chips
               multiple
               small-chips
-            ></v-autocomplete>
+            >
+              <template #selection="{ item }">
+                <v-chip
+                  color="rgba(103, 58, 183,.28)"
+                  small
+                  close
+                  @click:close="remove(item.id)"
+                >
+                  {{ item }}
+                </v-chip>
+              </template>
+            </v-autocomplete>
           </v-col>
         </v-row>
         <v-card-actions class="ma-4">
@@ -90,6 +109,11 @@ export default {
   }),
 
   methods: {
+    remove(id) {
+      let idx = this.tags.indexOf(id);
+      this.tags.splice(idx, 1);
+      this.tags = [...this.tags];
+    },
     async sendData() {
       let formData = new FormData();
       formData.append("thread_id", this.thread_id);
