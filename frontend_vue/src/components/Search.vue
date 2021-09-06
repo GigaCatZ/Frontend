@@ -108,7 +108,7 @@ export default {
   name: "Search",
   data: () => ({
     keywords: "",
-    filtering: ["title", "tag", "author"],
+    filtering: ["TITLE", "TAG", "AUTHOR"],
     filter: "",
     threads: [],
     selectlist: [],
@@ -127,7 +127,7 @@ export default {
     async browse() {
       let formData = new FormData();
       formData.append("search_input", this.keywords);
-      formData.append("type_search", this.filter);
+      formData.append("type_search", this.filter.toLowerCase());
       const response = await axios
         .post("/api/search", formData)
         .catch((error) => {
@@ -138,7 +138,9 @@ export default {
       this.threads = response.data.search_result;
     },
     search() {
-      this.$router.push("/search/" + this.keywords + "?filter=" + this.filter);
+      this.$router.push(
+        "/search/" + this.keywords + "?filter=" + this.filter.toLowerCase()
+      );
     },
     async extractlist() {
       const response = await axios.get("/api/create_thread").catch((error) => {
