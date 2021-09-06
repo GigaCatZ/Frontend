@@ -13,8 +13,7 @@
         <v-img
           v-bind="props"
           :gradient="
-            // !$vuetify.theme.dark
-            !this.$store.state.is_dark_mode
+            !$vuetify.theme.dark
               ? 'to top right, rgba(58, 0, 133,.7), rgba(25,32,72,.7)'
               : 'to top right, rgba(10,10,20,.7), rgba(25,32,72,.7)'
           "
@@ -138,12 +137,7 @@
 
       <v-tooltip bottom nudge-left="20">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            @click="this.$store.dispatch('toggledarkmode')"
-            v-bind="attrs"
-            v-on="on"
-          >
+          <v-btn icon @click="switchTheme" v-bind="attrs" v-on="on">
             <v-icon>mdi-brightness-4</v-icon>
           </v-btn>
         </template>
@@ -238,6 +232,13 @@ export default {
     document.title = "IC Courses";
   },
 
+  mounted() {
+    const theme = localStorage.getItem("is_dark_mode");
+    if (theme) {
+      this.$vuetify.theme.dark = theme === "true";
+    }
+  },
+
   methods: {
     searchbar() {
       console.warn(this.searchInput);
@@ -258,6 +259,10 @@ export default {
         await this.$store.dispatch("resetinfo");
         await router.push({ name: "Home" });
       }
+    },
+    switchTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      localStorage.setItem("is_dark_mode", this.$vuetify.theme.dark.toString());
     },
   },
 };
