@@ -1,5 +1,4 @@
-<!--<template v-model="$vuetify.theme.dark">-->
-<template v-model="this.$store.state.is_dark_mode">
+<template v-model="$vuetify.theme.dark">
   <v-container>
     <br />
     <v-card class="mx-auto">
@@ -44,7 +43,7 @@
               hint="*This is required"
               outlined
               label="Current password*"
-              color="#2a0094"
+              :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
               class="align-center"
               @click:append="show_current_password = !show_current_password"
               clearable
