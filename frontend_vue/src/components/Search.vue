@@ -7,16 +7,21 @@
           <v-autocomplete
             v-model="keywords"
             :items="selectlist"
-            v-if="filter === 'tag'"
+            v-if="filter === 'TAG'"
+            color="deep-purple lighten-2"
+            item-color="deep-purple lighten-3"
             hide-details
-            hide-selected
             single-line
             dense
             outlined
             clearable
-            small-chips
             @input="search"
-          ></v-autocomplete>
+            ><template v-slot:selection
+              ><v-chip small color="rgba(103, 58, 183,.28)">{{
+                keywords
+              }}</v-chip></template
+            ></v-autocomplete
+          >
           <v-text-field
             v-model="keywords"
             v-else
@@ -71,6 +76,7 @@
                   :key="tag.title"
                   v-text="tag"
                   small
+                  color="rgba(103, 58, 183,.28)"
                   class="ma-1"
                 ></v-chip>
               </v-card-text>
@@ -130,7 +136,7 @@ export default {
   methods: {
     getKeywords() {
       this.keywords = this.$route.params.keywords;
-      this.filter = this.$route.query.filter;
+      this.filter = this.$route.query.filter.toUpperCase();
       if (this.keywords === undefined) {
         this.keywords = "";
       }

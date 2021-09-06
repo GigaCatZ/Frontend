@@ -78,6 +78,7 @@
           :key="tag.title"
           class="ma-2"
           small
+          color="rgba(103, 58, 183,.28)"
           v-text="tag"
           @click="search(tag)"
         ></v-chip>
@@ -125,6 +126,7 @@
                   :key="tag.title"
                   class="ma-1"
                   small
+                  color="rgba(103, 58, 183,.28)"
                   v-text="tag"
                 ></v-chip>
               </v-card-text>
