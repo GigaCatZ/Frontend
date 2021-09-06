@@ -5,6 +5,7 @@
         v-bind="attrs"
         v-on="on"
         color="#2a0094"
+        text
         dark
         @click="forgotPwd = true"
       >

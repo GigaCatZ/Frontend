@@ -65,19 +65,23 @@
                 !valid || (this.password === '' && this.username === '')
               "
               color="#2a0094"
-              class="white--text"
-              elevation="5"
+              class="white--text ma-2"
+              block
               @click="login"
               >Login
             </v-btn>
 
-            <!-- forgot password button -->
-            <ForgotPwd />
-
             <!--register button w/ form-->
             <v-dialog v-model="form" max-width="600px">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" color="#2a0094" dark>
+                <v-btn
+                  v-bind="attrs"
+                  v-on="on"
+                  color="#2a0094"
+                  class="ma-2"
+                  block
+                  dark
+                >
                   Register
                 </v-btn>
               </template>
@@ -170,6 +174,10 @@
             </v-dialog>
           </v-row>
         </v-col>
+      </v-row>
+      <v-row class="justify-space-around">
+        <!-- forgot password button -->
+        <ForgotPwd />
       </v-row>
       <br />
       <br />
