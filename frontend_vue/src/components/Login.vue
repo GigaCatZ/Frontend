@@ -1,4 +1,5 @@
-<template v-model="$vuetify.theme.dark">
+<!--<template v-model="$vuetify.theme.dark">-->
+<template v-model="this.$store.state.is_dark_mode">
   <v-container>
     <br />
     <!--page title-->
@@ -6,14 +7,14 @@
       class="mx-auto"
       max-width="600"
       outlined
-      :color="!$vuetify.theme.dark ? '#fdf7ff' : '#272129'"
+      :color="!this.$store.state.is_dark_mode ? '#fdf7ff' : '#272129'"
     >
       <v-card-title class="justify-center ma-5">
         <h1 class="font-weight-light">Login Page</h1>
       </v-card-title>
       <v-divider
         class="mx-16 divider-custom"
-        :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+        :color="!this.$store.state.is_dark_mode ? '#2a0094' : '#fdf7ff'"
       ></v-divider>
       <br />
       <!--login form-->

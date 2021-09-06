@@ -13,7 +13,8 @@
         <v-img
           v-bind="props"
           :gradient="
-            !$vuetify.theme.dark
+            // !$vuetify.theme.dark
+            !this.$store.state.is_dark_mode
               ? 'to top right, rgba(58, 0, 133,.7), rgba(25,32,72,.7)'
               : 'to top right, rgba(10,10,20,.7), rgba(25,32,72,.7)'
           "
@@ -139,7 +140,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             icon
-            @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+            @click="this.$store.dispatch('toggledarkmode')"
             v-bind="attrs"
             v-on="on"
           >

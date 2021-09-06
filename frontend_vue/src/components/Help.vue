@@ -1,4 +1,5 @@
-<template v-model="$vuetify.theme.dark">
+<!--<template v-model="$vuetify.theme.dark">-->
+<template v-model="this.$store.state.is_dark_mode">
   <div>
     <v-container>
       <br />
@@ -11,7 +12,7 @@
               Help
               <v-icon
                 size="38"
-                :color="!$vuetify.theme.dark ? 'black' : 'white'"
+                :color="this.$store.state.is_dark_mode ? 'black' : 'white'"
                 >mdi-help-circle</v-icon
               >
               <!-- <span class="smaller">by moderators and Ajarns</span> -->

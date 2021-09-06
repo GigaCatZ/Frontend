@@ -1,4 +1,5 @@
-<template v-model="$vuetify.theme.dark">
+<!--<template v-model="$vuetify.theme.dark">-->
+<template v-model="this.$store.state.is_dark_mode">
   <v-container class="mx-auto">
     <br />
     <v-card outlined class="mx-auto mb-2">

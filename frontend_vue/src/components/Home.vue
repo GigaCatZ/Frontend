@@ -1,6 +1,7 @@
 <style></style>
 
-<template v-model="$vuetify.theme.dark">
+<!--<template v-model="$vuetify.theme.dark">-->
+<template v-model="this.$store.state.is_dark_mode">
   <v-container class="mx-auto" max-width="300">
     <br />
     <v-row dense>
