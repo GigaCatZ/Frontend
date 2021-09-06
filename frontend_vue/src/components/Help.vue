@@ -24,13 +24,13 @@
                 <br />
                 <h2 class="faq">How to create threads?</h2>
                 <p class="faq">
-                  By going to the front page and clicking the 'Create a thread'
-                  button. You will be redirected to the create page where you
-                  will be able to create threads.
+                  By going to the forum page and clicking the 'Create A New
+                  Thread' button that has a + sign. You will be redirected to
+                  the create page where you will be able to create threads.
                 </p>
                 <p class="faq2">
-                  *Note that you will be required to login into the website
-                  before being able to create a thread*
+                  *Note that you are required to log in before being able to
+                  create a thread*
                 </p>
                 <v-divider></v-divider>
               </v-col>
@@ -61,6 +61,10 @@
                   click on "Continue the Thread" to view the body and other
                   user's comments before deciding whether to like it.
                 </p>
+                <p class="faq2">
+                  *Note that you are required to log in before you can like or
+                  comment*
+                </p>
               </v-col>
             </v-row>
 
@@ -68,8 +72,8 @@
               <v-col>
                 <h2 class="faq">How do we contact the IC Courses Team?</h2>
                 <p class="faq">
-                  You may ping @ICCOURSES-TEAM in the iccourses-help text
-                  channel in MUIC CS Discord server.
+                  You may ping @ICCOURSES-TEAM in the
+                  <b>#iccourses-help</b> text channel in MUIC CS Discord server.
                 </p>
               </v-col>
             </v-row>
