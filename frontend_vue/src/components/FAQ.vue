@@ -116,7 +116,7 @@ export default {
             "How can I get more information about courses or contact the Ajarns?",
           answer: [
             "<p>Please be sure to join the official MUIC Computer Science Discord server to stay up to date with class information and/or contact your Ajarns.</p>",
-            "<p>You can do so by joining <a href='https://youtu.be/dQw4w9WgXcQ'>here</a>.</p>",
+            "<p>You can do so by joining <a href='https://discord.gg/jEKXSsX27t'>here</a>.</p>",
           ],
         },
       ],

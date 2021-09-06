@@ -39,17 +39,11 @@
             <!-- question 2 -->
             <v-row class="mx-2">
               <v-col>
-                <h2 class="faq">Where do we register for our classes?</h2>
+                <h2 class="faq">I am not receiving any emails.</h2>
                 <p class="faq">
-                  For Trimester 1 of Academic Year 2021-2022, course
-                  registration, tuition payment, and add/drop will take place on
-                  <a
-                    href="http://sky.muic.mahidol.ac.th/?data%5Btype%5D%5B%5D=login"
-                    target="_blank"
-                    >SKY
-                  </a>
-                  However, we will soon be switching over to SKY+ in Trimester
-                  2.
+                  Emails sent from us might take a few minutes to be delivered.
+                  If you still haven't received any emails, please check your
+                  spam folder.
                 </p>
                 <v-divider></v-divider>
               </v-col>
@@ -59,15 +53,23 @@
             <v-row class="mx-2">
               <v-col>
                 <h2 class="faq">
-                  How can I get more information about courses or contact the
-                  Ajarns?
+                  Why can't I like threads in Home and Search pages?
                 </h2>
                 <p class="faq">
-                  Please be sure to join the official MUIC Computer Science
-                  Discord server to stay up to date with class information
-                  and/or contact your Ajarns. You can do so by clicking
-                  <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank">here</a
-                  >.
+                  It was our intention for users to view more details about each
+                  thread before being able to like or comment on it. You may
+                  click on "Continue the Thread" to view the body and other
+                  user's comments before deciding whether to like it.
+                </p>
+              </v-col>
+            </v-row>
+
+            <v-row class="mx-2">
+              <v-col>
+                <h2 class="faq">How do we contact the IC Courses Team?</h2>
+                <p class="faq">
+                  You may ping @ICCOURSES-TEAM in the iccourses-help text
+                  channel in MUIC CS Discord server.
                 </p>
               </v-col>
             </v-row>
