@@ -70,10 +70,10 @@
           <v-chip
             v-for="tag in thread_tags"
             :key="tag.title"
-            color="rgba(103, 58, 183,.28)"
             v-text="tag"
             small
             class="ma-1"
+            color="rgba(103, 58, 183,.28)"
             @click="search(tag)"
           ></v-chip>
         </v-card-text>

@@ -136,12 +136,14 @@ export default {
   methods: {
     getKeywords() {
       this.keywords = this.$route.params.keywords;
-      this.filter = this.$route.query.filter.toUpperCase();
+      this.filter = this.$route.query.filters;
       if (this.keywords === undefined) {
         this.keywords = "";
       }
       if (this.filter === undefined) {
         this.filter = "";
+      } else {
+        this.filter = this.filter.toUpperCase()
       }
     },
     async browse() {
