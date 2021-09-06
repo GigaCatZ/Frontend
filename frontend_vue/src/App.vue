@@ -137,12 +137,7 @@
 
       <v-tooltip bottom nudge-left="20">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            @click="$vuetify.theme.dark = !$vuetify.theme.dark"
-            v-bind="attrs"
-            v-on="on"
-          >
+          <v-btn icon @click="switchTheme" v-bind="attrs" v-on="on">
             <v-icon>mdi-brightness-4</v-icon>
           </v-btn>
         </template>
@@ -237,6 +232,13 @@ export default {
     document.title = "IC Courses";
   },
 
+  mounted() {
+    const theme = localStorage.getItem("is_dark_mode");
+    if (theme) {
+      this.$vuetify.theme.dark = theme === "true";
+    }
+  },
+
   methods: {
     searchbar() {
       console.warn(this.searchInput);
@@ -257,6 +259,10 @@ export default {
         await this.$store.dispatch("resetinfo");
         await router.push({ name: "Home" });
       }
+    },
+    switchTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      localStorage.setItem("is_dark_mode", this.$vuetify.theme.dark.toString());
     },
   },
 };
