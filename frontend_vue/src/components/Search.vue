@@ -84,11 +84,22 @@
                 <span v-text="t.comment_count" class="mt-3"></span>
                 <v-spacer></v-spacer>
                 <v-btn
+                  :to="{ path: '/thread/' + t.thread_id }"
                   class="ml-2 mt-3"
                   text
-                  :to="{ path: '/thread/' + t.thread_id }"
+                  v-if="!mobile"
                 >
-                  Continue the thread<v-icon left> mdi-arrow-right </v-icon>
+                  Continue the thread
+                  <v-icon left> mdi-arrow-right</v-icon>
+                </v-btn>
+                <v-btn
+                  :to="{ path: '/thread/' + t.thread_id }"
+                  class="ml-2 mt-3"
+                  text
+                  v-else
+                >
+                  Continue
+                  <v-icon left> mdi-arrow-right</v-icon>
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -107,6 +118,7 @@ Vue.use(VueAxios, axios);
 export default {
   name: "Search",
   data: () => ({
+    mobile: false,
     keywords: "",
     filtering: ["TITLE", "TAG", "AUTHOR"],
     filter: "",
@@ -136,6 +148,7 @@ export default {
           }
         });
       this.threads = response.data.search_result;
+      this.mobile = this.$store.state.is_mobile;
     },
     search() {
       this.$router.push(

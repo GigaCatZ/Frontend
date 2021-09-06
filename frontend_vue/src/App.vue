@@ -46,14 +46,16 @@
         />
       </v-btn>
 
-      <v-btn plain :to="{ name: 'Home' }">
-        <h3
-          v-if="this.$store.state.is_mobile"
-          class="white--text font-weight-bold"
-        >
-          IC Courses
-        </h3>
-        <h1 v-else class="white--text font-weight-bold">IC Courses</h1>
+      <v-btn
+        plain
+        :to="{ name: 'Home' }"
+        x-small
+        v-if="this.$store.state.is_mobile"
+      >
+        <h1 class="white--text font-weight-bold">IC Courses</h1>
+      </v-btn>
+      <v-btn plain :to="{ name: 'Home' }" v-else>
+        <h1 class="white--text font-weight-bold">IC Courses</h1>
       </v-btn>
 
       <v-spacer></v-spacer>

@@ -42,12 +42,14 @@
           <v-col>
             <v-card :to="{ name: 'FAQ' }" height="136px" outlined>
               <v-card-title><h1 class="home">FAQs</h1></v-card-title>
-              <v-card-text
-                ><p class="home" v-if="!mobile">Frequently Asked Questions</p>
-                <p class="home" v-else style="font-size: small">
+              <v-card-text v-if="!mobile"
+                ><p class="home">Frequently Asked Questions</p></v-card-text
+              >
+              <v-card-subtitle v-else>
+                <p class="home" style="font-size: small">
                   Frequently Asked Questions
                 </p>
-              </v-card-text>
+              </v-card-subtitle>
             </v-card>
           </v-col>
         </v-row>
