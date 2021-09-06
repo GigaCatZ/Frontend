@@ -58,13 +58,14 @@
                 <p class="faq">
                   It was our intention for users to view more details about each
                   thread before being able to like or comment on it. You may
-                  click on "Continue the Thread" to view the body and other
+                  click on 'Continue the Thread' to view the body and other
                   user's comments before deciding whether to like it.
                 </p>
                 <p class="faq2">
                   *Note that you are required to log in before you can like or
                   comment*
                 </p>
+                <v-divider></v-divider>
               </v-col>
             </v-row>
 
