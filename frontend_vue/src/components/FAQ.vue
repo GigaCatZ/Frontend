@@ -1,5 +1,4 @@
-<!--<template v-model="$vuetify.theme.dark">-->
-<template v-model="this.$store.state.is_dark_mode">
+<template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
       <br />

@@ -1,5 +1,4 @@
-<!--<template v-model="$vuetify.theme.dark">-->
-<template v-model="this.$store.state.is_dark_mode">
+<template v-model="$vuetify.theme.dark">
   <v-container class="mx-auto">
     <br />
     <v-card outlined class="mx-auto mb-2">
@@ -36,6 +35,8 @@
             :items="filtering"
             v-model="filter"
             prefix="FILTER BY:"
+            color="deep-purple lighten-2"
+            item-color="deep-purple lighten-3"
             hide-details
             single-line
             dense

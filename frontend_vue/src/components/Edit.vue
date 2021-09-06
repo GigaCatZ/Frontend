@@ -1,5 +1,4 @@
-<!--<template v-model="$vuetify.theme.dark">-->
-<template v-model="this.$store.state.is_dark_mode">
+<template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
       <br />
@@ -104,7 +103,6 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response.data);
       if (response.data.status) {
         await this.$router.push("/thread/" + this.thread_id);
       } else {
@@ -121,7 +119,6 @@ export default {
             console.warn("something went wrong");
           }
         });
-      console.log(response);
       this.thread_id = this.$route.params.id;
       this.title = response.data.title;
       this.text = response.data.body;

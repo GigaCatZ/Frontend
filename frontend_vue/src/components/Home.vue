@@ -1,7 +1,4 @@
-<style></style>
-
-<!--<template v-model="$vuetify.theme.dark">-->
-<template v-model="this.$store.state.is_dark_mode">
+<template v-model="$vuetify.theme.dark">
   <v-container class="mx-auto" max-width="300">
     <br />
     <v-row dense>
@@ -102,6 +99,8 @@
               label="order"
               outlined
               prefix="SORTED BY: MOST"
+              color="deep-purple lighten-2"
+              item-color="deep-purple lighten-3"
               single-line
             ></v-select>
           </v-col>
