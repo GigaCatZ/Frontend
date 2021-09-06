@@ -17,6 +17,7 @@
       ></v-divider>
       <br />
       <!--login form-->
+      <v-card-text class="mx-13">Example: u5581906</v-card-text>
       <v-row>
         <v-col class="mx-16">
           <v-form ref="form" v-model="valid" lazy-validation>
