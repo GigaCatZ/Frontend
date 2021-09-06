@@ -150,7 +150,6 @@ export default {
         request.append("current_password", this.current_password);
         request.append("new_password", this.new_password);
         let response = await axios.post("/api/change_info", request);
-        console.log(response.data);
         if (response.data.status) {
           await this.$router.push("/");
         } else {
