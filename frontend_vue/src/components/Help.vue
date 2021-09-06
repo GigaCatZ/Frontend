@@ -90,13 +90,14 @@
                 <p class="faq">
                   The main developers of this web application have just become
                   second and third year MUIC CS students this term. This web
-                  application was developed with no budget, so we need to take
-                  our free time and the feature's complexity into consideration
-                  before adding new features.
+                  application was developed with no budget and was done within
+                  three weeks, so the free time of our team along with the
+                  complexity of the new feature wlll need to be taken into
+                  consideration before we decide to add it.
                 </p>
                 <p class="faq2">
-                  However, if you are willing to donate to us, it will be our
-                  honor to listen to your request.
+                  *However, if you are willing to donate to us, it will be our
+                  honor to listen to your request.*
                 </p>
               </v-col>
             </v-row>
