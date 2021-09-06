@@ -44,18 +44,19 @@
               <p>{{ u.email }}</p>
             </v-col>
             <v-col cols="2">
-              <h5>Mod</h5>
               <v-switch
                 v-model="u.mod"
+                v-if="current_user !== u.sky_username"
                 type="info"
                 @change="update_mod(u.sky_username, u.mod)"
               ></v-switch>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <h5>isMod</h5>
-              <p>{{ u.mod }}</p>
+              <v-switch
+                v-model="u.mod"
+                v-else
+                disabled
+                type="info"
+                @change="update_mod(u.sky_username, u.mod)"
+              ></v-switch>
             </v-col>
           </v-row>
         </v-container>
@@ -83,6 +84,7 @@ export default {
   name: "MakeMod",
   data() {
     return {
+      current_user: "",
       manmod: false,
 
       users: [],
@@ -95,6 +97,7 @@ export default {
     async modzone() {
       const response = await axios.get("/api/modzone");
       this.users = response.data.users;
+      this.current_user = this.$store.state.login_skyusername;
     },
 
     async update_mod(candidate_username, is_mod) {

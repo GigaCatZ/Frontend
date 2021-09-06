@@ -41,12 +41,6 @@
               <p>{{ u.email }}</p>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col>
-              <h5>isMod</h5>
-              <p>{{ u.mod }}</p>
-            </v-col>
-          </v-row>
         </v-container>
       </v-card-text>
       <v-card-text v-else>
