@@ -72,7 +72,7 @@
         <p>Currently, there are no threads</p>
       </v-card-text>
       <v-divider></v-divider>
-      <v-card-text>
+      <v-card class="mt-5 pl-10 pr-16">
         <v-text-field
           v-model="threadA"
           dense
@@ -85,7 +85,7 @@
           label="Thread ID B"
           required
         ></v-text-field>
-      </v-card-text>
+      </v-card>
 
       <v-card-actions>
         <v-spacer></v-spacer>
