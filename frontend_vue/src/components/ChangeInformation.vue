@@ -54,7 +54,8 @@
               :type="show_password ? 'text' : 'password'"
               outlined
               label="New password"
-              color="#2a0094"
+              color="deep-purple lighten-2"
+              item-color="deep-purple lighten-3"
               class="align-center"
               @click:append="show_password = !show_password"
               clearable
@@ -65,7 +66,8 @@
               :type="show_password ? 'text' : 'password'"
               outlined
               label="Confirm new password"
-              color="#2a0094"
+              color="deep-purple lighten-2"
+              item-color="deep-purple lighten-3"
               class="align-center"
               @click:append="show_password = !show_password"
               clearable
