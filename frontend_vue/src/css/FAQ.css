@@ -19,20 +19,20 @@ h3.faq {
     font-weight: 400;
 }
 
-p.faq {
-    margin-top: 10px;
-    font-size: 20px;
-    font-family: "Titillium Web", sans-serif;
-    font-weight: 300;
-    color: dimgrey;
-}
-
-p.faqDark {
+p.faq-dark-theme {
     margin-top: 10px;
     font-size: 20px;
     font-family: "Titillium Web", sans-serif;
     font-weight: 300;
     color: darkgrey;
+}
+
+p.faq-light-theme {
+    margin-top: 10px;
+    font-size: 20px;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 300;
+    color: dimgrey;
 }
 
 span.smaller {

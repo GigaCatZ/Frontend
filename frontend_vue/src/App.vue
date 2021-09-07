@@ -118,6 +118,7 @@
           <v-card-actions justify="space-around">
             <v-btn
               v-if="!this.$store.state.status"
+              :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
               text
               :to="{ name: 'Login' }"
             >

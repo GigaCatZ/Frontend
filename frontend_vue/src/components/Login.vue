@@ -1,10 +1,10 @@
 <template v-model="$vuetify.theme.dark">
   <div>
   <v-container>
-    <br />
     <!--page title-->
     <v-card
-      class="mb-auto"
+      class="mx-auto mt-10"
+      max-width="600px"
       outlined
       :color="
         !$vuetify.theme.dark
@@ -16,21 +16,20 @@
         <h1 class="font-weight-light">Login Page</h1>
       </v-card-title>
       <v-divider
-        class="mx-16 divider-custom"
+        class="mx-16 mb-7 divider-custom"
         :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
       ></v-divider>
-      <br />
-      <!--login form-->
-      <v-card-text class="mx-13">Example: u5581906</v-card-text>
       <v-row>
         <v-col class="mx-16">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation class="mb-4">
             <v-alert v-model="login_alert" dismissible type="error">
               {{ login_alert_text }}
             </v-alert>
             <v-alert v-model="register_alert" dismissible type="success">
               {{ register_alert_text }}
             </v-alert>
+
+            <h4 class="mb-4 font-weight-light">Example: u5581906</h4>
 
             <!--username field-->
             <v-text-field
@@ -63,7 +62,6 @@
               label="Stay Signed In"
             ></v-checkbox>
           </v-form>
-          <br />
           <v-row justify="space-around">
             <!--login button-->
             <v-btn
@@ -99,7 +97,10 @@
                 <v-card-title class="justify-center">
                   <span class="text-h5 mt-2">Register</span>
                 </v-card-title>
-                <v-divider class="mx-16 divider-custom ma-3"></v-divider>
+                <v-divider
+                  class="mx-16 divider-custom ma-3"
+                  :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+                ></v-divider>
                 <p />
                 <div>
                   <v-alert
@@ -174,7 +175,8 @@
                   <v-btn
                     :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
                     text
-                    @click="form = false">
+                    @click="form = false"
+                  >
                     Close
                   </v-btn>
                   <v-btn
@@ -191,12 +193,10 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row class="justify-space-around">
+      <v-row class="justify-space-around mb-7">
         <!-- forgot password button -->
         <ForgotPwd />
       </v-row>
-      <br />
-      <br />
     </v-card>
   </v-container>
   </div>

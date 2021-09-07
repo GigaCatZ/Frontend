@@ -54,7 +54,8 @@
         <v-btn
           :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
           text
-          @click="send_request">
+          @click="send_request"
+        >
           Send request
         </v-btn>
       </v-card-actions>

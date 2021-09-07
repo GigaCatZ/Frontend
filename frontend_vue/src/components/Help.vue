@@ -1,11 +1,9 @@
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
-      <br />
       <!-- FAQ by mods -->
-      <v-card class="mx-auto" outlined>
-        <br />
-        <v-row class="mx-4">
+      <v-card class="mx-auto my-10" outlined>
+        <v-row class="mx-4 my-4">
           <v-col>
             <h1 class="faq">
               Help
@@ -16,12 +14,11 @@
               >
               <!-- <span class="smaller">by moderators and Ajarns</span> -->
             </h1>
-            <v-divider></v-divider>
+            <v-divider class="my-5"></v-divider>
 
             <!-- question 1 -->
             <v-row class="mx-2">
               <v-col>
-                <br />
                 <h2 class="faq">How to create threads?</h2>
                 <p :class="!$vuetify.theme.dark ? 'faq' : 'faqDark'">
                   By going to the forum page and clicking the 'Create A New
@@ -103,11 +100,7 @@
             </v-row>
           </v-col>
         </v-row>
-        <br />
       </v-card>
-
-      <br />
-      <br />
     </v-container>
   </div>
 </template>

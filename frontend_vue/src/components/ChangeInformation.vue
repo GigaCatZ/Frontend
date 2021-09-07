@@ -1,25 +1,21 @@
 <template v-model="$vuetify.theme.dark">
   <v-container>
-    <br />
-    <v-card class="mx-auto">
+    <v-card class="mx-auto mt-10">
       <!-- Header -->
-      <v-list-item three-line>
+      <v-list-item three-line class="mb-4">
         <v-list-item-content>
-          <v-list-item-title class="mb-1">
+          <v-list-item-title class="my-2">
             <h1 class="font-text">Change Account Information</h1>
           </v-list-item-title>
-          <p />
           <v-divider
-            class="divider-header"
+            class="divider-header my-4"
             :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
           ></v-divider>
-          <br />
         </v-list-item-content>
         <v-list-item-avatar size="60" color="grey" class="justify-center">
           <v-icon dark> mdi-account </v-icon>
         </v-list-item-avatar>
       </v-list-item>
-      <br />
       <v-row>
         <v-col class="mx-16">
           <v-form ref="form" v-model="valid" lazy-validation>
@@ -81,7 +77,7 @@
         <v-btn
           :disabled="!valid || this.current_password.length === 0"
           color="#2a0094"
-          class="white--text"
+          class="white--text mb-5"
           @click="sendUserInformation"
           >Save</v-btn
         >
