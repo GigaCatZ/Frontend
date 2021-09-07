@@ -96,7 +96,10 @@
                 <v-card-title class="justify-center">
                   <span class="text-h5 mt-2">Register</span>
                 </v-card-title>
-                <v-divider class="mx-16 divider-custom ma-3"></v-divider>
+                <v-divider
+                  class="mx-16 divider-custom ma-3"
+                  :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+                ></v-divider>
                 <p />
                 <div>
                   <v-alert
@@ -171,7 +174,8 @@
                   <v-btn
                     :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
                     text
-                    @click="form = false">
+                    @click="form = false"
+                  >
                     Close
                   </v-btn>
                   <v-btn
