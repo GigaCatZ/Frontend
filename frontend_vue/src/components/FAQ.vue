@@ -1,19 +1,15 @@
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
-      <br />
       <!-- FAQ by mods -->
-      <v-card class="mx-auto" outlined>
-        <br />
-        <v-row class="mx-4">
+      <v-card class="mx-auto mt-10" outlined>
+        <v-row class="mx-4 mt-4">
           <v-col>
             <h1 class="faq">
               Frequently Asked Questions
               <span class="smaller"> by moderators and Ajarns</span>
             </h1>
-            <v-divider></v-divider>
-
-            <br />
+            <v-divider class="my-4"></v-divider>
 
             <!-- Where the actual questions are -->
             <v-row v-for="(q, index) in ajarnQ" :key="q.question" class="mx-2">
@@ -30,24 +26,17 @@
             </v-row>
           </v-col>
         </v-row>
-        <br />
       </v-card>
 
-      <br />
-      <br />
-
       <!-- FAQ by dupes -->
-      <v-card class="mx-auto" outlined>
-        <br />
-        <v-row class="mx-4">
+      <v-card class="mx-auto mt-10" outlined>
+        <v-row class="ma-6">
           <v-col>
             <h1 class="faq">
               Frequently Asked Questions
               <span class="smaller"> by number of duplicates </span>
             </h1>
-            <v-divider></v-divider>
-
-            <br />
+            <v-divider class="my-5"></v-divider>
 
             <!-- Actual questions -->
             <div v-if="topQ.length > 0">
@@ -80,7 +69,6 @@
             </div>
           </v-col>
         </v-row>
-        <br />
       </v-card>
     </v-container>
   </div>
