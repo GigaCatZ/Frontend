@@ -1,17 +1,14 @@
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
-      <br />
       <!-- FAQ by mods -->
-      <v-card class="mx-auto" outlined max-width="1000">
-        <br />
-        <v-row class="mx-4">
+      <v-card class="mx-auto mt-10" outlined max-width="1000">
+        <v-row class="mx-4 mt-4">
           <v-col>
             <h1 class="one">Edit thread</h1>
-            <v-divider></v-divider>
+            <v-divider class="my-5"></v-divider>
           </v-col>
         </v-row>
-        <br />
 
         <v-row class="mx-4">
           <v-col>
@@ -23,7 +20,6 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <br />
         <v-row class="mx-4">
           <v-col>
             <v-textarea
@@ -69,10 +65,10 @@
             </v-autocomplete>
           </v-col>
         </v-row>
-        <v-card-actions class="ma-4">
-          <v-spacer></v-spacer>
+        <v-card-actions class="ma-4 justify-end">
           <v-btn
             @click="$router.push({ name: 'Thread', params: { id: thread_id } })"
+            class="mx-2"
             >cancel</v-btn
           >
           <v-btn @click="sendData">post</v-btn>

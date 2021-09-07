@@ -1,17 +1,14 @@
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
-      <br />
       <!-- FAQ by mods -->
-      <v-card class="mx-auto" outlined max-width="1000">
-        <br />
-        <v-row class="mx-4">
+      <v-card class="mx-auto mt-10" outlined max-width="1000">
+        <v-row class="mx-4 mt-4">
           <v-col>
             <h1 class="one">Create a new thread</h1>
-            <v-divider></v-divider>
+            <v-divider class="my-5"></v-divider>
           </v-col>
         </v-row>
-        <br />
 
         <v-form v-model="valid">
           <v-row class="mx-4">
@@ -27,7 +24,6 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <br />
           <v-row class="mx-4">
             <v-col>
               <v-textarea
@@ -41,7 +37,7 @@
           <v-row class="mx-4">
             <v-col>
               <h2 class="one">Tags</h2>
-              <v-divider></v-divider>
+              <v-divider class="my-5"></v-divider>
             </v-col>
           </v-row>
 
@@ -72,8 +68,7 @@
               </v-autocomplete>
             </v-col>
           </v-row>
-          <v-card-actions class="ma-4">
-            <v-spacer></v-spacer>
+          <v-card-actions class="justify-end ma-4">
             <v-btn :disabled="!valid" @click="sendData">post</v-btn>
           </v-card-actions>
         </v-form>
