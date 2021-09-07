@@ -14,3 +14,12 @@
     height: 10%;
     margin-left: -1px;
 }
+
+.lighter input:-webkit-autofill {
+    -webkit-background-clip: text;
+}
+
+.darker input:-webkit-autofill {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: azure;
+}

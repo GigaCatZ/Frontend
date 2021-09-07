@@ -21,6 +21,7 @@
                 maxlength="120"
                 :rules="[() => !!title || 'This field is required']"
                 color="deep-purple lighten-2"
+                :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
               ></v-text-field>
             </v-col>
           </v-row>

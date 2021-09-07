@@ -33,6 +33,7 @@
             label="SKY Username"
             color="deep-purple lighten-2"
             required
+            :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
           ></v-text-field>
           <v-text-field
             v-model="email"
@@ -40,6 +41,7 @@
             label="E-mail"
             color="deep-purple lighten-2"
             required
+            :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
           ></v-text-field>
         </v-container>
       </v-card-text>
@@ -109,3 +111,5 @@ export default {
   },
 };
 </script>
+
+<style src="../css/Login.css"></style>

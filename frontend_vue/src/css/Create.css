@@ -30,3 +30,12 @@ span.smaller {
     font-size: 75%;
     font-weight: normal;
 }
+
+.lighter input:-webkit-autofill {
+    -webkit-background-clip: text;
+}
+
+.darker input:-webkit-autofill {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: azure;
+}

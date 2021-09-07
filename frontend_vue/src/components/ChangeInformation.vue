@@ -32,6 +32,7 @@
               label="New display name*"
               hint="Type current display name if you do not want to change your display name"
               class="align-center"
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
               clearable
             ></v-text-field>
             <v-text-field

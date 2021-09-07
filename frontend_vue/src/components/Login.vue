@@ -40,6 +40,7 @@
               filled
               label="Enter Username"
               @keydown.enter="login"
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
             <v-spacer></v-spacer>
 
@@ -126,6 +127,7 @@
                         label="Display Name"
                         required
                         @input="userexist()"
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       >
                       </v-text-field>
 
@@ -136,6 +138,7 @@
                         label="Sky Username"
                         hint="This field is permanent (can not be changed after the account has been created)"
                         required
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       ></v-text-field>
 
                       <v-text-field
@@ -147,6 +150,7 @@
                         label="Password"
                         required
                         @click:append="show1 = !show1"
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       ></v-text-field>
 
                       <v-text-field
@@ -167,6 +171,7 @@
                         label="Email"
                         hint="This field is permanent (can not be changed after the account has been created)"
                         required
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       ></v-text-field>
                     </v-form>
                   </v-container>

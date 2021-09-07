@@ -17,6 +17,7 @@
               label="Title"
               outlined
               disabled
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
           </v-col>
         </v-row>
