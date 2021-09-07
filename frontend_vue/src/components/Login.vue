@@ -1,9 +1,8 @@
 <template v-model="$vuetify.theme.dark">
   <v-container>
-    <br />
     <!--page title-->
     <v-card
-      class="mx-auto"
+      class="mx-auto mt-7"
       max-width="600px"
       outlined
       :color="
@@ -16,14 +15,15 @@
         <h1 class="font-weight-light">Login Page</h1>
       </v-card-title>
       <v-divider
-        class="mx-16 divider-custom"
+        class="mx-16 divider-custom mb-1"
         :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
       ></v-divider>
-      <br />
-      <!--login form-->
-      <v-card-text class="mx-13">Example: u5581906</v-card-text>
       <v-row>
         <v-col class="mx-16">
+          <!--login form-->
+          <v-card-text class="my-3">
+            <h3>Example: u5581906</h3>
+          </v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-alert v-model="login_alert" dismissible type="error">
               {{ login_alert_text }}

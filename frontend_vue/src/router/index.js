@@ -4,7 +4,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 // import all pages here
 import Home from "../components/Home";
-import Login from "../components/Login";
+// import Login from "../components/Login";
 import FAQ from "../components/FAQ";
 import Help from "../components/Help";
 import Create from "../components/Create";
@@ -15,6 +15,7 @@ import ChangeInformation from "../components/ChangeInformation";
 import Edit from "../components/Edit";
 import ModPage from "../components/modzone/ModPage";
 import PermissionDenied from "../components/modzone/PermissionDenied";
+import Login from "../components/Login";
 
 Vue.use(VueAxios, axios);
 
