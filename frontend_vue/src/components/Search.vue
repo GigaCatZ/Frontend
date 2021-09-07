@@ -62,7 +62,11 @@
       <v-container fluid>
         <v-row align="center" v-for="t in threads" :key="t.no">
           <v-col>
-            <v-card outlined class="mt-2 mx-2">
+            <v-card
+              outlined
+              class="mt-2 mx-2"
+              @click="$router.push('/thread/' + t.thread_id)"
+            >
               <v-card-subtitle
                 >Created By {{ t.display_name }} • {{ t.date }}</v-card-subtitle
               >
