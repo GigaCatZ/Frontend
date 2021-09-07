@@ -4,7 +4,7 @@
     <!--page title-->
     <v-card
       class="mx-auto"
-      outlined
+      max-width="600px"
       :color="
         !$vuetify.theme.dark
           ? 'rgba(209, 196, 233,.28)'
@@ -63,7 +63,7 @@
             ></v-checkbox>
           </v-form>
           <br />
-          <v-row cols="12" justify="space-around" md="4" sm="6">
+          <v-row justify="space-around">
             <!--login button-->
             <v-btn
               :disabled="
