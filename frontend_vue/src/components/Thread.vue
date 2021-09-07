@@ -136,7 +136,7 @@
               v-else
               text
               height="55"
-              color="purple darken-3"
+              color="#9370db"
               :disabled="comment_thread === ''"
               @click="addcomment()"
               ><v-icon large>mdi-send</v-icon></v-btn
@@ -152,7 +152,7 @@
             <v-card-subtitle style="font-weight: bold"
               >{{ comment.sender
               }}<span
-                style="color: dodgerblue"
+                style="color: mediumpurple"
                 v-if="comment.sender === thread_username"
               >
                 OP</span
@@ -195,8 +195,13 @@
             <v-card-text class="ml-1"
               ><span
                 class="font-italic"
+                style="color: dimgrey"
+                v-if="comment.deleted && $vuetify.theme.dark"
+                >{{ comment.body }}</span
+              ><span
+                class="font-italic"
                 style="color: darkgrey"
-                v-if="comment.deleted"
+                v-else-if="comment.deleted"
                 >{{ comment.body }}</span
               ><span v-else>{{ comment.body }}</span></v-card-text
             >
@@ -268,7 +273,7 @@
                   v-else
                   text
                   height="41"
-                  color="purple darken-3"
+                  color="#9370db"
                   :disabled="comment_reply === ''"
                   @click="addreply(comment.comment_id, comment.sender)"
                   ><v-icon large>mdi-send</v-icon></v-btn
@@ -278,10 +283,10 @@
           </v-card>
           <div v-for="subcom in comment.replies" :key="subcom.yes">
             <div class="ml-10">
-              <v-card-subtitle style="font-weight: bold; color: dimgray"
+              <v-card-subtitle style="font-weight: bold; color: darkgrey"
                 >{{ subcom.sender
                 }}<span
-                  style="color: dodgerblue"
+                  style="color: mediumpurple"
                   v-if="subcom.sender === thread_username"
                 >
                   OP</span
@@ -331,10 +336,19 @@
               <v-card-text class="ml-1"
                 ><span
                   class="font-italic"
-                  style="color: darkgrey"
-                  v-if="subcom.deleted"
+                  style="color: dimgrey"
+                  v-if="subcom.deleted && $vuetify.theme.dark"
                   >{{ subcom.body }}</span
-                ><span v-else style="color: dimgray">{{
+                ><span
+                  class="font-italic"
+                  style="color:darkgrey"
+                  v-else-if="subcom.deleted"
+                  >{{ subcom.body }}</span
+                ><span
+                  style="color:dimgrey"
+                  v-else-if="!$vuetify.theme.dark"
+                  >{{ subcom.body }}</span
+                ><span v-else style="color: darkgrey">{{
                   subcom.body
                 }}</span></v-card-text
               >
