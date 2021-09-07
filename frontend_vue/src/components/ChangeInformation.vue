@@ -9,7 +9,10 @@
             <h1 class="font-text">Change Account Information</h1>
           </v-list-item-title>
           <p />
-          <v-divider class="divider-header"></v-divider>
+          <v-divider
+            class="divider-header"
+            :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+          ></v-divider>
           <br />
         </v-list-item-content>
         <v-list-item-avatar size="60" color="grey" class="justify-center">
@@ -43,7 +46,7 @@
               hint="*This is required"
               outlined
               label="Current password*"
-              :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+              color="deep-purple lighten-2"
               class="align-center"
               @click:append="show_current_password = !show_current_password"
               clearable
@@ -55,7 +58,6 @@
               outlined
               label="New password"
               color="deep-purple lighten-2"
-              item-color="deep-purple lighten-3"
               class="align-center"
               @click:append="show_password = !show_password"
               clearable
@@ -67,7 +69,6 @@
               outlined
               label="Confirm new password"
               color="deep-purple lighten-2"
-              item-color="deep-purple lighten-3"
               class="align-center"
               @click:append="show_password = !show_password"
               clearable

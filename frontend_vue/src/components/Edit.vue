@@ -31,7 +31,6 @@
               label="Body"
               outlined
               color="deep-purple lighten-2"
-              item-color="deep-purple lighten-3"
             ></v-textarea>
           </v-col>
         </v-row>
@@ -48,7 +47,6 @@
               v-model="tags"
               :items="selectlist"
               color="deep-purple lighten-2"
-              item-color="deep-purple lighten-3"
               label="None"
               outlined
               hide-selected

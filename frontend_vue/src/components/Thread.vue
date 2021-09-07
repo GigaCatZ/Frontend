@@ -120,7 +120,6 @@
               v-else
               label="Comment"
               color="deep-purple lighten-2"
-              item-color="deep-purple lighten-3"
               outlined
               clearable
               rows="1"
@@ -248,7 +247,6 @@
                   v-else
                   label="Comment"
                   color="deep-purple lighten-2"
-                  item-color="deep-purple lighten-3"
                   outlined
                   clearable
                   dense
@@ -391,7 +389,6 @@
                     v-else
                     label="Comment"
                     color="deep-purple lighten-2"
-                    item-color="deep-purple lighten-3"
                     outlined
                     clearable
                     dense
