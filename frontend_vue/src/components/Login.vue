@@ -211,6 +211,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 // import { mdiCheckAll } from "@mdi/js";
 import ForgotPwd from "./ForgotPwd";
+import store from "../store";
 
 Vue.use(VueAxios, axios);
 export default {
@@ -275,7 +276,11 @@ export default {
     },
   },
   methods: {
+    // sleep(ms) {
+    //   return new Promise(resolve => setTimeout(resolve, ms));
+    // },
     async login() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("sky_username", this.username);
       formData.append("password", this.password);
@@ -288,14 +293,17 @@ export default {
           }
         });
       if (response.data.status) {
+        await store.dispatch("loading", false);
         await this.$router.push("/");
       } else {
+        await store.dispatch("loading", false);
         this.login_alert = true;
         this.login_alert_text = response.data.message;
       }
     },
 
     async createuser() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("display_name", this.displayname);
       formData.append("sky_username", this.studentID);
@@ -308,6 +316,7 @@ export default {
             console.warn("something went wrong");
           }
         });
+      await store.dispatch("loading", false);
       if (response.data.status) {
         this.form = false;
         this.register_alert = true;

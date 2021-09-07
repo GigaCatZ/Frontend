@@ -192,6 +192,7 @@
 
     <v-main>
       <router-view />
+      <Loading />
     </v-main>
 
     <v-btn
@@ -213,9 +214,14 @@
 <script>
 import Vue from "vue";
 import router from "./router";
+import Loading from "./components/LoadingPage";
 
 export default {
   name: "App",
+
+  components: {
+    Loading,
+  },
 
   data: () => ({
     drawer: false,
