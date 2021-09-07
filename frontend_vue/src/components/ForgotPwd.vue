@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     v-model="forgotPwd"
-    :max-width="!this.$store.state.is_mobile ? '600px' : '500px'"
+    :max-width="!this.$store.state.is_mobile ? '600px' : '75%'"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
@@ -31,22 +31,31 @@
             v-model="SKY_username"
             dense
             label="SKY Username"
+            color="deep-purple lighten-2"
             required
           ></v-text-field>
           <v-text-field
             v-model="email"
             dense
             label="E-mail"
+            color="deep-purple lighten-2"
             required
           ></v-text-field>
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="forgotPwd = false"
+        <v-btn
+          :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+          text
+          @click="forgotPwd = false"
           >Close
         </v-btn>
-        <v-btn color="blue darken-1" text @click="send_request">
+        <v-btn
+          :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+          text
+          @click="send_request"
+        >
           Send request
         </v-btn>
       </v-card-actions>

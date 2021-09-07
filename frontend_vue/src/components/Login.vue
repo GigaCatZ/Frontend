@@ -77,7 +77,7 @@
             <!--register button w/ form-->
             <v-dialog
               v-model="form"
-              :max-width="!this.$store.state.is_mobile ? '600px' : '500px'"
+              :max-width="!this.$store.state.is_mobile ? '600px' : '75%'"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -168,11 +168,14 @@
                   </v-container>
                 </v-card-text>
                 <v-card-actions class="justify-end">
-                  <v-btn color="blue darken-1" text @click="form = false">
+                  <v-btn
+                    :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+                    text
+                    @click="form = false">
                     Close
                   </v-btn>
                   <v-btn
-                    color="blue darken-1"
+                    :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
                     method="post"
                     text
                     @click="createuser"
