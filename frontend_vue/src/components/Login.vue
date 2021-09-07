@@ -4,7 +4,7 @@
     <!--page title-->
     <v-card
       class="mx-auto"
-      max-width="600"
+      min-width="300"
       outlined
       :color="
         !$vuetify.theme.dark
