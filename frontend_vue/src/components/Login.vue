@@ -4,7 +4,7 @@
     <!--page title-->
     <v-card
       class="mx-auto"
-      max-width="600px"
+      max-width="800px"
       outlined
       :color="
         !$vuetify.theme.dark
@@ -78,7 +78,7 @@
             </v-btn>
 
             <!--register button w/ form-->
-            <v-dialog v-model="form" max-width="600px">
+            <v-dialog v-model="form" max-width="850px">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   v-bind="attrs"
