@@ -1,5 +1,4 @@
 <template v-model="$vuetify.theme.dark">
-  <div>
   <v-container>
     <!--page title-->
     <v-card
@@ -199,7 +198,6 @@
       </v-row>
     </v-card>
   </v-container>
-  </div>
 </template>
 
 <script>
