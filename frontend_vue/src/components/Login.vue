@@ -6,7 +6,11 @@
       class="mx-auto"
       max-width="600"
       outlined
-      :color="!$vuetify.theme.dark ? '#fdf7ff' : '#272129'"
+      :color="
+        !$vuetify.theme.dark
+          ? 'rgba(209, 196, 233,.28)'
+          : 'rgba(77, 71, 87,.28)'
+      "
     >
       <v-card-title class="justify-center ma-5">
         <h1 class="font-weight-light">Login Page</h1>
@@ -32,6 +36,7 @@
             <v-text-field
               v-model="username"
               :rules="usernameRules"
+              color="deep-purple lighten-2"
               clearable
               filled
               label="Enter Username"
@@ -45,6 +50,7 @@
               :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="passwordRules"
               :type="show3 ? 'text' : 'password'"
+              color="deep-purple lighten-2"
               clearable
               filled
               label="Enter Password"
@@ -53,7 +59,7 @@
             ></v-text-field>
             <v-checkbox
               v-model="remember"
-              color="#1a0086"
+              :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
               label="Stay Signed In"
             ></v-checkbox>
           </v-form>
@@ -122,6 +128,7 @@
                       <v-text-field
                         v-model="studentID"
                         :rules="usernameRules"
+                        color="deep-purple lighten-2"
                         label="Sky Username"
                         hint="This field is permanent (can not be changed after the account has been created)"
                         required
@@ -132,6 +139,7 @@
                         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                         :rules="passwordRules"
                         :type="show1 ? 'text' : 'password'"
+                        color="deep-purple lighten-2"
                         label="Password"
                         required
                         @click:append="show1 = !show1"
@@ -142,6 +150,7 @@
                         :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                         :rules="passwordRules.concat(passwordConfirmationRule)"
                         :type="show2 ? 'text' : 'password'"
+                        color="deep-purple lighten-2"
                         label="Confirm password"
                         required
                         @click:append="show2 = !show2"
@@ -150,6 +159,7 @@
                       <v-text-field
                         v-model="email"
                         :rules="emailRules"
+                        color="deep-purple lighten-2"
                         label="Email"
                         hint="This field is permanent (can not be changed after the account has been created)"
                         required
