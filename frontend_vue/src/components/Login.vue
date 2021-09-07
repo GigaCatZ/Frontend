@@ -5,6 +5,7 @@
     <v-card
       class="mx-auto"
       max-width="600px"
+      outlined
       :color="
         !$vuetify.theme.dark
           ? 'rgba(209, 196, 233,.28)'
