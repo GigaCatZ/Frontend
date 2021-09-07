@@ -18,12 +18,28 @@ p.faq {
     font-size: 20px;
     font-family: "Titillium Web", sans-serif;
     font-weight: 300;
+    color: dimgrey;
+}
+
+p.faqDark {
+    font-size: 20px;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 300;
+    color: darkgrey;
 }
 
 p.faq2 {
     font-size: 15px;
     font-family: "Titillium Web", sans-serif;
     font-weight: 300;
+    color: #6b39c2;
+}
+
+p.faq2Dark {
+    font-size: 15px;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 300;
+    color: #b8a9d5;
 }
 
 span.smaller {

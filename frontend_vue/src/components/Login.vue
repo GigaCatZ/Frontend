@@ -1,10 +1,10 @@
 <template v-model="$vuetify.theme.dark">
+  <div>
   <v-container>
     <br />
     <!--page title-->
     <v-card
-      class="mx-auto"
-      max-width="400px"
+      class="mb-auto"
       outlined
       :color="
         !$vuetify.theme.dark
@@ -199,6 +199,7 @@
       <br />
     </v-card>
   </v-container>
+  </div>
 </template>
 
 <script>
