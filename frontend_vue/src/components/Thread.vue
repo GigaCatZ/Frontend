@@ -283,9 +283,12 @@
           </v-card>
           <div v-for="subcom in comment.replies" :key="subcom.yes">
             <div class="ml-10">
-              <v-card-subtitle style="font-weight: bold; color: darkgrey"
-                >{{ subcom.sender
-                }}<span
+              <v-card-subtitle style="font-weight: bold"
+                ><span style="color: darkgrey" v-if="$vuetify.theme.dark">{{
+                  subcom.sender
+                }}</span
+                ><span style="color: dimgrey" v-else>{{ subcom.sender }}</span>
+                <span
                   style="color: mediumpurple"
                   v-if="subcom.sender === thread_username"
                 >
