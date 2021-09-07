@@ -169,6 +169,7 @@
 
 <script>
 import Vue from "vue";
+import store from "../store";
 
 export default {
   name: "Home",
@@ -215,12 +216,14 @@ export default {
 
   methods: {
     async getInfo() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("order", this.order);
       let result = await Vue.axios.post("/api/home", formData);
       this.popularTags = result.data.tags;
       this.threads = result.data.threads;
       this.mobile = this.$store.state.is_mobile;
+      await store.dispatch("loading", false);
     },
     zoom(src) {
       this.zoomedImage = true;

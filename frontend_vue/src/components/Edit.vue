@@ -90,6 +90,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 Vue.use(VueAxios, axios);
 export default {
   name: "Edit",
@@ -110,6 +111,7 @@ export default {
       this.tags = [...this.tags];
     },
     async sendData() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("thread_id", this.thread_id);
       formData.append("text", this.text);
@@ -123,14 +125,17 @@ export default {
           }
         });
       if (response.data.status) {
+        await store.dispatch("loading", false);
         await this.$router.push("/thread/" + this.thread_id);
       } else {
+        await store.dispatch("loading", false);
         this.errormsg = response.data.message;
         this.error = true;
         console.warn(response.data.status);
       }
     },
     async getInfo() {
+      await store.dispatch("loading", true);
       const response = await axios
         .get("/api/edit_thread?thread_id=" + this.$route.params.id)
         .catch((error) => {
@@ -143,6 +148,7 @@ export default {
       this.text = response.data.body;
       this.selectlist = response.data.courses;
       this.tags = response.data.selected_tags;
+      await store.dispatch("loading", false);
     },
   },
   async created() {

@@ -82,6 +82,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 Vue.use(VueAxios, axios);
 export default {
   name: "Create",
@@ -101,6 +102,7 @@ export default {
       this.tags = [...this.tags];
     },
     async sendData() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("title", this.title);
       formData.append("text", this.text);
@@ -114,20 +116,24 @@ export default {
           }
         });
       if (response.data.status) {
+        await store.dispatch("loading", false);
         await this.$router.push("/thread/" + response.data.thread_id);
       } else {
+        await store.dispatch("loading", false);
         this.error = true;
         this.errormsg = response.data.message;
         console.warn(response.data.status);
       }
     },
     async extractlist() {
+      await store.dispatch("loading", true);
       const response = await axios.get("/api/create_thread").catch((error) => {
         if (error.response) {
           console.warn("something went wrong");
         }
       });
       this.selectlist = response.data.courses;
+      await store.dispatch("loading", false);
     },
   },
   async created() {

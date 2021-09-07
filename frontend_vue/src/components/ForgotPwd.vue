@@ -69,6 +69,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 
 Vue.use(VueAxios, axios);
 
@@ -87,6 +88,7 @@ export default {
 
   methods: {
     async send_request() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("sky_username", this.SKY_username);
       formData.append("email", this.email);
@@ -107,6 +109,7 @@ export default {
         this.pwdRequest_error = true;
         this.pwdRequest_text = response.data.message;
       }
+      await store.dispatch("loading", false);
     },
   },
 };

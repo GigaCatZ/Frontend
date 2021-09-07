@@ -426,6 +426,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 
 Vue.use(VueAxios, axios);
 export default {
@@ -461,6 +462,7 @@ export default {
     },
 
     async getalldata() {
+      await store.dispatch("loading", true);
       const response = await axios
         .get("/api/getthread?thread_id=" + this.$route.params.id)
         .catch((error) => {
@@ -482,13 +484,16 @@ export default {
       this.thread_comment_count = response.data.comments.length;
       this.thread_is_liked = response.data.is_liked;
       if (!response.data.status) {
+        await store.dispatch("loading", false);
         await this.$router.push("/");
       }
       this.comment_thread = "";
       this.comment_reply = "";
+      await store.dispatch("loading", false);
     },
 
     async addcomment() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("thread_id", this.thread_id);
       formData.append("username", this.$store.state.login_skyusername);
@@ -504,6 +509,7 @@ export default {
       if (response.data.status) {
         await this.getalldata();
       }
+      await store.dispatch("loading", false);
     },
 
     async addreply(stored_id, stored_username) {

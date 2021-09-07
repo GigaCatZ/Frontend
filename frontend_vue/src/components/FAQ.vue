@@ -96,6 +96,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 
 Vue.use(VueAxios, axios);
 
@@ -137,8 +138,10 @@ export default {
 
   methods: {
     async getTopQ() {
+      await store.dispatch("loading", true);
       let result = await Vue.axios.get("/api/faq");
       this.topQ = result.data.response;
+      await store.dispatch("loading", false);
     },
   },
 };

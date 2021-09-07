@@ -137,6 +137,7 @@ export default {
       }
     },
     async sendUserInformation() {
+      await store.dispatch("loading", true);
       if (this.new_password !== this.confirm_new_password) {
         this.message_error = "Please confirm your new password";
         this.display_dialog = true;
@@ -151,8 +152,10 @@ export default {
         request.append("new_password", this.new_password);
         let response = await axios.post("/api/change_info", request);
         if (response.data.status) {
+          await store.dispatch("loading", false);
           await this.$router.push("/");
         } else {
+          await store.dispatch("loading", false);
           this.message_error = response.data.message;
           this.display_dialog = true;
         }
