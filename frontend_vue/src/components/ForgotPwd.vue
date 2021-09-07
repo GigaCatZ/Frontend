@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="forgotPwd" max-width="850px">
+  <v-dialog v-model="forgotPwd" max-width="600px">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         v-bind="attrs"

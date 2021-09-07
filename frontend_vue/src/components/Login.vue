@@ -4,7 +4,7 @@
     <!--page title-->
     <v-card
       class="mx-auto"
-      max-width="800px"
+      max-width="600px"
       outlined
       :color="
         !$vuetify.theme.dark
@@ -78,7 +78,7 @@
             </v-btn>
 
             <!--register button w/ form-->
-            <v-dialog v-model="form" max-width="850px">
+            <v-dialog v-model="form" max-width="600px">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   v-bind="attrs"
@@ -185,10 +185,10 @@
           </v-row>
         </v-col>
       </v-row>
-<!--      <v-row class="justify-space-around">-->
-<!--        &lt;!&ndash; forgot password button &ndash;&gt;-->
-<!--        <ForgotPwd />-->
-<!--      </v-row>-->
+      <v-row class="justify-space-around">
+        <!-- forgot password button -->
+        <ForgotPwd />
+      </v-row>
       <br />
       <br />
     </v-card>
@@ -200,15 +200,15 @@ import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 // import { mdiCheckAll } from "@mdi/js";
-// import ForgotPwd from "./ForgotPwd";
+import ForgotPwd from "./ForgotPwd";
 
 Vue.use(VueAxios, axios);
 export default {
   name: "Login",
 
-  // components: {
-  //   ForgotPwd,
-  // },
+  components: {
+    ForgotPwd,
+  },
 
   data: () => ({
     //Login Data//
