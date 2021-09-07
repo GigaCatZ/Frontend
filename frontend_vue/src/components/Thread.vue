@@ -21,7 +21,7 @@
           ><v-card height="150"
             ><v-card-title class="justify-center" style="font-size: 20px"
               ><span class="mt-2"
-                >Please log in to like/comment/reply</span
+                >Please log in to like or comment</span
               ></v-card-title
             >
             <v-card-actions class="justify-space-around mt-3">
@@ -222,14 +222,14 @@
                 @click="comment.reply = !comment.reply"
               >
                 <v-icon small class="mr-5" color="grey">mdi-reply</v-icon>
-                <span>Reply</span>
+                <span v-if="!mobile">Reply</span>
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn small class="ml-2" text @click="future_update = true">
                 <v-icon small class="mr-1" color="grey"
                   >mdi-alert-octagon</v-icon
                 >
-                <span>Report</span>
+                <span v-if="!mobile">Report</span>
               </v-btn>
             </v-card-actions>
             <v-row class="mx-6 mt-6" no-gutters v-if="comment.reply">
@@ -360,7 +360,7 @@
                   @click="subcom.reply = !subcom.reply"
                 >
                   <v-icon small class="mr-5" color="grey">mdi-reply</v-icon>
-                  <span>Reply</span>
+                  <span v-if="!mobile">Reply</span>
                 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn
@@ -372,7 +372,7 @@
                   <v-icon small class="mr-1" color="grey"
                     >mdi-alert-octagon</v-icon
                   >
-                  <span>Report</span>
+                  <span v-if="!mobile">Report</span>
                 </v-btn>
               </v-card-actions>
               <v-row class="mx-6 mt-6" no-gutters v-if="subcom.reply">
@@ -436,6 +436,7 @@ export default {
   name: "Thread",
   data: () => ({
     current_user: null,
+    mobile: false,
     thread_status: true,
     thread_likes: 0,
     thread_is_liked: false,
@@ -470,6 +471,7 @@ export default {
           }
         });
       this.current_user = this.$store.state.login_displayname;
+      this.mobile = this.$store.state.is_mobile;
       this.thread_id = response.data.thread_id;
       this.thread_title = response.data.title;
       this.thread_body = response.data.body;
