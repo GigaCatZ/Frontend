@@ -18,7 +18,13 @@
                   {{ q.question }}
                   <span class="smaller">{{ q.body }}</span>
                 </h2>
-                <p v-for="ans in q.answer" :key="ans" class="faq">
+                <p
+                  v-for="ans in q.answer"
+                  :key="ans"
+                  :class="
+                    !$vuetify.theme.dark ? 'faq-light-theme' : 'faq-dark-theme'
+                  "
+                >
                   <span v-html="ans"></span>
                 </p>
                 <v-divider v-if="index !== ajarnQ.length - 1"></v-divider>
@@ -49,11 +55,23 @@
                   <h2 class="faq">
                     {{ question.title }}
                   </h2>
-                  <p class="faq">
+                  <p
+                    :class="
+                      !$vuetify.theme.dark
+                        ? 'faq-light-theme'
+                        : 'faq-dark-theme'
+                    "
+                  >
                     {{ question.body }}
                   </p>
                   <h3 class="faq">Answer</h3>
-                  <p class="faq">
+                  <p
+                    :class="
+                      !$vuetify.theme.dark
+                        ? 'faq-light-theme'
+                        : 'faq-dark-theme'
+                    "
+                  >
                     {{ question.answer }}
                   </p>
                   <v-divider v-if="index !== topQ.length - 1"></v-divider>
