@@ -1,5 +1,8 @@
 <template>
-  <v-dialog v-model="forgotPwd" max-width="600px">
+  <v-dialog
+    v-model="forgotPwd"
+    :max-width="!this.$store.state.is_mobile ? '600px' : '500px'"
+  >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         v-bind="attrs"

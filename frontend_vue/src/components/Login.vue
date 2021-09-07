@@ -4,6 +4,7 @@
     <!--page title-->
     <v-card
       class="mx-auto"
+      max-width="600px"
       outlined
       :color="
         !$vuetify.theme.dark
@@ -63,7 +64,7 @@
             ></v-checkbox>
           </v-form>
           <br />
-          <v-row cols="12" justify="space-around" md="4" sm="6">
+          <v-row justify="space-around">
             <!--login button-->
             <v-btn
               :disabled="
@@ -77,7 +78,10 @@
             </v-btn>
 
             <!--register button w/ form-->
-            <v-dialog v-model="form" max-width="600px">
+            <v-dialog
+              v-model="form"
+              :max-width="!this.$store.state.is_mobile ? '600px' : '500px'"
+            >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   v-bind="attrs"
