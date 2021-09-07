@@ -341,11 +341,11 @@
                   >{{ subcom.body }}</span
                 ><span
                   class="font-italic"
-                  style="color:darkgrey"
+                  style="color: darkgrey"
                   v-else-if="subcom.deleted"
                   >{{ subcom.body }}</span
                 ><span
-                  style="color:dimgrey"
+                  style="color: dimgrey"
                   v-else-if="!$vuetify.theme.dark"
                   >{{ subcom.body }}</span
                 ><span v-else style="color: darkgrey">{{
