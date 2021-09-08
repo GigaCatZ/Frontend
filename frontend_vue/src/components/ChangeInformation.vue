@@ -47,6 +47,7 @@
               class="align-center"
               @click:append="show_current_password = !show_current_password"
               clearable
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
             <v-text-field
               v-model="new_password"
@@ -58,6 +59,7 @@
               class="align-center"
               @click:append="show_password = !show_password"
               clearable
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
             <v-text-field
               v-model="confirm_new_password"
@@ -69,6 +71,7 @@
               class="align-center"
               @click:append="show_password = !show_password"
               clearable
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
           </v-form>
           <small>*indicates required field</small>

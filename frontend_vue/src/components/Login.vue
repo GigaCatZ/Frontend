@@ -53,6 +53,7 @@
               clearable
               filled
               label="Enter Password"
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
               @keydown.enter="login"
               @click:append="show3 = !show3"
             ></v-text-field>
@@ -162,6 +163,7 @@
                         label="Confirm password"
                         required
                         @click:append="show2 = !show2"
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       ></v-text-field>
 
                       <v-text-field
