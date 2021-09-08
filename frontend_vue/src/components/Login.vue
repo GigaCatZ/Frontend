@@ -124,6 +124,7 @@
                         :counter="20"
                         :rules="usernameRules"
                         label="Display Name"
+                        hint="This field can be changed at any time in the future."
                         required
                         @input="userexist()"
                         :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"

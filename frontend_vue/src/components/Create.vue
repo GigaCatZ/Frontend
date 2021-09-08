@@ -56,6 +56,8 @@
                 deletable-chips
                 multiple
                 small-chips
+                :search-input.sync="searchInput"
+                @change="searchInput=''"
               >
                 <template #selection="{ item }">
                   <v-chip
@@ -93,6 +95,7 @@ export default {
     selectlist: [],
     errormsg: "",
     valid: false,
+    searchInput: null,
   }),
 
   methods: {
