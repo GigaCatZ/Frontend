@@ -53,7 +53,7 @@
               multiple
               small-chips
               :search-input.sync="searchInput"
-              @change="searchInput=''"
+              @change="searchInput = ''"
             >
               <template #selection="{ item }">
                 <v-chip

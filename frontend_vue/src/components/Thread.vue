@@ -105,8 +105,9 @@
             @click="search(tag)"
           ></v-chip>
         </v-card-text>
-        <v-card-text
-            style="white-space: pre-wrap;" class="text-h5 ml-1">{{ thread_body }}</v-card-text>
+        <v-card-text style="white-space: pre-wrap" class="text-h5 ml-1">{{
+          thread_body
+        }}</v-card-text>
         <v-card-actions>
           <v-btn class="ml-2 mt-3 mr-6" text @click="likethread()">
             <v-icon class="mr-5" color="grey" v-if="thread_is_liked"
@@ -345,20 +346,20 @@
                   OP</span
                 >
                 <v-btn
-                icon
-                x-small
-                absolute
-                right
-                class="mr-14"
-                v-if="subcom.sender === current_user"
-                @click="
-                  subcom.edit_box = !subcom.edit_box;
-                  changecomment(subcom.body);
-                "
-                ><v-icon color="grey" class="mt-1"
-                  >mdi-border-color</v-icon
-                ></v-btn
-              >
+                  icon
+                  x-small
+                  absolute
+                  right
+                  class="mr-14"
+                  v-if="subcom.sender === current_user"
+                  @click="
+                    subcom.edit_box = !subcom.edit_box;
+                    changecomment(subcom.body);
+                  "
+                  ><v-icon color="grey" class="mt-1"
+                    >mdi-border-color</v-icon
+                  ></v-btn
+                >
                 <v-btn
                   icon
                   x-small
@@ -385,37 +386,34 @@
                   style="color: darkgrey"
                   v-else-if="subcom.deleted"
                   >{{ subcom.body }}</span
-                ><span
-                  v-else-if="!subcom.deleted && subcom.edit_box"
+                ><span v-else-if="!subcom.deleted && subcom.edit_box"
                   ><v-row no-gutters
-                  ><v-col cols="11"
-                    ><v-textarea
-                      label="Edit Comment"
-                      color="deep-purple lighten-2"
-                      outlined
-                      clearable
-                      dense
-                      rows="1"
-                      clear-icon="mdi-close"
-                      v-model="reply_edit_body"
-                    ></v-textarea
-                  ></v-col>
-                  <v-col cols="1"
-                    ><v-btn
-                      text
-                      height="41"
-                      color="#9370db"
-                      @click="editcomment(subcom.comment_id, true)"
-                      ><v-icon>mdi-send</v-icon></v-btn
-                    ></v-col
-                  >
-                </v-row></span
+                    ><v-col cols="11"
+                      ><v-textarea
+                        label="Edit Comment"
+                        color="deep-purple lighten-2"
+                        outlined
+                        clearable
+                        dense
+                        rows="1"
+                        clear-icon="mdi-close"
+                        v-model="reply_edit_body"
+                      ></v-textarea
+                    ></v-col>
+                    <v-col cols="1"
+                      ><v-btn
+                        text
+                        height="41"
+                        color="#9370db"
+                        @click="editcomment(subcom.comment_id, true)"
+                        ><v-icon>mdi-send</v-icon></v-btn
+                      ></v-col
+                    >
+                  </v-row></span
                 >
-                <span
-                  style="color: dimgrey"
-                  v-else-if="!$vuetify.theme.dark"
-                  >{{ subcom.body }}</span
-                >
+                <span style="color: dimgrey" v-else-if="!$vuetify.theme.dark">{{
+                  subcom.body
+                }}</span>
                 <span v-else style="color: darkgrey">{{
                   subcom.body
                 }}</span></v-card-text
