@@ -1,17 +1,14 @@
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
-      <br />
       <!-- FAQ by mods -->
-      <v-card class="mx-auto" outlined max-width="1000">
-        <br />
-        <v-row class="mx-4">
+      <v-card class="mx-auto mt-10" outlined max-width="1000">
+        <v-row class="mx-4 mt-4">
           <v-col>
             <h1 class="one">Create a new thread</h1>
-            <v-divider></v-divider>
+            <v-divider class="my-5"></v-divider>
           </v-col>
         </v-row>
-        <br />
 
         <v-form v-model="valid">
           <v-row class="mx-4">
@@ -24,10 +21,10 @@
                 maxlength="120"
                 :rules="[() => !!title || 'This field is required']"
                 color="deep-purple lighten-2"
+                :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
               ></v-text-field>
             </v-col>
           </v-row>
-          <br />
           <v-row class="mx-4">
             <v-col>
               <v-textarea
@@ -41,7 +38,7 @@
           <v-row class="mx-4">
             <v-col>
               <h2 class="one">Tags</h2>
-              <v-divider></v-divider>
+              <v-divider class="my-5"></v-divider>
             </v-col>
           </v-row>
 
@@ -59,6 +56,8 @@
                 deletable-chips
                 multiple
                 small-chips
+                :search-input.sync="searchInput"
+                @change="searchInput=''"
               >
                 <template #selection="{ item }">
                   <v-chip
@@ -72,8 +71,7 @@
               </v-autocomplete>
             </v-col>
           </v-row>
-          <v-card-actions class="ma-4">
-            <v-spacer></v-spacer>
+          <v-card-actions class="justify-end ma-4">
             <v-btn :disabled="!valid" @click="sendData">post</v-btn>
           </v-card-actions>
         </v-form>
@@ -86,6 +84,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 Vue.use(VueAxios, axios);
 export default {
   name: "Create",
@@ -96,6 +95,7 @@ export default {
     selectlist: [],
     errormsg: "",
     valid: false,
+    searchInput: null,
   }),
 
   methods: {
@@ -105,6 +105,7 @@ export default {
       this.tags = [...this.tags];
     },
     async sendData() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("title", this.title);
       formData.append("text", this.text);
@@ -118,20 +119,24 @@ export default {
           }
         });
       if (response.data.status) {
+        await store.dispatch("loading", false);
         await this.$router.push("/thread/" + response.data.thread_id);
       } else {
+        await store.dispatch("loading", false);
         this.error = true;
         this.errormsg = response.data.message;
         console.warn(response.data.status);
       }
     },
     async extractlist() {
+      await store.dispatch("loading", true);
       const response = await axios.get("/api/create_thread").catch((error) => {
         if (error.response) {
           console.warn("something went wrong");
         }
       });
       this.selectlist = response.data.courses;
+      await store.dispatch("loading", false);
     },
   },
   async created() {

@@ -1,7 +1,6 @@
 <template v-model="$vuetify.theme.dark">
   <v-container class="mx-auto" max-width="300">
-    <br />
-    <v-row dense>
+    <v-row dense class="mt-4">
       <v-col>
         <v-dialog v-model="zoomedImage" @click="zoomedImage = null">
           <v-card>
@@ -68,9 +67,7 @@
       </v-col>
     </v-row>
 
-    <br />
-
-    <v-card outlined>
+    <v-card outlined class="my-4">
       <v-card-title><h2 class="home">Popular Tags</h2></v-card-title>
       <div class="text-center">
         <v-chip
@@ -84,8 +81,6 @@
         ></v-chip>
       </div>
     </v-card>
-
-    <br />
 
     <v-card outlined>
       <v-container fluid class="mx-auto">
@@ -174,6 +169,7 @@
 
 <script>
 import Vue from "vue";
+import store from "../store";
 
 export default {
   name: "Home",
@@ -220,12 +216,14 @@ export default {
 
   methods: {
     async getInfo() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("order", this.order);
       let result = await Vue.axios.post("/api/home", formData);
       this.popularTags = result.data.tags;
       this.threads = result.data.threads;
       this.mobile = this.$store.state.is_mobile;
+      await store.dispatch("loading", false);
     },
     zoom(src) {
       this.zoomedImage = true;

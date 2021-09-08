@@ -1,17 +1,14 @@
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
-      <br />
       <!-- FAQ by mods -->
-      <v-card class="mx-auto" outlined max-width="1000">
-        <br />
-        <v-row class="mx-4">
+      <v-card class="mx-auto mt-10" outlined max-width="1000">
+        <v-row class="mx-4 mt-4">
           <v-col>
             <h1 class="one">Edit thread</h1>
-            <v-divider></v-divider>
+            <v-divider class="my-5"></v-divider>
           </v-col>
         </v-row>
-        <br />
 
         <v-row class="mx-4">
           <v-col>
@@ -20,10 +17,10 @@
               label="Title"
               outlined
               disabled
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
           </v-col>
         </v-row>
-        <br />
         <v-row class="mx-4">
           <v-col>
             <v-textarea
@@ -55,6 +52,8 @@
               deletable-chips
               multiple
               small-chips
+              :search-input.sync="searchInput"
+              @change="searchInput=''"
             >
               <template #selection="{ item }">
                 <v-chip
@@ -69,10 +68,10 @@
             </v-autocomplete>
           </v-col>
         </v-row>
-        <v-card-actions class="ma-4">
-          <v-spacer></v-spacer>
+        <v-card-actions class="ma-4 justify-end">
           <v-btn
             @click="$router.push({ name: 'Thread', params: { id: thread_id } })"
+            class="mx-2"
             >cancel</v-btn
           >
           <v-btn @click="sendData">post</v-btn>
@@ -93,6 +92,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 Vue.use(VueAxios, axios);
 export default {
   name: "Edit",
@@ -104,6 +104,7 @@ export default {
     selectlist: [],
     errormsg: "",
     error: false,
+    searchInput: null,
   }),
 
   methods: {
@@ -113,6 +114,7 @@ export default {
       this.tags = [...this.tags];
     },
     async sendData() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("thread_id", this.thread_id);
       formData.append("text", this.text);
@@ -126,14 +128,17 @@ export default {
           }
         });
       if (response.data.status) {
+        await store.dispatch("loading", false);
         await this.$router.push("/thread/" + this.thread_id);
       } else {
+        await store.dispatch("loading", false);
         this.errormsg = response.data.message;
         this.error = true;
         console.warn(response.data.status);
       }
     },
     async getInfo() {
+      await store.dispatch("loading", true);
       const response = await axios
         .get("/api/edit_thread?thread_id=" + this.$route.params.id)
         .catch((error) => {
@@ -146,6 +151,7 @@ export default {
       this.text = response.data.body;
       this.selectlist = response.data.courses;
       this.tags = response.data.selected_tags;
+      await store.dispatch("loading", false);
     },
   },
   async created() {

@@ -1,9 +1,8 @@
 <template v-model="$vuetify.theme.dark">
   <v-container>
-    <br />
     <!--page title-->
     <v-card
-      class="mx-auto"
+      class="mx-auto mt-10"
       max-width="600px"
       outlined
       :color="
@@ -16,21 +15,20 @@
         <h1 class="font-weight-light">Login Page</h1>
       </v-card-title>
       <v-divider
-        class="mx-16 divider-custom"
+        class="mx-16 mb-7 divider-custom"
         :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
       ></v-divider>
-      <br />
-      <!--login form-->
-      <v-card-text class="mx-13">Example: u5581906</v-card-text>
       <v-row>
         <v-col class="mx-16">
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation class="mb-4">
             <v-alert v-model="login_alert" dismissible type="error">
               {{ login_alert_text }}
             </v-alert>
             <v-alert v-model="register_alert" dismissible type="success">
               {{ register_alert_text }}
             </v-alert>
+
+            <h4 class="mb-4 font-weight-light">Example: u5581906</h4>
 
             <!--username field-->
             <v-text-field
@@ -41,6 +39,7 @@
               filled
               label="Enter Username"
               @keydown.enter="login"
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
             <v-spacer></v-spacer>
 
@@ -54,6 +53,7 @@
               clearable
               filled
               label="Enter Password"
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
               @keydown.enter="login"
               @click:append="show3 = !show3"
             ></v-text-field>
@@ -63,7 +63,6 @@
               label="Stay Signed In"
             ></v-checkbox>
           </v-form>
-          <br />
           <v-row justify="space-around">
             <!--login button-->
             <v-btn
@@ -80,7 +79,7 @@
             <!--register button w/ form-->
             <v-dialog
               v-model="form"
-              :max-width="!this.$store.state.is_mobile ? '600px' : '500px'"
+              :max-width="!this.$store.state.is_mobile ? '600px' : '75%'"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -99,7 +98,10 @@
                 <v-card-title class="justify-center">
                   <span class="text-h5 mt-2">Register</span>
                 </v-card-title>
-                <v-divider class="mx-16 divider-custom ma-3"></v-divider>
+                <v-divider
+                  class="mx-16 divider-custom ma-3"
+                  :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+                ></v-divider>
                 <p />
                 <div>
                   <v-alert
@@ -123,8 +125,10 @@
                         :counter="20"
                         :rules="usernameRules"
                         label="Display Name"
+                        hint="This field can be changed at any time in the future."
                         required
                         @input="userexist()"
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       >
                       </v-text-field>
 
@@ -135,6 +139,7 @@
                         label="Sky Username"
                         hint="This field is permanent (can not be changed after the account has been created)"
                         required
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       ></v-text-field>
 
                       <v-text-field
@@ -146,6 +151,7 @@
                         label="Password"
                         required
                         @click:append="show1 = !show1"
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       ></v-text-field>
 
                       <v-text-field
@@ -157,6 +163,7 @@
                         label="Confirm password"
                         required
                         @click:append="show2 = !show2"
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       ></v-text-field>
 
                       <v-text-field
@@ -166,16 +173,21 @@
                         label="Email"
                         hint="This field is permanent (can not be changed after the account has been created)"
                         required
+                        :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
                       ></v-text-field>
                     </v-form>
                   </v-container>
                 </v-card-text>
                 <v-card-actions class="justify-end">
-                  <v-btn color="blue darken-1" text @click="form = false">
+                  <v-btn
+                    :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+                    text
+                    @click="form = false"
+                  >
                     Close
                   </v-btn>
                   <v-btn
-                    color="blue darken-1"
+                    :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
                     method="post"
                     text
                     @click="createuser"
@@ -188,12 +200,10 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row class="justify-space-around">
+      <v-row class="justify-space-around mb-7">
         <!-- forgot password button -->
         <ForgotPwd />
       </v-row>
-      <br />
-      <br />
     </v-card>
   </v-container>
 </template>
@@ -204,6 +214,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 // import { mdiCheckAll } from "@mdi/js";
 import ForgotPwd from "./ForgotPwd";
+import store from "../store";
 
 Vue.use(VueAxios, axios);
 export default {
@@ -268,7 +279,11 @@ export default {
     },
   },
   methods: {
+    // sleep(ms) {
+    //   return new Promise(resolve => setTimeout(resolve, ms));
+    // },
     async login() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("sky_username", this.username);
       formData.append("password", this.password);
@@ -281,14 +296,17 @@ export default {
           }
         });
       if (response.data.status) {
+        await store.dispatch("loading", false);
         await this.$router.push("/");
       } else {
+        await store.dispatch("loading", false);
         this.login_alert = true;
         this.login_alert_text = response.data.message;
       }
     },
 
     async createuser() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("display_name", this.displayname);
       formData.append("sky_username", this.studentID);
@@ -301,6 +319,7 @@ export default {
             console.warn("something went wrong");
           }
         });
+      await store.dispatch("loading", false);
       if (response.data.status) {
         this.form = false;
         this.register_alert = true;

@@ -1,19 +1,15 @@
 <template v-model="$vuetify.theme.dark">
   <div>
     <v-container>
-      <br />
       <!-- FAQ by mods -->
-      <v-card class="mx-auto" outlined>
-        <br />
-        <v-row class="mx-4">
+      <v-card class="mx-auto mt-10" outlined>
+        <v-row class="mx-4 mt-4">
           <v-col>
             <h1 class="faq">
               Frequently Asked Questions
               <span class="smaller"> by moderators and Ajarns</span>
             </h1>
-            <v-divider></v-divider>
-
-            <br />
+            <v-divider class="my-4"></v-divider>
 
             <!-- Where the actual questions are -->
             <v-row v-for="(q, index) in ajarnQ" :key="q.question" class="mx-2">
@@ -22,7 +18,13 @@
                   {{ q.question }}
                   <span class="smaller">{{ q.body }}</span>
                 </h2>
-                <p v-for="ans in q.answer" :key="ans" class="faq">
+                <p
+                  v-for="ans in q.answer"
+                  :key="ans"
+                  :class="
+                    !$vuetify.theme.dark ? 'faq-light-theme' : 'faq-dark-theme'
+                  "
+                >
                   <span v-html="ans"></span>
                 </p>
                 <v-divider v-if="index !== ajarnQ.length - 1"></v-divider>
@@ -30,24 +32,17 @@
             </v-row>
           </v-col>
         </v-row>
-        <br />
       </v-card>
 
-      <br />
-      <br />
-
       <!-- FAQ by dupes -->
-      <v-card class="mx-auto" outlined>
-        <br />
-        <v-row class="mx-4">
+      <v-card class="mx-auto mt-10" outlined>
+        <v-row class="ma-6">
           <v-col>
             <h1 class="faq">
               Frequently Asked Questions
               <span class="smaller"> by number of duplicates </span>
             </h1>
-            <v-divider></v-divider>
-
-            <br />
+            <v-divider class="my-5"></v-divider>
 
             <!-- Actual questions -->
             <div v-if="topQ.length > 0">
@@ -60,11 +55,23 @@
                   <h2 class="faq">
                     {{ question.title }}
                   </h2>
-                  <p class="faq">
+                  <p
+                    :class="
+                      !$vuetify.theme.dark
+                        ? 'faq-light-theme'
+                        : 'faq-dark-theme'
+                    "
+                  >
                     {{ question.body }}
                   </p>
                   <h3 class="faq">Answer</h3>
-                  <p class="faq">
+                  <p
+                    :class="
+                      !$vuetify.theme.dark
+                        ? 'faq-light-theme'
+                        : 'faq-dark-theme'
+                    "
+                  >
                     {{ question.answer }}
                   </p>
                   <v-divider v-if="index !== topQ.length - 1"></v-divider>
@@ -80,7 +87,6 @@
             </div>
           </v-col>
         </v-row>
-        <br />
       </v-card>
     </v-container>
   </div>
@@ -90,6 +96,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 
 Vue.use(VueAxios, axios);
 
@@ -131,8 +138,10 @@ export default {
 
   methods: {
     async getTopQ() {
+      await store.dispatch("loading", true);
       let result = await Vue.axios.get("/api/faq");
       this.topQ = result.data.response;
+      await store.dispatch("loading", false);
     },
   },
 };

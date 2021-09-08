@@ -2,3 +2,12 @@
     border-width: 1px !important;
     height: 100%;
 }
+
+.lighter input:-webkit-autofill {
+    -webkit-background-clip: text;
+}
+
+.darker input:-webkit-autofill {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: azure;
+}

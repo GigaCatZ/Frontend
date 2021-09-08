@@ -1,25 +1,21 @@
 <template v-model="$vuetify.theme.dark">
   <v-container>
-    <br />
-    <v-card class="mx-auto">
+    <v-card class="mx-auto mt-10">
       <!-- Header -->
-      <v-list-item three-line>
+      <v-list-item three-line class="mb-4">
         <v-list-item-content>
-          <v-list-item-title class="mb-1">
+          <v-list-item-title class="my-2">
             <h1 class="font-text">Change Account Information</h1>
           </v-list-item-title>
-          <p />
           <v-divider
-            class="divider-header"
+            class="divider-header my-4"
             :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
           ></v-divider>
-          <br />
         </v-list-item-content>
         <v-list-item-avatar size="60" color="grey" class="justify-center">
           <v-icon dark> mdi-account </v-icon>
         </v-list-item-avatar>
       </v-list-item>
-      <br />
       <v-row>
         <v-col class="mx-16">
           <v-form ref="form" v-model="valid" lazy-validation>
@@ -36,6 +32,7 @@
               label="New display name*"
               hint="Type current display name if you do not want to change your display name"
               class="align-center"
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
               clearable
             ></v-text-field>
             <v-text-field
@@ -50,6 +47,7 @@
               class="align-center"
               @click:append="show_current_password = !show_current_password"
               clearable
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
             <v-text-field
               v-model="new_password"
@@ -61,6 +59,7 @@
               class="align-center"
               @click:append="show_password = !show_password"
               clearable
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
             <v-text-field
               v-model="confirm_new_password"
@@ -72,6 +71,7 @@
               class="align-center"
               @click:append="show_password = !show_password"
               clearable
+              :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
             ></v-text-field>
           </v-form>
           <small>*indicates required field</small>
@@ -81,7 +81,7 @@
         <v-btn
           :disabled="!valid || this.current_password.length === 0"
           color="#2a0094"
-          class="white--text"
+          class="white--text mb-5"
           @click="sendUserInformation"
           >Save</v-btn
         >
@@ -140,6 +140,7 @@ export default {
       }
     },
     async sendUserInformation() {
+      await store.dispatch("loading", true);
       if (this.new_password !== this.confirm_new_password) {
         this.message_error = "Please confirm your new password";
         this.display_dialog = true;
@@ -154,8 +155,10 @@ export default {
         request.append("new_password", this.new_password);
         let response = await axios.post("/api/change_info", request);
         if (response.data.status) {
+          await store.dispatch("loading", false);
           await this.$router.push("/");
         } else {
+          await store.dispatch("loading", false);
           this.message_error = response.data.message;
           this.display_dialog = true;
         }

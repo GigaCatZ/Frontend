@@ -126,6 +126,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 Vue.use(VueAxios, axios);
 export default {
   name: "Search",
@@ -151,6 +152,7 @@ export default {
       }
     },
     async browse() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("search_input", this.keywords);
       formData.append("type_search", this.filter.toLowerCase());
@@ -163,19 +165,23 @@ export default {
         });
       this.threads = response.data.search_result;
       this.mobile = this.$store.state.is_mobile;
+      await store.dispatch("loading", false);
     },
     search() {
+      this.keywords = this.keywords === null ? "" : this.keywords;
       this.$router.push(
         "/search/" + this.keywords + "?filter=" + this.filter.toLowerCase()
       );
     },
     async extractlist() {
+      await store.dispatch("loading", true);
       const response = await axios.get("/api/create_thread").catch((error) => {
         if (error.response) {
           console.warn("something went wrong");
         }
       });
       this.selectlist = response.data.courses;
+      await store.dispatch("loading", false);
     },
   },
 

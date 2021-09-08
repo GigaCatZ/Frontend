@@ -71,8 +71,10 @@
           label="Search here"
           class="mx-auto"
           clearable
+          :color="!$vuetify.theme.dark ? '#ddbee8' : '#beb4c2'"
           prepend-icon="mdi-magnify"
           @keydown.enter="searchbar()"
+          :class="'darker'"
         ></v-text-field>
       </v-col>
 
@@ -118,6 +120,7 @@
           <v-card-actions justify="space-around">
             <v-btn
               v-if="!this.$store.state.status"
+              :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
               text
               :to="{ name: 'Login' }"
             >
@@ -191,6 +194,7 @@
 
     <v-main>
       <router-view />
+      <Loading />
     </v-main>
 
     <v-btn
@@ -212,9 +216,14 @@
 <script>
 import Vue from "vue";
 import router from "./router";
+import Loading from "./components/LoadingPage";
 
 export default {
   name: "App",
+
+  components: {
+    Loading,
+  },
 
   data: () => ({
     drawer: false,
@@ -267,3 +276,5 @@ export default {
   },
 };
 </script>
+
+<style src="./css/Login.css"></style>

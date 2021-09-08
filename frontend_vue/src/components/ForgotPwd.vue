@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     v-model="forgotPwd"
-    :max-width="!this.$store.state.is_mobile ? '600px' : '500px'"
+    :max-width="!this.$store.state.is_mobile ? '600px' : '75%'"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
@@ -31,22 +31,33 @@
             v-model="SKY_username"
             dense
             label="SKY Username"
+            color="deep-purple lighten-2"
             required
+            :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
           ></v-text-field>
           <v-text-field
             v-model="email"
             dense
             label="E-mail"
+            color="deep-purple lighten-2"
             required
+            :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
           ></v-text-field>
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="forgotPwd = false"
+        <v-btn
+          :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+          text
+          @click="forgotPwd = false"
           >Close
         </v-btn>
-        <v-btn color="blue darken-1" text @click="send_request">
+        <v-btn
+          :color="!$vuetify.theme.dark ? '#2a0094' : '#fdf7ff'"
+          text
+          @click="send_request"
+        >
           Send request
         </v-btn>
       </v-card-actions>
@@ -58,6 +69,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import store from "../store";
 
 Vue.use(VueAxios, axios);
 
@@ -76,6 +88,7 @@ export default {
 
   methods: {
     async send_request() {
+      await store.dispatch("loading", true);
       let formData = new FormData();
       formData.append("sky_username", this.SKY_username);
       formData.append("email", this.email);
@@ -96,7 +109,10 @@ export default {
         this.pwdRequest_error = true;
         this.pwdRequest_text = response.data.message;
       }
+      await store.dispatch("loading", false);
     },
   },
 };
 </script>
+
+<style src="../css/Login.css"></style>

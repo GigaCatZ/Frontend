@@ -5,6 +5,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   actions: {
+    loading({ commit }, response) {
+      commit("setLoadingScreen", response);
+    },
     storedinfo({ commit }, response) {
       commit("setStatus", response.is_logged_in);
       commit("setUserName", response.display_name);
@@ -20,6 +23,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setLoadingScreen(state, loading_status) {
+      this.state.loading_screen = loading_status;
+    },
     setModStatus(state, mod_status) {
       this.state.is_mod = mod_status;
     },
@@ -43,6 +49,7 @@ export default new Vuex.Store({
     is_mod: false,
     is_mobile: false,
     is_dark_mode: false,
+    loading_screen: false,
   },
   modules: {},
 });
