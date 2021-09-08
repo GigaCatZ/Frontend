@@ -31,6 +31,7 @@
             solo
             clearable
             prepend-icon="mdi-magnify"
+            color="deep-purple lighten-2"
             @keydown.enter="search"
           >
           </v-text-field>
