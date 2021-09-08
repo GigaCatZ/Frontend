@@ -155,7 +155,6 @@
               rows="1"
               v-model="comment_thread"
               clear-icon="mdi-close"
-              @keydown.enter="addcomment"
             ></v-textarea>
           </v-col>
           <v-col cols="1">
@@ -217,7 +216,7 @@
                 <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
               >
             </v-card-subtitle>
-            <v-card-text class="ml-1"
+            <v-card-text class="ml-1" style="white-space: pre-wrap"
               ><span
                 class="font-italic"
                 style="color: dimgrey"
@@ -308,7 +307,6 @@
                   dense
                   rows="1"
                   clear-icon="mdi-close"
-                  @keydown.enter="addreply(comment.comment_id, comment.sender)"
                   v-model="comment_reply"
                 ></v-textarea>
               </v-col>
@@ -375,7 +373,7 @@
                   <v-icon color="grey">mdi-trash-can-outline</v-icon></v-btn
                 >
               </v-card-subtitle>
-              <v-card-text class="ml-1"
+              <v-card-text class="ml-1" style="white-space: pre-wrap"
                 ><span
                   class="font-italic"
                   style="color: dimgrey"
@@ -475,7 +473,6 @@
                     rows="1"
                     v-model="comment_reply"
                     clear-icon="mdi-close"
-                    @keydown.enter="addreply(subcom.comment_id, subcom.sender)"
                   ></v-textarea>
                 </v-col>
                 <v-col cols="1">
@@ -703,7 +700,7 @@ export default {
     async editcomment(comment_id, is_reply) {
       let formData = new FormData();
       formData.append("comment_id", comment_id);
-      if (is_reply == false) {
+      if (!is_reply) {
         formData.append("comment_body", this.comment_edit_body);
       } else {
         formData.append("comment_body", this.reply_edit_body);
@@ -716,7 +713,7 @@ export default {
           }
         });
       if (response.data.status) {
-        await this.$router.go();
+        await this.getalldata();
       }
     },
 
