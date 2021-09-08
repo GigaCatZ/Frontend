@@ -74,7 +74,7 @@
             class="mx-2"
             >cancel</v-btn
           >
-          <v-btn @click="sendData">post</v-btn>
+          <v-btn @click="sendData">save</v-btn>
         </v-card-actions>
       </v-card>
       <v-snackbar v-model="error" color="error" :vertical="true">

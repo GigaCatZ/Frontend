@@ -72,6 +72,9 @@
             </v-col>
           </v-row>
           <v-card-actions class="justify-end ma-4">
+            <v-btn @click="$router.push({ name: 'Home' })" class="mx-2"
+              >cancel</v-btn
+            >
             <v-btn :disabled="!valid" @click="sendData">post</v-btn>
           </v-card-actions>
         </v-form>
