@@ -71,8 +71,9 @@
               <v-col>
                 <h2 class="faq">How do we contact the IC Courses Team?</h2>
                 <p :class="!$vuetify.theme.dark ? 'faq' : 'faqDark'">
-                  You may ping @ICCOURSES-TEAM in the
-                  <b>#iccourses-help</b> text channel in MUIC CS Discord server.
+                  You may ping<span
+                    :class="!$vuetify.theme.dark ? 'tagLight' : 'tagDark'">
+                    @ICCourses Moderator</span> in the <b>#iccourses-help</b> text channel in MUIC CS Discord server.
                 </p>
                 <v-divider></v-divider>
               </v-col>

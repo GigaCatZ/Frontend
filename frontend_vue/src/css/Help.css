@@ -46,3 +46,13 @@ span.smaller {
     font-size: 75%;
     font-weight: normal;
 }
+
+.tagLight {
+    color: #6b39c2;
+    font-weight: 350;
+}
+
+.tagDark {
+    color: #ac9fcb;
+    font-weight: 350;
+}
