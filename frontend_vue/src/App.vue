@@ -71,7 +71,8 @@
           label="Search here"
           class="mx-auto"
           clearable
-          :color="!$vuetify.theme.dark ? 'deep-purple lighten-3' : 'deep-purple lighten-2'"
+          :color="!$vuetify.theme.dark ? '#ddbee8' : '#beb4c2'"
+          :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
           prepend-icon="mdi-magnify"
           @keydown.enter="searchbar()"
         ></v-text-field>
@@ -275,3 +276,5 @@ export default {
   },
 };
 </script>
+
+<style src="./css/Login.css"></style>
