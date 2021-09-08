@@ -72,7 +72,7 @@
           class="mx-auto"
           clearable
           :color="!$vuetify.theme.dark ? '#ddbee8' : '#beb4c2'"
-          :class="!$vuetify.theme.dark ? 'lighter' : 'darker'"
+          class="darker"
           prepend-icon="mdi-magnify"
           @keydown.enter="searchbar()"
         ></v-text-field>
