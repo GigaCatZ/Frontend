@@ -194,7 +194,7 @@
                 absolute
                 right
                 class="mr-8"
-                v-if="comment.sender === current_user"
+                v-if="comment.sender === current_user && !comment.deleted"
                 @click="
                   comment.edit_box = !comment.edit_box;
                   changecomment(comment.body);
@@ -351,7 +351,7 @@
                   absolute
                   right
                   class="mr-14"
-                  v-if="subcom.sender === current_user"
+                  v-if="subcom.sender === current_user && !subcom.deleted"
                   @click="
                     subcom.edit_box = !subcom.edit_box;
                     changecomment(subcom.body);
