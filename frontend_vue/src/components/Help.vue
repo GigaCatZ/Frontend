@@ -76,8 +76,8 @@
                   >
                     @ICCourses Moderator</span
                   >
-                  in the <b>#iccourses-help</b> text channel in MUIC CS Discord
-                  server.
+                  in the <b>#iccourses-support</b> text channel in MUIC CS
+                  Discord server.
                 </p>
                 <v-divider></v-divider>
               </v-col>
