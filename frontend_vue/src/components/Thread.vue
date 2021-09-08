@@ -105,7 +105,8 @@
             @click="search(tag)"
           ></v-chip>
         </v-card-text>
-        <v-card-text class="text-h5 ml-1">{{ thread_body }}</v-card-text>
+        <v-card-text
+            style="white-space: pre-wrap;" class="text-h5 ml-1">{{ thread_body }}</v-card-text>
         <v-card-actions>
           <v-btn class="ml-2 mt-3 mr-6" text @click="likethread()">
             <v-icon class="mr-5" color="grey" v-if="thread_is_liked"
