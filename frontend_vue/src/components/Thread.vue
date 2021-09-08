@@ -195,7 +195,7 @@
                 class="mr-8"
                 v-if="comment.sender === current_user"
                 @click="
-                  comment_edit = !comment_edit;
+                  comment.edit_box = !comment.edit_box;
                   changecomment(comment.body);
                 "
                 ><v-icon color="grey" class="mt-1"
@@ -228,7 +228,7 @@
                 v-else-if="comment.deleted"
                 >{{ comment.body }}</span
               >
-              <span v-else-if="!comment.deleted && comment_edit"
+              <span v-else-if="!comment.deleted && comment.edit_box"
                 ><v-row no-gutters
                   ><v-col cols="11"
                     ><v-textarea
@@ -247,7 +247,7 @@
                       text
                       height="41"
                       color="#9370db"
-                      @click="editcomment(comment.comment_id)"
+                      @click="editcomment(comment.comment_id, false)"
                       ><v-icon>mdi-send</v-icon></v-btn
                     ></v-col
                   >
@@ -352,7 +352,7 @@
                 class="mr-14"
                 v-if="subcom.sender === current_user"
                 @click="
-                  reply_edit = !reply_edit;
+                  subcom.edit_box = !subcom.edit_box;
                   changecomment(subcom.body);
                 "
                 ><v-icon color="grey" class="mt-1"
@@ -386,6 +386,32 @@
                   v-else-if="subcom.deleted"
                   >{{ subcom.body }}</span
                 ><span
+                  v-else-if="!subcom.deleted && subcom.edit_box"
+                  ><v-row no-gutters
+                  ><v-col cols="11"
+                    ><v-textarea
+                      label="Edit Comment"
+                      color="deep-purple lighten-2"
+                      outlined
+                      clearable
+                      dense
+                      rows="1"
+                      clear-icon="mdi-close"
+                      v-model="reply_edit_body"
+                    ></v-textarea
+                  ></v-col>
+                  <v-col cols="1"
+                    ><v-btn
+                      text
+                      height="41"
+                      color="#9370db"
+                      @click="editcomment(subcom.comment_id, true)"
+                      ><v-icon>mdi-send</v-icon></v-btn
+                    ></v-col
+                  >
+                </v-row></span
+                >
+                <span
                   style="color: dimgrey"
                   v-else-if="!$vuetify.theme.dark"
                   >{{ subcom.body }}</span
@@ -676,10 +702,14 @@ export default {
       this.delete_reply_id = "";
     },
 
-    async editcomment(comment_id) {
+    async editcomment(comment_id, is_reply) {
       let formData = new FormData();
       formData.append("comment_id", comment_id);
-      formData.append("comment_body", this.comment_edit_body);
+      if (is_reply == false) {
+        formData.append("comment_body", this.comment_edit_body);
+      } else {
+        formData.append("comment_body", this.reply_edit_body);
+      }
       const response = await axios
         .post("/api/edit_comment", formData)
         .catch((error) => {
