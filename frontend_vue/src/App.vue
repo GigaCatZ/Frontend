@@ -71,6 +71,7 @@
           label="Search here"
           class="mx-auto"
           clearable
+          :color="!$vuetify.theme.dark ? 'deep-purple lighten-3' : 'deep-purple lighten-2'"
           prepend-icon="mdi-magnify"
           @keydown.enter="searchbar()"
         ></v-text-field>

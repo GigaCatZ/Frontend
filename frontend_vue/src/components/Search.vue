@@ -168,6 +168,7 @@ export default {
       await store.dispatch("loading", false);
     },
     search() {
+      this.keywords = this.keywords === null ? "" : this.keywords;
       this.$router.push(
         "/search/" + this.keywords + "?filter=" + this.filter.toLowerCase()
       );
