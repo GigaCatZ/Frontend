@@ -185,6 +185,22 @@
               >
                 OP</span
               >
+
+              <v-btn
+                icon
+                x-small
+                absolute
+                right
+                class="mr-8"
+                v-if="comment.sender === current_user"
+                @click="
+                  comment_edit = !comment_edit;
+                  changecomment(comment.body);
+                "
+                ><v-icon color="grey" class="mt-1"
+                  >mdi-border-color</v-icon
+                ></v-btn
+              >
               <v-btn
                 icon
                 x-small
@@ -210,7 +226,33 @@
                 style="color: darkgrey"
                 v-else-if="comment.deleted"
                 >{{ comment.body }}</span
-              ><span v-else>{{ comment.body }}</span></v-card-text
+              >
+              <span v-else-if="!comment.deleted && comment_edit"
+                ><v-row no-gutters
+                  ><v-col cols="11"
+                    ><v-textarea
+                      label="Edit Comment"
+                      color="deep-purple lighten-2"
+                      outlined
+                      clearable
+                      dense
+                      rows="1"
+                      clear-icon="mdi-close"
+                      v-model="comment_edit_body"
+                    ></v-textarea
+                  ></v-col>
+                  <v-col cols="1"
+                    ><v-btn
+                      text
+                      height="41"
+                      color="#9370db"
+                      @click="editcomment(comment.comment_id)"
+                      ><v-icon>mdi-send</v-icon></v-btn
+                    ></v-col
+                  >
+                </v-row>
+              </span>
+              <span v-else>{{ comment.body }}</span></v-card-text
             >
             <v-card-actions v-if="!comment.deleted">
               <v-btn
@@ -300,7 +342,23 @@
                   v-if="subcom.sender === thread_username"
                 >
                   OP</span
-                ><v-btn
+                >
+                <v-btn
+                icon
+                x-small
+                absolute
+                right
+                class="mr-14"
+                v-if="subcom.sender === current_user"
+                @click="
+                  reply_edit = !reply_edit;
+                  changecomment(subcom.body);
+                "
+                ><v-icon color="grey" class="mt-1"
+                  >mdi-border-color</v-icon
+                ></v-btn
+              >
+                <v-btn
                   icon
                   x-small
                   absolute
@@ -330,7 +388,8 @@
                   style="color: dimgrey"
                   v-else-if="!$vuetify.theme.dark"
                   >{{ subcom.body }}</span
-                ><span v-else style="color: darkgrey">{{
+                >
+                <span v-else style="color: darkgrey">{{
                   subcom.body
                 }}</span></v-card-text
               >
@@ -445,6 +504,10 @@ export default {
     thread_body: "",
     comment_thread: "",
     comment_reply: "",
+    comment_edit: false,
+    comment_edit_body: "",
+    reply_edit: false,
+    reply_edit_body: "",
     thread_comments: [],
     log_in_alert: false,
     delete_thread: false,
@@ -458,6 +521,11 @@ export default {
   methods: {
     checkstatus() {
       return this.$store.state.status;
+    },
+
+    changecomment(current) {
+      this.comment_edit_body = current;
+      this.reply_edit_body = current;
     },
 
     async getalldata() {
@@ -599,6 +667,22 @@ export default {
       this.delete_reply = false;
       this.delete_comment_id = "";
       this.delete_reply_id = "";
+    },
+
+    async editcomment(comment_id) {
+      let formData = new FormData();
+      formData.append("comment_id", comment_id);
+      formData.append("comment_body", this.comment_edit_body);
+      const response = await axios
+        .post("/api/edit_comment", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      if (response.data.status) {
+        await this.$router.go();
+      }
     },
 
     search(tag) {
