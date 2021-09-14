@@ -230,7 +230,7 @@ export default {
       this.image = src;
     },
     search(tag) {
-      this.$router.push("/search/" + tag + "?filter=tag");
+      this.$router.push("/search/" + encodeURIComponent(tag) + "?filter=tag");
     },
   },
 };

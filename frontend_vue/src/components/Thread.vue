@@ -718,7 +718,7 @@ export default {
     },
 
     search(tag) {
-      this.$router.push("/search/" + tag + "?filter=tag");
+      this.$router.push("/search/" + encodeURIComponent(tag) + "?filter=tag");
     },
   },
 
