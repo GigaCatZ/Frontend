@@ -251,8 +251,9 @@
                   >
                 </v-row>
               </span>
-              <span v-else>{{ comment.body }}</span></v-card-text
-            >
+              <span v-else style="white-space: pre-wrap">
+                <Editor mode="viewer" v-model="comment.body" /> </span
+            ></v-card-text>
             <v-card-actions v-if="!comment.deleted">
               <v-btn
                 small
@@ -407,12 +408,9 @@
                     >
                   </v-row></span
                 >
-                <span style="color: dimgrey" v-else-if="!$vuetify.theme.dark">{{
-                  subcom.body
-                }}</span>
-                <span v-else style="color: darkgrey">{{
-                  subcom.body
-                }}</span></v-card-text
+                <span v-else style="color: darkgrey">
+                  <Editor mode="viewer" v-model="subcom.body" /></span>
+                </v-card-text
               >
               <v-card-actions v-if="!subcom.deleted">
                 <v-btn
@@ -507,12 +505,15 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import store from "../store";
 import ThreadBody from "./ThreadBody";
+import { Editor } from "vuetify-markdown-editor";
+import "vuetify-markdown-editor/dist/vuetify-markdown-editor.css";
 
 Vue.use(VueAxios, axios);
 export default {
   name: "Thread",
   components: {
     ThreadBody,
+    Editor,
   },
   data: () => ({
     current_user: null,
