@@ -171,7 +171,10 @@ export default {
     search() {
       this.keywords = this.keywords === null ? "" : this.keywords;
       this.$router.push(
-        "/search/" + this.keywords + "?filter=" + this.filter.toLowerCase()
+        "/search/" +
+          encodeURIComponent(this.keywords) +
+          "?filter=" +
+          this.filter.toLowerCase()
       );
     },
     async extractlist() {
