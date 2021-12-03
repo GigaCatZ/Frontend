@@ -21,24 +21,43 @@
             ></v-text-field>
           </v-col>
         </v-row>
+        <v-tabs v-model="tab" align-with-title>
+          <v-tabs-slider color="deep-purple lighten-2"></v-tabs-slider>
+          <v-tab
+            v-for="item in items"
+            :key="item"
+            style="color: mediumpurple"
+          >
+            {{ item }}
+          </v-tab>
+        </v-tabs>
+        <v-tabs-items v-model="tab">
+          <v-tab-item
+            v-for="item in items"
+            :key="item"
+          >
+          </v-tab-item>
+        </v-tabs-items>
         <v-row class="mx-4">
           <v-col>
             <v-textarea
+              v-if="tab === 0"
               v-model="text"
               label="Body"
               outlined
               color="deep-purple lighten-2"
             ></v-textarea>
+            <ThreadBody :thread_body="text" v-else></ThreadBody>
           </v-col>
         </v-row>
-        <v-row class="mx-4">
+        <v-row class="mx-4" v-if="tab === 0">
           <v-col>
             <h2 class="one">Tags</h2>
             <v-divider></v-divider>
           </v-col>
         </v-row>
 
-        <v-row class="mx-4">
+        <v-row class="mx-4" v-if="tab === 0">
           <v-col>
             <v-autocomplete
               v-model="tags"
@@ -93,9 +112,11 @@ import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import store from "../store";
+import ThreadBody from "./ThreadBody";
 Vue.use(VueAxios, axios);
 export default {
   name: "Edit",
+  components: { ThreadBody },
   data: () => ({
     thread_id: "",
     title: "",
@@ -105,6 +126,8 @@ export default {
     errormsg: "",
     error: false,
     searchInput: null,
+    items: ["Edit", "Preview"],
+    tab: "Edit",
   }),
 
   methods: {
