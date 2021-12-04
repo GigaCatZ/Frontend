@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="this.title !== ''" class="mt-10 mx-auto">
-    <v-tabs class="mx-auto px-4" v-model="tab" style="max-width: 1024px">
+    <v-tabs class="mx-auto px-3" v-model="tab" style="max-width: 1024px">
       <v-tabs-slider color="deep-purple lighten-2"></v-tabs-slider>
       <v-tab v-for="item in items" :key="item" style="color: mediumpurple">
         {{ item }}
@@ -9,7 +9,8 @@
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="item in items" :key="item"> </v-tab-item>
     </v-tabs-items>
-    <Create
+    <CreateAndEdit
+      class="mt-0 pt-0"
       v-if="tab === 0"
       :thread_title="title"
       :thread_body="text"
@@ -22,34 +23,48 @@
       @changeTags="changeTags($event)"
       @sendData="sendData()"
       @getInfo="getInfo()"
-    ></Create>
-    <ThreadContent
-      class="mx-auto mt-6"
-      style="max-width: 1024px"
-      v-else
-      :thread_title="title"
-      :thread_body="text"
-      :thread_tags="tags"
-    ></ThreadContent>
-    <v-card class="mx-auto" elevation="0" max-width="1000">
-      <v-card-actions v-if="tab === 1" class="justify-end ma-4">
-        <v-btn @click="$router.push({ name: 'Home' })" class="mx-2"
-        >cancel</v-btn
-        >
-        <v-btn :disabled="!valid" @click="sendData">post</v-btn>
-      </v-card-actions>
-    </v-card>
+    ></CreateAndEdit>
+    <template v-else>
+      <div>
+        <v-container class="pt-0">
+          <v-card elevation="0" class="mx-auto" outlined max-width="1000">
+            <v-card
+              v-if="title.length + text.length + tags.length > 0"
+              elevation="0"
+              class="mx-auto"
+              max-width="800"
+            >
+              <ThreadContent
+                class="mx-auto mt-6"
+                style="max-width: 1024px"
+                :thread_title="title"
+                :thread_body="text"
+                :thread_tags="tags"
+              ></ThreadContent>
+            </v-card>
+            <v-card class="mx-auto" elevation="0" max-width="1000">
+              <v-card-actions v-if="tab === 1" class="justify-end ma-4">
+                <v-btn @click="$router.push({ name: 'Home' })" class="mx-2"
+                >cancel</v-btn
+                >
+                <v-btn :disabled="!valid" @click="sendData">post</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-card>
+        </v-container>
+      </div>
+    </template>
   </v-container>
 </template>
 
 <script>
-import Create from "./CreateAndEdit";
 import ThreadContent from "./ThreadContent";
 import store from "../store";
 import axios from "axios";
+import CreateAndEdit from "./CreateAndEdit";
 export default {
-  name: "OuterCreatePage",
-  components: { ThreadContent, Create },
+  name: "Edit",
+  components: { CreateAndEdit, ThreadContent },
   data: () => ({
     items: ["Edit", "Preview"],
     tab: "Edit",

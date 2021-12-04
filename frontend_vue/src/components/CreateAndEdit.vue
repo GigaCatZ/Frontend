@@ -1,6 +1,6 @@
-<template v-model="$vuetify.theme.dark">
+<template>
   <div>
-    <v-container>
+    <v-container class="pt-0">
       <!-- FAQ by mods -->
       <v-card class="mx-auto" outlined max-width="1000">
         <v-row class="mx-1 mt-4">
@@ -96,7 +96,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
 export default {
-  name: "Create",
+  name: "CreateAndEdit",
   data: () => ({
     errormsg: "",
     valid: false,
