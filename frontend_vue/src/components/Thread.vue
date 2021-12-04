@@ -93,19 +93,7 @@
             </v-card>
           </v-dialog>
         </v-card-subtitle>
-        <v-card-title class="text-h4 pt-0" v-text="thread_title"></v-card-title>
-        <v-card-text>
-          <v-chip
-            v-for="tag in thread_tags"
-            :key="tag.title"
-            v-text="tag"
-            small
-            class="ma-1"
-            color="rgba(103, 58, 183,.28)"
-            @click="search(tag)"
-          ></v-chip>
-        </v-card-text>
-        <ThreadBody :thread_body="thread_body"></ThreadBody>
+        <ThreadContent :thread_body="thread_body" :thread_title="thread_title" :thread_tags="thread_tags"></ThreadContent>
         <v-card-actions>
           <v-btn class="ml-2 mt-3 mr-6" text @click="likethread()">
             <v-icon class="mr-5" color="grey" v-if="thread_is_liked"
@@ -409,9 +397,9 @@
                   </v-row></span
                 >
                 <span v-else style="color: darkgrey">
-                  <Editor mode="viewer" v-model="subcom.body" /></span>
-                </v-card-text
-              >
+                  <Editor mode="viewer" v-model="subcom.body"
+                /></span>
+              </v-card-text>
               <v-card-actions v-if="!subcom.deleted">
                 <v-btn
                   small
@@ -504,7 +492,7 @@ import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import store from "../store";
-import ThreadBody from "./ThreadBody";
+import ThreadContent from "./ThreadContent";
 import { Editor } from "vuetify-markdown-editor";
 import "vuetify-markdown-editor/dist/vuetify-markdown-editor.css";
 
@@ -512,7 +500,7 @@ Vue.use(VueAxios, axios);
 export default {
   name: "Thread",
   components: {
-    ThreadBody,
+    ThreadContent,
     Editor,
   },
   data: () => ({

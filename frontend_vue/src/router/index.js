@@ -7,7 +7,7 @@ import Home from "../components/Home";
 import Login from "../components/Login";
 import FAQ from "../components/FAQ";
 import Help from "../components/Help";
-import Create from "../components/Create";
+import OuterCreatePage from "../components/OuterCreatePage";
 import store from "../store";
 import Thread from "../components/Thread";
 import Search from "../components/Search";
@@ -51,8 +51,8 @@ const routes = [
   },
   {
     path: "/create",
-    name: "Create",
-    component: Create,
+    name: "OuterCreatePage",
+    component: OuterCreatePage,
   },
   {
     path: "/thread/:id",
@@ -101,7 +101,7 @@ router.beforeEach(async (to, from, next) => {
   let router_list = [
     "Login",
     "Thread",
-    "Create",
+    "OuterCreatePage",
     "Help",
     "FAQ",
     "Home",
@@ -120,7 +120,7 @@ router.beforeEach(async (to, from, next) => {
     next({ name: "Home" });
   } else if (to.name === "ModPage" && !is_mod) {
     next({ name: "PermissionDenied" });
-  } else if (to.name === "Create" && !loggedIn) {
+  } else if (to.name === "OuterCreatePage" && !loggedIn) {
     next({ name: "Login" });
   } else {
     next();

@@ -53,7 +53,7 @@
 
         <v-row dense>
           <v-col>
-            <v-card :to="{ name: 'Create' }" height="136px" outlined>
+            <v-card :to="{ name: 'OuterCreatePage' }" height="136px" outlined>
               <v-card-title><h1 class="home">+</h1></v-card-title>
               <v-card-text
                 ><p class="home" v-if="!mobile">Create A New Thread</p>

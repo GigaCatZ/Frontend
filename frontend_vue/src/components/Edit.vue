@@ -112,7 +112,7 @@ import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import store from "../store";
-import ThreadBody from "./ThreadBody";
+import ThreadBody from "./ThreadContent";
 Vue.use(VueAxios, axios);
 export default {
   name: "Edit",

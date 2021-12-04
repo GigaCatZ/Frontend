@@ -1,0 +1,97 @@
+<template>
+  <v-container class="mt-10 mx-auto">
+    <v-tabs class="mx-auto px-4" v-model="tab" style="max-width: 1024px">
+      <v-tabs-slider color="deep-purple lighten-2"></v-tabs-slider>
+      <v-tab v-for="item in items" :key="item" style="color: mediumpurple">
+        {{ item }}
+      </v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="tab">
+      <v-tab-item v-for="item in items" :key="item"> </v-tab-item>
+    </v-tabs-items>
+    <Create
+      v-if="tab === 0"
+      :thread_title="title"
+      :thread_body="text"
+      :thread_tags="tags"
+      :is_valid="valid"
+      @changeTitle="changeTitle($event)"
+      @changeText="changeText($event)"
+      @changeTags="changeTags($event)"
+      @sendData="sendData()"
+    ></Create>
+    <ThreadContent
+      class="mx-auto mt-6"
+      style="max-width: 1024px"
+      v-else
+      :thread_title="title"
+      :thread_body="text"
+      :thread_tags="tags"
+    ></ThreadContent>
+    <v-card class="mx-auto" elevation="0" max-width="1000">
+      <v-card-actions v-if="tab === 1" class="justify-end ma-4">
+        <v-btn @click="$router.push({ name: 'Home' })" class="mx-2"
+        >cancel</v-btn
+        >
+        <v-btn :disabled="!valid" @click="sendData">post</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-container>
+</template>
+
+<script>
+import Create from "./Create";
+import ThreadContent from "./ThreadContent";
+import store from "../store";
+import axios from "axios";
+export default {
+  name: "OuterCreatePage",
+  components: { ThreadContent, Create },
+  data: () => ({
+    items: ["Edit", "Preview"],
+    tab: "Edit",
+    title: "",
+    text: "",
+    tags: "",
+    valid: false,
+  }),
+  methods: {
+    changeTitle({ title, valid }) {
+      this.title = title;
+      this.valid = valid;
+    },
+    changeText(text) {
+      this.text = text;
+    },
+    changeTags(tags) {
+      this.tags = tags;
+    },
+    async sendData() {
+      await store.dispatch("loading", true);
+      let formData = new FormData();
+      formData.append("title", this.title);
+      formData.append("text", this.text);
+      formData.append("tags", this.tags);
+      formData.append("username", this.$store.state.login_skyusername);
+      const response = await axios
+        .post("/api/create_thread", formData)
+        .catch((error) => {
+          if (error.response) {
+            console.warn("something went wrong");
+          }
+        });
+      if (response.data.status) {
+        await store.dispatch("loading", false);
+        await this.$router.push("/thread/" + response.data.thread_id);
+      } else {
+        await store.dispatch("loading", false);
+        this.error = true;
+        this.errormsg = response.data.message;
+        console.warn(response.data.status);
+      }
+    },
+  },
+};
+</script>
+
+<style scoped></style>
