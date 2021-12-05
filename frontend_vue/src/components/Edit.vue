@@ -27,11 +27,14 @@
     <template v-else>
       <div>
         <v-container class="pt-0">
-          <v-card elevation="0" class="mx-auto" outlined max-width="1000">
+          <v-card
+            elevation="0" class="mx-auto" outlined max-width="1000">
             <v-card
               v-if="title.length + text.length + tags.length > 0"
-              elevation="0"
-              class="mx-auto"
+              outlined
+              elevation="1"
+              class="mx-auto mt-8"
+              style="background: #ffffff08"
               max-width="800"
             >
               <ThreadContent
