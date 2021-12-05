@@ -27,8 +27,7 @@
     <template v-else>
       <div>
         <v-container class="pt-0">
-          <v-card
-            elevation="0" class="mx-auto" outlined max-width="1000">
+          <v-card elevation="0" class="mx-auto" outlined max-width="1000">
             <v-card
               v-if="title.length + text.length + tags.length > 0"
               outlined
@@ -48,7 +47,7 @@
             <v-card class="mx-auto" elevation="0" max-width="1000">
               <v-card-actions v-if="tab === 1" class="justify-end ma-4">
                 <v-btn @click="$router.push({ name: 'Home' })" class="mx-2"
-                >cancel</v-btn
+                  >cancel</v-btn
                 >
                 <v-btn :disabled="!valid" @click="sendData">post</v-btn>
               </v-card-actions>
@@ -136,4 +135,3 @@ export default {
 </script>
 
 <style scoped></style>
-
