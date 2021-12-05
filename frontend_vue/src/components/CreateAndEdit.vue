@@ -66,7 +66,7 @@
                     color="rgba(103, 58, 183,.28)"
                     small
                     close
-                    @click:close="remove(item.id)"
+                    @click:close="remove(item)"
                     >{{ item }}
                   </v-chip>
                 </template>
@@ -115,8 +115,8 @@ export default {
     "selectlist",
   ],
   methods: {
-    remove(id) {
-      let idx = this.tags.indexOf(id);
+    remove(item) {
+      let idx = this.tags.indexOf(item);
       this.tags.splice(idx, 1);
       this.tags = [...this.tags];
     },
